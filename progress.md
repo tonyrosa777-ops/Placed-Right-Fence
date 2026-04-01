@@ -127,11 +127,12 @@ Based on initial-business-data.md Section 8 and market-intelligence.md Section 9
 - Content SEO pages deferred to Phase 5 to hit 3–4 week target
 
 **Next Session Starts At:**
-- Phase 0 → Phase 1: Design System & Brand Identity
-- Task: Build SiteHeader (nav + mobile menu + sticky CTA button)
-- Task: Build SiteFooter (links + contact + trust badges)
-- Task: Wire layout.tsx to use SiteHeader + SiteFooter
-- Then: Begin Phase 2 (site architecture) or go straight to Phase 3 core pages — confirm with client
+- Build Button UI component ✅ done (2026-04-01)
+- Build SiteHeader ✅ done (2026-04-01) — transparent on hero, solid on scroll/inner pages, mobile full-screen navy overlay
+- Build SiteFooter ✅ done (2026-04-01) — navy bg, 4-col grid, trust badges, contact, nav
+- Build MobileCTABar ✅ done (2026-04-01) — fixed bottom-0, terracotta CTA + phone
+- Wire layout.tsx ✅ done (2026-04-01)
+- Build complete — next: Card component + homepage hero section
 
 **Blockers:**
-- Vercel project not yet connected (connect before Phase 3 so deploys work in parallel with build)
+- None — Vercel connected ✅

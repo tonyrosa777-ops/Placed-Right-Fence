@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { DM_Serif_Display, DM_Sans, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
+import SiteHeader from "@/components/layout/SiteHeader";
+import SiteFooter from "@/components/layout/SiteFooter";
+import MobileCTABar from "@/components/layout/MobileCTABar";
 
 const dmSerifDisplay = DM_Serif_Display({
   weight: ["400"],
@@ -71,7 +74,12 @@ export default function RootLayout({
       lang="en"
       className={`${dmSerifDisplay.variable} ${dmSans.variable} ${ibmPlexMono.variable} h-full`}
     >
-      <body className="min-h-full flex flex-col antialiased">{children}</body>
+      <body className="min-h-full flex flex-col antialiased">
+          <SiteHeader />
+          <main className="flex-1 pt-[72px]">{children}</main>
+          <SiteFooter />
+          <MobileCTABar />
+        </body>
     </html>
   );
 }
