@@ -342,3 +342,33 @@ export const about = {
     },
   ],
 } as const;
+
+// ─── Section Headers ──────────────────────────────────────────────────────────
+
+export const sectionCopy = {
+  services: {
+    eyebrow: "What We Install",
+    headline: "Built for Every NH Yard.",
+    subheadline:
+      "Wood, vinyl, aluminum, or chain link — we'll help you choose what fits your property, your budget, and your New Hampshire winters.",
+    cta: { label: "Get Your Free Estimate", href: "/contact" },
+  },
+  trust: {
+    eyebrow: "Why Placed Right",
+    headline: "We Know What Cheap Installations Cost You.",
+    subheadline:
+      "Every post set below the frost line. Every estimate in writing. Every job backed by our word.",
+  },
+  testimonials: {
+    eyebrow: "What NH Homeowners Say",
+    headline: "Real Jobs. Real Results.",
+    subheadline: "From Nashua to Portsmouth — Southern NH families trust Placed Right Fence.",
+  },
+  serviceAreas: {
+    eyebrow: "Service Area",
+    headline: "Southern NH & Seacoast.",
+    subheadline:
+      "We serve 25+ cities across Southern NH and the Seacoast. Free on-site estimates within 72 hours — wherever you are.",
+    cta: { label: "See All Service Areas", href: "/service-areas" },
+  },
+} as const;
