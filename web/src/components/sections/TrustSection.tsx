@@ -66,7 +66,7 @@ export default function TrustSection() {
           {trustSignals.map((signal, i) => (
             <FadeIn key={signal.label} delay={i * 0.06} direction="up">
               <div
-                className="flex gap-4 p-6 rounded-xl border bg-white transition-all duration-200 hover:shadow-[0_4px_24px_rgba(27,54,93,0.07)]"
+                className="flex gap-4 p-6 rounded-xl border bg-white transition-all duration-200 hover:shadow-[0_4px_24px_rgba(201,168,76,0.12)]"
                 style={{ borderColor: "var(--border)" }}
               >
                 {/* Icon circle */}

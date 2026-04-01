@@ -43,11 +43,11 @@ const SERVICE_FILTERS = [
 
 // Warm placeholder colors per fence type
 const PALETTE: Record<string, string> = {
-  wood: "linear-gradient(135deg, #C4704B22 0%, #F5F0E8 60%, #C4704B11 100%)",
-  vinyl: "linear-gradient(135deg, #1B365D11 0%, #EDE8DF 60%, #1B365D22 100%)",
-  aluminum: "linear-gradient(135deg, #6B7A8D22 0%, #F0EDE6 60%, #6B7A8D11 100%)",
-  "chain-link": "linear-gradient(135deg, #8A7A6022 0%, #EDE8DF 60%, #8A7A6011 100%)",
-  repair: "linear-gradient(135deg, #C4704B15 0%, #F5F0E8 60%, #C4704B22 100%)",
+  wood: "linear-gradient(135deg, #C9A84C18 0%, #F5F0E8 60%, #C9A84C0A 100%)",
+  vinyl: "linear-gradient(135deg, #0D0D0D08 0%, #EDE8DF 60%, #0D0D0D12 100%)",
+  aluminum: "linear-gradient(135deg, #6B7A8D18 0%, #F0EDE6 60%, #6B7A8D0A 100%)",
+  "chain-link": "linear-gradient(135deg, #8A7A6018 0%, #EDE8DF 60%, #8A7A600A 100%)",
+  repair: "linear-gradient(135deg, #C9A84C12 0%, #F5F0E8 60%, #C9A84C18 100%)",
 };
 
 function GalleryCard({
@@ -80,7 +80,7 @@ function GalleryCard({
           {/* Hover overlay */}
           <div
             className="absolute inset-0 flex items-end p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-200"
-            style={{ background: "linear-gradient(to top, rgba(27,54,93,0.7) 0%, transparent 60%)" }}
+            style={{ background: "linear-gradient(to top, rgba(13,13,13,0.8) 0%, transparent 60%)" }}
           >
             <div>
               <p className="font-body font-semibold text-sm text-white">{item.label}</p>

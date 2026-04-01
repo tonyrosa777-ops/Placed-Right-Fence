@@ -79,7 +79,7 @@ export default function AboutPage() {
                     "We build every fence the way we'd want our own yard done."
                   </p>
                   <p className="eyebrow text-[10px] text-text-muted">
-                    — Anthony, Placed Right Fence
+                    — Roger LaVault, Placed Right Fence
                   </p>
                 </div>
                 {/* Trust badge overlay */}

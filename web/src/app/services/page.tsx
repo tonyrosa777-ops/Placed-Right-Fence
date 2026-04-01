@@ -54,7 +54,7 @@ export default function ServicesPage() {
             {services.map((service, i) => (
               <FadeIn key={service.id} delay={i * 0.05} direction="up">
                 <div
-                  className="grid grid-cols-1 lg:grid-cols-3 gap-6 bg-white rounded-xl border p-6 lg:p-8 transition-all duration-200 hover:shadow-[0_4px_24px_rgba(27,54,93,0.07)]"
+                  className="grid grid-cols-1 lg:grid-cols-3 gap-6 bg-white rounded-xl border p-6 lg:p-8 transition-all duration-200 hover:shadow-[0_4px_24px_rgba(201,168,76,0.12)]"
                   style={{ borderColor: "var(--border)" }}
                 >
                   {/* Left: icon + name */}

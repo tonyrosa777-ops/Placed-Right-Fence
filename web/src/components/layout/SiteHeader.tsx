@@ -1,6 +1,7 @@
 "use client";
-// Source: design-system.md §5 Navigation rules
-// Transparent on homepage hero → solid white on scroll. Always solid on inner pages.
+// Source: design-system.md §5 Navigation — black + gold brand theme
+// Always dark background (matches business card identity).
+// Transparent on homepage hero → solid #0D0D0D on scroll. Always solid on inner pages.
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
@@ -27,7 +28,6 @@ export default function SiteHeader() {
     return () => { document.body.style.overflow = ""; };
   }, [mobileOpen]);
 
-  // Close mobile nav on route change
   useEffect(() => { setMobileOpen(false); }, [pathname]);
 
   const isTransparent = isHome && !scrolled && !mobileOpen;
@@ -39,7 +39,7 @@ export default function SiteHeader() {
           "fixed top-0 left-0 right-0 z-50 h-[72px] transition-all duration-300",
           isTransparent
             ? "bg-transparent"
-            : "bg-white shadow-[0_1px_16px_rgba(27,54,93,0.08)]"
+            : "bg-[#0D0D0D] border-b border-[rgba(201,168,76,0.15)]"
         )}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center justify-between">
@@ -50,20 +50,10 @@ export default function SiteHeader() {
             className="flex flex-col leading-none group"
             onClick={() => setMobileOpen(false)}
           >
-            <span
-              className={cn(
-                "font-display text-[1.25rem] tracking-tight transition-colors duration-200",
-                isTransparent ? "text-white" : "text-primary"
-              )}
-            >
+            <span className="font-display text-[1.25rem] tracking-tight text-white transition-colors duration-200 group-hover:text-accent">
               Placed Right Fence
             </span>
-            <span
-              className={cn(
-                "eyebrow text-[10px] mt-0.5 transition-colors duration-200",
-                isTransparent ? "text-white/60" : "text-text-muted"
-              )}
-            >
+            <span className="eyebrow text-[10px] mt-0.5 text-white/40">
               Nashua, NH · Est. 2024
             </span>
           </Link>
@@ -74,10 +64,7 @@ export default function SiteHeader() {
               <Link
                 key={item.href}
                 href={item.href}
-                className={cn(
-                  "font-body font-medium text-[15px] transition-colors duration-150 hover:text-accent",
-                  isTransparent ? "text-white/90" : "text-text-primary"
-                )}
+                className="font-body font-medium text-[15px] text-white/75 hover:text-accent transition-colors duration-150"
               >
                 {item.label}
               </Link>
@@ -88,10 +75,7 @@ export default function SiteHeader() {
           <div className="hidden lg:flex items-center gap-4">
             <a
               href={`tel:${siteConfig.phone}`}
-              className={cn(
-                "font-body font-medium text-sm transition-colors duration-150 hover:text-accent",
-                isTransparent ? "text-white/80" : "text-text-secondary"
-              )}
+              className="font-body font-medium text-sm text-white/55 hover:text-accent transition-colors duration-150"
             >
               {siteConfig.phone}
             </a>
@@ -109,20 +93,20 @@ export default function SiteHeader() {
           >
             <span
               className={cn(
-                "block w-6 h-0.5 transition-all duration-300 origin-center",
-                mobileOpen ? "translate-y-[7px] rotate-45 bg-white" : isTransparent ? "bg-white" : "bg-primary"
+                "block w-6 h-0.5 bg-white transition-all duration-300 origin-center",
+                mobileOpen ? "translate-y-[7px] rotate-45" : ""
               )}
             />
             <span
               className={cn(
-                "block w-6 h-0.5 transition-all duration-300",
-                mobileOpen ? "opacity-0 bg-white" : isTransparent ? "bg-white" : "bg-primary"
+                "block w-6 h-0.5 bg-white transition-all duration-300",
+                mobileOpen ? "opacity-0" : ""
               )}
             />
             <span
               className={cn(
-                "block w-6 h-0.5 transition-all duration-300 origin-center",
-                mobileOpen ? "-translate-y-[7px] -rotate-45 bg-white" : isTransparent ? "bg-white" : "bg-primary"
+                "block w-6 h-0.5 bg-white transition-all duration-300 origin-center",
+                mobileOpen ? "-translate-y-[7px] -rotate-45" : ""
               )}
             />
           </button>
@@ -139,7 +123,7 @@ export default function SiteHeader() {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
             className="fixed inset-0 z-40 flex flex-col"
-            style={{ backgroundColor: "var(--primary)", paddingTop: "72px" }}
+            style={{ backgroundColor: "#0D0D0D", paddingTop: "72px" }}
           >
             {/* Nav links */}
             <nav className="flex flex-col px-8 pt-10 gap-0 flex-1 overflow-y-auto">
@@ -170,7 +154,7 @@ export default function SiteHeader() {
             >
               <a
                 href={`tel:${siteConfig.phone}`}
-                className="block text-center font-body text-white/60 text-sm"
+                className="block text-center font-body text-white/50 text-sm"
               >
                 {siteConfig.phone}
               </a>

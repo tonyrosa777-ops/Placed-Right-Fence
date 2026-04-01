@@ -5,27 +5,28 @@
    Rule: All tokens defined here as CSS custom properties (not tailwind.config)
    ──────────────────────────────────────────────────────────────────────── */
 :root {
-  /* Brand Colors */
-  --primary: #1B365D;
-  --primary-muted: rgba(27, 54, 93, 0.6);
-  --accent: #C4704B;
-  --accent-muted: rgba(196, 112, 75, 0.15);
+  /* Brand Colors — black + gold (source: business card, design-system.md §2) */
+  --primary: #0D0D0D;
+  --primary-muted: rgba(13, 13, 13, 0.6);
+  --accent: #C9A84C;
+  --accent-muted: rgba(201, 168, 76, 0.14);
+  --accent-dark: #A8893A;
 
-  /* Background Scale (light theme) */
+  /* Background Scale (light content sections — hybrid approach) */
   --bg-base: #F5F0E8;
   --bg-elevated: #EDE8DF;
   --bg-card: #FFFFFF;
 
   /* Text Scale */
-  --text-primary: #1B2B3A;
-  --text-secondary: rgba(27, 43, 58, 0.72);
-  --text-muted: rgba(27, 43, 58, 0.45);
+  --text-primary: #1A1A1A;
+  --text-secondary: rgba(26, 26, 26, 0.68);
+  --text-muted: rgba(26, 26, 26, 0.42);
 
   /* Supporting Colors */
   --sage: #7A8B6F;
   --sage-muted: rgba(122, 139, 111, 0.15);
-  --border: rgba(27, 54, 93, 0.12);
-  --border-hover: rgba(27, 54, 93, 0.25);
+  --border: rgba(0, 0, 0, 0.1);
+  --border-hover: rgba(0, 0, 0, 0.2);
 }
 
 /* ─── Tailwind Theme Mapping ─────────────────────────────────────────────── */

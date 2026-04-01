@@ -149,7 +149,7 @@ export const testimonials = [
     location: "Merrimack, NH",
     rating: 5,
     useCase: "Dog containment",
-    text: "We adopted a rescue dog in October and needed a fence fast before she figured out she could just walk out of the yard. Anthony came out within 2 days to look at the property, gave us a quote that didn't change, and the crew had the whole thing done in a day and a half. The fence looks amazing and she's been running laps since the minute we let her out. Worth every penny.",
+    text: "We adopted a rescue dog in October and needed a fence fast before she figured out she could just walk out of the yard. Roger came out within 2 days to look at the property, gave us a quote that didn't change, and the crew had the whole thing done in a day and a half. The fence looks amazing and she's been running laps since the minute we let her out. Worth every penny.",
   },
   {
     name: "Tom & Karen B.",
@@ -170,7 +170,7 @@ export const testimonials = [
     location: "Exeter, NH",
     rating: 5,
     useCase: "Vinyl privacy",
-    text: "I was nervous about hiring a contractor I hadn't heard of before, but Anthony was patient with all my questions and didn't make me feel rushed. He texted me updates the day of install which I really appreciated. The vinyl fence is exactly what I was hoping for — private, clean looking, and our neighbors actually came over to ask who did it.",
+    text: "I was nervous about hiring a contractor I hadn't heard of before, but Roger was patient with all my questions and didn't make me feel rushed. He texted me updates the day of install which I really appreciated. The vinyl fence is exactly what I was hoping for — private, clean looking, and our neighbors actually came over to ask who did it.",
   },
   {
     name: "Mark C.",

@@ -15,34 +15,36 @@ Placed Right Fence Co. LLC is a family-run NH fence company built on the convict
 
 ## 2. Color Palette
 
-**Theme:** Light — warm cream base, deep navy authority, terracotta warmth.
-**Rationale:** Every NH fence competitor uses either cold corporate navy/gray or generic outdoor green/brown. Terracotta is completely absent from the market, providing instant visual differentiation. The warm cream base signals craft and hand-made quality. (Source: market-intelligence.md Section 8)
+**Theme:** Hybrid — near-black brand surfaces (header, hero, footer) + warm cream content sections.
+**Source of truth:** Business card (IMG_1107.jpeg) — glossy black with warm gold lettering and picket fence logo.
+**Rationale:** The client's existing brand identity is black + gold, established via printed business cards. The hybrid approach preserves this premium identity at first impression (header, hero) while keeping content sections light for conversion optimization. No NH fence competitor uses this palette — maximum differentiation. (Updated 2026-04-01)
 
-### CSS Custom Properties (for globals.css)
+### CSS Custom Properties (globals.css)
 
 ```css
 :root {
-  /* Brand Colors */
-  --primary: #1B365D;                      /* Deep warm navy — authority, trust */
-  --primary-muted: rgba(27, 54, 93, 0.6);  /* Navy at 60% — hover states, borders */
-  --accent: #C4704B;                        /* Soft terracotta/warm rust — CTAs, highlights */
-  --accent-muted: rgba(196, 112, 75, 0.15); /* Terracotta tint — section backgrounds, tags */
+  /* Brand Colors — black + gold (source: business card) */
+  --primary: #0D0D0D;                       /* Near-black — header, hero, footer bg */
+  --primary-muted: rgba(13, 13, 13, 0.6);   /* Primary at 60% */
+  --accent: #C9A84C;                         /* Warm gold — CTAs, highlights, eyebrows */
+  --accent-muted: rgba(201, 168, 76, 0.14);  /* Gold tint — tag backgrounds, icon circles */
+  --accent-dark: #A8893A;                    /* Darker gold — hover states */
 
-  /* Background Scale (light theme) */
+  /* Background Scale (light content sections — hybrid approach) */
   --bg-base: #F5F0E8;       /* Warm cream/ivory — page background */
-  --bg-elevated: #EDE8DF;   /* Slightly warmer — section alternates */
+  --bg-elevated: #EDE8DF;   /* Slightly warmer cream — section alternates */
   --bg-card: #FFFFFF;       /* Pure white — cards, form fields */
 
-  /* Text Scale */
-  --text-primary: #1B2B3A;                  /* Near-black warm — headings, primary copy */
-  --text-secondary: rgba(27, 43, 58, 0.72); /* Body text */
-  --text-muted: rgba(27, 43, 58, 0.45);     /* Captions, labels, micro-copy */
+  /* Text Scale (for light content sections) */
+  --text-primary: #1A1A1A;                   /* Near-black — headings, primary copy */
+  --text-secondary: rgba(26, 26, 26, 0.68);  /* Body text */
+  --text-muted: rgba(26, 26, 26, 0.42);      /* Eyebrows, labels, micro-copy */
 
   /* Supporting Colors */
-  --sage: #7A8B6F;           /* Muted sage green — secondary accent, icon color */
-  --sage-muted: rgba(122, 139, 111, 0.15); /* Sage tint */
-  --border: rgba(27, 54, 93, 0.12);        /* Subtle navy borders */
-  --border-hover: rgba(27, 54, 93, 0.25);  /* Hover borders */
+  --sage: #7A8B6F;           /* Muted sage green — use-case chips */
+  --sage-muted: rgba(122, 139, 111, 0.15);
+  --border: rgba(0, 0, 0, 0.1);        /* Neutral border */
+  --border-hover: rgba(0, 0, 0, 0.2);
 }
 ```
 
@@ -50,14 +52,25 @@ Placed Right Fence Co. LLC is a family-run NH fence company built on the convict
 
 | Token | Use |
 |-------|-----|
-| `--primary` | Primary buttons bg, headings, nav, footer bg |
-| `--accent` | CTA buttons, highlights, link hover, active states, price tags |
-| `--bg-base` | Page background, hero background |
-| `--bg-elevated` | Alternating section backgrounds, footer, sidebar |
-| `--bg-card` | Card backgrounds, form containers, quote boxes |
-| `--text-primary` | All headings (H1–H4), primary body copy |
-| `--text-secondary` | Supporting body copy, list items |
-| `--text-muted` | Eyebrows, labels, captions, timestamps |
+| `--primary` | Header bg, hero bg, footer bg, mobile overlay bg |
+| `--accent` | Gold — CTA buttons, eyebrows on dark sections, checkmarks, icon circles, hover states |
+| `--bg-base` | Cream — page body bg, light section backgrounds |
+| `--bg-elevated` | Warmer cream — alternating section backgrounds |
+| `--bg-card` | White — cards, form fields |
+| `--text-primary` | Headings + body on light sections |
+| `--text-secondary` | Supporting copy on light sections |
+| `--text-muted` | Eyebrows, labels, micro-copy on light sections |
+
+### Dark Section Text Rules (header, hero, footer, dark CTAs)
+- Headings: `text-white`
+- Body/subheadline: `rgba(255,255,255,0.65)`
+- Eyebrows: `var(--accent)` (gold)
+- Muted: `rgba(255,255,255,0.40)`
+
+### Button Rules (updated for gold)
+- Primary: gold bg (`var(--accent)`) + near-black text (`#0D0D0D`) — works on both dark and light sections
+- Secondary on light sections: dark border + dark text (`border-primary text-primary`)
+- Secondary on dark sections: white border + white text (className override required)
 | `--sage` | Icon fills, decorative elements, "certified/insured" badges |
 
 **Never use:** Purple gradients, cold corporate gray, generic lime green, or any palette from the NH fence competitor set (navy/gray, green/brown). (Source: market-intelligence.md Section 8 — competitor palette audit)

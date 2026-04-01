@@ -15,7 +15,7 @@ export default function MobileCTABar() {
       {/* Estimate CTA — takes 60% width */}
       <Link
         href="/contact"
-        className="flex-1 flex items-center justify-center h-full font-body font-semibold text-sm text-white tracking-wide border-r border-white/10"
+        className="flex-1 flex items-center justify-center h-full font-body font-bold text-sm text-[#0D0D0D] tracking-wide border-r border-black/20"
         style={{ backgroundColor: "var(--accent)" }}
       >
         Get Free Estimate →
