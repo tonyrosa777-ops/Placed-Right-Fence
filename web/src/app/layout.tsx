@@ -76,7 +76,7 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col antialiased">
           <SiteHeader />
-          <main className="flex-1 pt-[72px]">{children}</main>
+          <main className="flex-1">{children}</main>
           <SiteFooter />
           <MobileCTABar />
         </body>

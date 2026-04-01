@@ -132,7 +132,10 @@ Based on initial-business-data.md Section 8 and market-intelligence.md Section 9
 - Build SiteFooter ✅ done (2026-04-01) — navy bg, 4-col grid, trust badges, contact, nav
 - Build MobileCTABar ✅ done (2026-04-01) — fixed bottom-0, terracotta CTA + phone
 - Wire layout.tsx ✅ done (2026-04-01)
-- Build complete — next: Card component + homepage hero section
+- HeroSection ✅ done (2026-04-01) — eyebrow, H1, subheadline, dual CTAs, trust badges, image placeholder with floating cards
+- layout.tsx: removed pt-[72px] from main — hero extends behind transparent header
+- Build clean ✓
+- Next: Card component → ServicesSection → homepage assembly (Phase 3)
 
 **Blockers:**
 - None — Vercel connected ✅
