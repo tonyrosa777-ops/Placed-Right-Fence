@@ -4,8 +4,8 @@
 **Client:** Placed Right Fence Co. LLC | Nashua, NH (Southern NH and Seacoast)
 **Business Type:** Family-run residential fence installation and repair contractor
 **Launch Target:** April 2026 (ASAP — client wants live in 3–4 weeks; spring is peak season)
-**Last Updated:** 2026-03-31
-**Current Phase:** Phase 1 — Design System & Brand Identity
+**Last Updated:** 2026-04-01
+**Current Phase:** Phase 5 — Secondary Pages & Polish
 
 ---
 
@@ -14,12 +14,12 @@
 | Phase | Name | Status |
 |-------|------|--------|
 | 0 | Environment Setup & Strategy | ✅ Complete |
-| 1 | Design System & Brand Identity | 🔄 In Progress |
-| 2 | Site Architecture & Content Planning | ⬜ Not Started |
-| 3 | Core Pages Build | ⬜ Not Started |
-| 4 | Conversion Flow Integration | ⬜ Not Started |
-| 5 | Secondary Pages & Content | ⬜ Not Started |
-| 6 | SEO, Schema & Analytics | ⬜ Not Started |
+| 1 | Design System & Brand Identity | ✅ Complete |
+| 2 | Site Architecture & Content Planning | ✅ Complete |
+| 3 | Core Pages Build | ✅ Complete |
+| 4 | Conversion Flow Integration | ✅ Complete |
+| 5 | Secondary Pages & Content | 🔄 In Progress |
+| 6 | SEO, Schema & Analytics | 🔄 In Progress |
 | 7 | Performance, QA & Launch Prep | ⬜ Not Started |
 
 ---
@@ -137,5 +137,45 @@ Based on initial-business-data.md Section 8 and market-intelligence.md Section 9
 - Build clean ✓
 - Next: Card component → ServicesSection → homepage assembly (Phase 3)
 
+### Session 2 — 2026-04-01
+**Completed:**
+- TrustSection: 6 trust signals grid with inline SVGs + accent-muted icon circles
+- TestimonialsSection: 6 testimonials grid with star ratings, use-case chips, attribution footer
+- ServiceAreasSection: 2-region city chips (Southern NH + Seacoast) + CTA
+- page.tsx: all 5 homepage sections wired (Hero → Services → Trust → Testimonials → ServiceAreas)
+- /services: hub page with 5 fence types, "Why Our Installations Last" section, navy CTA
+- /about: brand story, 4-value grid, trust signals strip, family photo placeholder
+- /service-areas: 2-region city layout, local expertise section, 4-stat grid
+- /contact: 3-step multi-step estimate form (fence type → project details → contact info)
+  - Web3Forms delivery via NEXT_PUBLIC_WEB3FORMS_KEY
+  - Full success state with response guarantee
+  - Trust sidebar with guarantee box, contact alternatives, trust mini-grid
+- /faq: interactive accordion (8 questions, FAQAccordion client component)
+- /gallery: 9-item placeholder grid with filter bar, Instagram CTA, fal.ai placeholder system
+- SchemaOrg: LocalBusiness JSON-LD in layout.tsx (HomeAndConstructionBusiness + Contractor)
+- robots.ts: all routes allowed
+- sitemap.ts: 8 routes (/, /services, /about, /service-areas, /contact, /gallery, /faq)
+- Build: ✓ TypeScript clean — 8 routes + sitemap.xml + robots.txt all static
+
+**Current State:**
+- All 8 pages live (deploying to Vercel via push)
+- EstimateForm: NEEDS NEXT_PUBLIC_WEB3FORMS_KEY in Vercel env vars before form submissions work
+- Gallery: placeholder grid only — needs fal.ai generated photos (Phase 5 task)
+- Gallery filter bar: renders but is NOT interactive (no client state) — Phase 5 polish task
+
+**Next Session Starts At:**
+Phase 5 + 6 remaining work:
+1. IMMEDIATE BLOCKER: Add NEXT_PUBLIC_WEB3FORMS_KEY to Vercel env vars (client must register at web3forms.com)
+2. Wire .env.local for local dev
+3. Make gallery filter bar interactive (useState to filter galleryItems)
+4. fal.ai gallery photo generation — 9 prompts mapped to fence types + NH residential settings
+5. Individual fence type pages (/services/wood-fence, /services/vinyl-fence, etc.) — city-level SEO
+6. Pricing page (/pricing) — transparent range table from site.ts
+7. NH Permit Guide (/resources/fence-permits-nh) — zero competitor content
+8. Pool Fence Compliance (/resources/pool-fence-nh) — zero competitor content
+9. Phase 7: Lighthouse audit, Open Graph image, Google Analytics
+
 **Blockers:**
-- None — Vercel connected ✅
+- Web3Forms key needed before /contact form works live
+- fal.ai image generation deferred (needs API key + time)
+- og-image.jpg does not exist yet (metadata references /og-image.jpg) — will 404 on social shares
