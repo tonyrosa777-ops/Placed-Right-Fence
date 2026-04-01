@@ -1,0 +1,78 @@
+@import "tailwindcss";
+
+/* ─── Brand Tokens ──────────────────────────────────────────────────────────
+   Source: design-system.md §2 Color Palette, §3 Typography System
+   Rule: All tokens defined here as CSS custom properties (not tailwind.config)
+   ──────────────────────────────────────────────────────────────────────── */
+:root {
+  /* Brand Colors */
+  --primary: #1B365D;
+  --primary-muted: rgba(27, 54, 93, 0.6);
+  --accent: #C4704B;
+  --accent-muted: rgba(196, 112, 75, 0.15);
+
+  /* Background Scale (light theme) */
+  --bg-base: #F5F0E8;
+  --bg-elevated: #EDE8DF;
+  --bg-card: #FFFFFF;
+
+  /* Text Scale */
+  --text-primary: #1B2B3A;
+  --text-secondary: rgba(27, 43, 58, 0.72);
+  --text-muted: rgba(27, 43, 58, 0.45);
+
+  /* Supporting Colors */
+  --sage: #7A8B6F;
+  --sage-muted: rgba(122, 139, 111, 0.15);
+  --border: rgba(27, 54, 93, 0.12);
+  --border-hover: rgba(27, 54, 93, 0.25);
+}
+
+/* ─── Tailwind Theme Mapping ─────────────────────────────────────────────── */
+@theme inline {
+  /* Colors */
+  --color-primary: var(--primary);
+  --color-accent: var(--accent);
+  --color-accent-muted: var(--accent-muted);
+  --color-bg-base: var(--bg-base);
+  --color-bg-elevated: var(--bg-elevated);
+  --color-bg-card: var(--bg-card);
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-muted: var(--text-muted);
+  --color-sage: var(--sage);
+  --color-sage-muted: var(--sage-muted);
+  --color-border: var(--border);
+
+  /* Fonts — Next.js injects these variables via layout.tsx */
+  --font-display: var(--font-dm-serif);
+  --font-body: var(--font-dm-sans);
+  --font-mono: var(--font-ibm-plex-mono);
+}
+
+/* ─── Base Styles ────────────────────────────────────────────────────────── */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg-base);
+  color: var(--text-primary);
+  font-family: var(--font-dm-sans), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3 {
+  font-family: var(--font-dm-serif), Georgia, serif;
+}
+
+/* ─── Eyebrow Label Utility ──────────────────────────────────────────────── */
+.eyebrow {
+  font-family: var(--font-ibm-plex-mono), 'Courier New', monospace;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
