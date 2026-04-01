@@ -4,6 +4,7 @@ import "./globals.css";
 import SiteHeader from "@/components/layout/SiteHeader";
 import SiteFooter from "@/components/layout/SiteFooter";
 import MobileCTABar from "@/components/layout/MobileCTABar";
+import SchemaOrg from "@/components/layout/SchemaOrg";
 
 const dmSerifDisplay = DM_Serif_Display({
   weight: ["400"],
@@ -75,6 +76,7 @@ export default function RootLayout({
       className={`${dmSerifDisplay.variable} ${dmSans.variable} ${ibmPlexMono.variable} h-full`}
     >
       <body className="min-h-full flex flex-col antialiased">
+          <SchemaOrg />
           <SiteHeader />
           <main className="flex-1">{children}</main>
           <SiteFooter />
