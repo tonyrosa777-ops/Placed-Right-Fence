@@ -1,0 +1,129 @@
+{
+  "_note": "Fallback data — used when PRINTFUL_API_KEY is absent. Replace printful_id values and remove _seeded_variants once you create real products in Printful.",
+  "products": [
+    {
+      "printful_id": 100000001,
+      "slug": "prf-tee",
+      "name": "Placed Right Fence Tee",
+      "description": "Classic unisex tee with the Placed Right Fence logo. Soft, comfortable, built to last — like our fences.",
+      "price": 28.00,
+      "category": "Apparel",
+      "badge": null,
+      "images": []
+    },
+    {
+      "printful_id": 100000002,
+      "slug": "prf-hoodie",
+      "name": "Placed Right Fence Hoodie",
+      "description": "Heavyweight pullover hoodie with embroidered logo. NH winters call for this.",
+      "price": 52.00,
+      "category": "Apparel",
+      "badge": "POPULAR",
+      "images": []
+    },
+    {
+      "printful_id": 100000003,
+      "slug": "prf-hat",
+      "name": "Placed Right Fence Hat",
+      "description": "Structured snapback with embroidered Placed Right Fence logo. One size fits most.",
+      "price": 32.00,
+      "category": "Accessories",
+      "badge": null,
+      "images": []
+    },
+    {
+      "printful_id": 100000004,
+      "slug": "prf-mug",
+      "name": "Placed Right Fence Mug",
+      "description": "15oz glossy ceramic mug. Because a good fence and a good cup of coffee both require patience.",
+      "price": 18.00,
+      "category": "Drinkware",
+      "badge": null,
+      "images": []
+    },
+    {
+      "printful_id": 100000005,
+      "slug": "prf-long-sleeve",
+      "name": "Placed Right Fence Long Sleeve",
+      "description": "Soft long-sleeve tee with chest logo. Spring and fall job site staple.",
+      "price": 34.00,
+      "category": "Apparel",
+      "badge": null,
+      "images": []
+    },
+    {
+      "printful_id": 100000006,
+      "slug": "prf-zip-hoodie",
+      "name": "Placed Right Fence Zip Hoodie",
+      "description": "Full-zip fleece hoodie. Back logo, front pocket. Easy layer for early NH mornings.",
+      "price": 58.00,
+      "category": "Apparel",
+      "badge": null,
+      "images": []
+    },
+    {
+      "printful_id": 100000007,
+      "slug": "prf-sticker-pack",
+      "name": "Placed Right Fence Sticker Pack",
+      "description": "Set of 3 die-cut vinyl stickers. Truck-grade, weatherproof, NH-proud.",
+      "price": 8.00,
+      "category": "Accessories",
+      "badge": "NEW",
+      "images": []
+    },
+    {
+      "printful_id": 100000008,
+      "slug": "prf-tumbler",
+      "name": "Placed Right Fence Tumbler",
+      "description": "20oz insulated stainless steel tumbler. Keeps coffee hot through an NH winter install.",
+      "price": 26.00,
+      "category": "Drinkware",
+      "badge": null,
+      "images": []
+    }
+  ],
+  "_seeded_variants": {
+    "100000001": [
+      { "id": 10000101, "name": "S / Black",  "size": "S", "color": "Black", "price": 28.00, "preview_url": null },
+      { "id": 10000102, "name": "M / Black",  "size": "M", "color": "Black", "price": 28.00, "preview_url": null },
+      { "id": 10000103, "name": "L / Black",  "size": "L", "color": "Black", "price": 28.00, "preview_url": null },
+      { "id": 10000104, "name": "XL / Black", "size": "XL","color": "Black", "price": 28.00, "preview_url": null },
+      { "id": 10000105, "name": "S / White",  "size": "S", "color": "White", "price": 28.00, "preview_url": null },
+      { "id": 10000106, "name": "M / White",  "size": "M", "color": "White", "price": 28.00, "preview_url": null },
+      { "id": 10000107, "name": "L / White",  "size": "L", "color": "White", "price": 28.00, "preview_url": null },
+      { "id": 10000108, "name": "XL / White", "size": "XL","color": "White", "price": 28.00, "preview_url": null }
+    ],
+    "100000002": [
+      { "id": 10000201, "name": "S / Black",  "size": "S", "color": "Black", "price": 52.00, "preview_url": null },
+      { "id": 10000202, "name": "M / Black",  "size": "M", "color": "Black", "price": 52.00, "preview_url": null },
+      { "id": 10000203, "name": "L / Black",  "size": "L", "color": "Black", "price": 52.00, "preview_url": null },
+      { "id": 10000204, "name": "XL / Black", "size": "XL","color": "Black", "price": 52.00, "preview_url": null }
+    ],
+    "100000003": [
+      { "id": 10000301, "name": "One Size / Black", "size": "One Size", "color": "Black", "price": 32.00, "preview_url": null },
+      { "id": 10000302, "name": "One Size / Gold",  "size": "One Size", "color": "Gold",  "price": 32.00, "preview_url": null }
+    ],
+    "100000004": [
+      { "id": 10000401, "name": "One Size / White", "size": "One Size", "color": "White", "price": 18.00, "preview_url": null }
+    ],
+    "100000005": [
+      { "id": 10000501, "name": "S / Black",  "size": "S", "color": "Black", "price": 34.00, "preview_url": null },
+      { "id": 10000502, "name": "M / Black",  "size": "M", "color": "Black", "price": 34.00, "preview_url": null },
+      { "id": 10000503, "name": "L / Black",  "size": "L", "color": "Black", "price": 34.00, "preview_url": null },
+      { "id": 10000504, "name": "XL / Black", "size": "XL","color": "Black", "price": 34.00, "preview_url": null }
+    ],
+    "100000006": [
+      { "id": 10000601, "name": "S / Black",  "size": "S", "color": "Black", "price": 58.00, "preview_url": null },
+      { "id": 10000602, "name": "M / Black",  "size": "M", "color": "Black", "price": 58.00, "preview_url": null },
+      { "id": 10000603, "name": "L / Black",  "size": "L", "color": "Black", "price": 58.00, "preview_url": null },
+      { "id": 10000604, "name": "XL / Black", "size": "XL","color": "Black", "price": 58.00, "preview_url": null }
+    ],
+    "100000007": [
+      { "id": 10000701, "name": "One Size / Multi", "size": "One Size", "color": "Multi", "price": 8.00, "preview_url": null }
+    ],
+    "100000008": [
+      { "id": 10000801, "name": "One Size / Black", "size": "One Size", "color": "Black", "price": 26.00, "preview_url": null },
+      { "id": 10000802, "name": "One Size / Gold",  "size": "One Size", "color": "Gold",  "price": 26.00, "preview_url": null }
+    ]
+  }
+}
