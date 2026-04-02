@@ -9,6 +9,7 @@ import SectionHeading from "@/components/animations/SectionHeading";
 import CountUp from "@/components/animations/CountUp";
 import Button from "@/components/ui/Button";
 import { serviceAreas, siteConfig } from "@/data/site";
+import { CITY_SLUGS } from "@/data/service-area-cities";
 
 export const metadata: Metadata = {
   title: "Service Areas — Southern NH & Seacoast Fence Installation",
@@ -48,16 +49,30 @@ function RegionBlock({ title, subtitle, cities, delay = 0 }: RegionProps) {
         </h2>
         <ul className="space-y-0" role="list">
           <div className="flex flex-wrap gap-2">
-            {cities.map((city) => (
-              <li key={city}>
-                <span
-                  className="font-body text-sm px-3 py-1.5 rounded-full border block transition-colors duration-150"
-                  style={{ borderColor: "var(--border)", color: "var(--text-secondary)" }}
-                >
-                  {city}, NH
-                </span>
-              </li>
-            ))}
+            {cities.map((city) => {
+              const slug = city.toLowerCase();
+              const hasPage = CITY_SLUGS.includes(slug);
+              return (
+                <li key={city}>
+                  {hasPage ? (
+                    <Link
+                      href={`/service-areas/${slug}`}
+                      className="font-body text-sm px-3 py-1.5 rounded-full border block transition-colors duration-150 hover:border-[var(--accent)] hover:text-[var(--accent)]"
+                      style={{ borderColor: "var(--border)", color: "var(--text-secondary)" }}
+                    >
+                      {city}, NH →
+                    </Link>
+                  ) : (
+                    <span
+                      className="font-body text-sm px-3 py-1.5 rounded-full border block transition-colors duration-150"
+                      style={{ borderColor: "var(--border)", color: "var(--text-secondary)" }}
+                    >
+                      {city}, NH
+                    </span>
+                  )}
+                </li>
+              );
+            })}
           </div>
         </ul>
       </div>

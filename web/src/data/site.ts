@@ -32,6 +32,7 @@ export const nav = [
   { label: "Gallery", href: "/gallery" },
   { label: "Reviews", href: "/testimonials" },
   { label: "Blog", href: "/blog" },
+  { label: "Quiz", href: "/quiz" },
   { label: "Shop", href: "/shop" },
   { label: "Service Areas", href: "/service-areas" },
   { label: "About", href: "/about" },
