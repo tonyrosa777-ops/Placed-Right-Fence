@@ -14,7 +14,7 @@ import CartDrawer from "@/components/layout/CartDrawer";
 import { useCart } from "@/lib/cart";
 
 // Primary links always visible on desktop — highest conversion value
-const PRIMARY_HREFS = ["/services", "/gallery", "/blog", "/shop"];
+const PRIMARY_HREFS = ["/services", "/gallery", "/blog", "/shop", "/testimonials"];
 const primaryNav = nav.filter((item) => PRIMARY_HREFS.includes(item.href));
 const moreNav    = nav.filter((item) => !PRIMARY_HREFS.includes(item.href));
 
