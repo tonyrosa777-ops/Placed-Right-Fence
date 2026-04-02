@@ -47,17 +47,17 @@ const icons: Record<string, React.ReactNode> = {
 
 export default function TrustSection() {
   return (
-    <section className="py-16 lg:py-24" style={{ backgroundColor: "var(--bg-base)" }}>
+    <section className="py-16 lg:py-24" style={{ backgroundColor: "var(--primary)" }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-        {/* Trust badge strip — moved down from hero */}
+        {/* Trust badge strip */}
         <FadeIn direction="up" delay={0}>
           <div className="flex flex-wrap gap-3 mb-12 lg:mb-16">
             {hero.trustBadges.map((badge) => (
               <div
                 key={badge}
                 className="flex items-center gap-2 px-4 py-2 rounded-full border text-sm font-body font-medium"
-                style={{ borderColor: "var(--accent)", color: "var(--text-secondary)", backgroundColor: "var(--accent-muted)" }}
+                style={{ borderColor: "rgba(201,168,76,0.35)", color: "rgba(255,255,255,0.75)", backgroundColor: "rgba(201,168,76,0.08)" }}
               >
                 <span
                   className="flex-shrink-0 w-4 h-4 rounded-full flex items-center justify-center text-[10px] font-bold"
@@ -78,6 +78,7 @@ export default function TrustSection() {
           subheading={s.subheadline}
           align="left"
           className="max-w-2xl mb-12 lg:mb-16"
+          dark
         />
 
         {/* Trust signals grid */}
@@ -85,22 +86,22 @@ export default function TrustSection() {
           {trustSignals.map((signal, i) => (
             <FadeIn key={signal.label} delay={i * 0.06} direction="up">
               <div
-                className="flex gap-4 p-6 rounded-xl border bg-white transition-all duration-200 hover:shadow-[0_4px_24px_rgba(201,168,76,0.12)]"
-                style={{ borderColor: "var(--border)" }}
+                className="flex gap-4 p-6 rounded-xl border transition-all duration-200 hover:border-[rgba(201,168,76,0.4)]"
+                style={{ backgroundColor: "rgba(255,255,255,0.04)", borderColor: "rgba(255,255,255,0.08)" }}
               >
                 {/* Icon circle */}
                 <div
                   className="flex-shrink-0 w-11 h-11 rounded-full flex items-center justify-center"
-                  style={{ backgroundColor: "var(--accent-muted)", color: "var(--accent)" }}
+                  style={{ backgroundColor: "rgba(201,168,76,0.12)", color: "var(--accent)" }}
                 >
                   {icons[signal.icon]}
                 </div>
                 {/* Text */}
                 <div>
-                  <p className="font-body font-semibold text-text-primary mb-1">
+                  <p className="font-body font-semibold mb-1" style={{ color: "rgba(255,255,255,0.9)" }}>
                     {signal.label}
                   </p>
-                  <p className="font-body text-sm text-text-secondary leading-relaxed">
+                  <p className="font-body text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.5)" }}>
                     {signal.detail}
                   </p>
                 </div>

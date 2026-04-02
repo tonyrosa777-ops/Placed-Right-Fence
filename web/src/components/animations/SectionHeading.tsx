@@ -13,6 +13,7 @@ interface SectionHeadingProps {
   level?: 1 | 2 | 3;
   className?: string;
   delay?: number;
+  dark?: boolean;
 }
 
 export default function SectionHeading({
@@ -23,6 +24,7 @@ export default function SectionHeading({
   level = 2,
   className,
   delay = 0,
+  dark = false,
 }: SectionHeadingProps) {
   const { ref, inView } = useInView({ threshold: 0.2, triggerOnce: true });
   const Tag = `h${level}` as "h1" | "h2" | "h3";
@@ -31,7 +33,9 @@ export default function SectionHeading({
   return (
     <div ref={ref} className={`${centerClass} ${className ?? ""}`}>
       {eyebrow && (
-        <p className="eyebrow text-text-muted mb-3">{eyebrow}</p>
+        <p className="eyebrow mb-3" style={{ color: dark ? "var(--accent)" : "var(--text-muted)" }}>
+          {eyebrow}
+        </p>
       )}
 
       <motion.div
@@ -40,8 +44,12 @@ export default function SectionHeading({
         transition={{ duration: 0.55, delay, ease: EASE }}
       >
         <Tag
-          className="font-display text-text-primary"
-          style={{ fontSize: "clamp(2rem, 3.5vw, 2.75rem)", lineHeight: 1.15 }}
+          className="font-display"
+          style={{
+            fontSize: "clamp(2rem, 3.5vw, 2.75rem)",
+            lineHeight: 1.15,
+            color: dark ? "rgba(255,255,255,0.95)" : "var(--text-primary)",
+          }}
         >
           {heading}
         </Tag>
@@ -65,8 +73,11 @@ export default function SectionHeading({
           initial={{ opacity: 0, y: 12 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.5, delay: delay + 0.25, ease: EASE }}
-          className="font-body text-text-secondary text-lg"
-          style={{ maxWidth: align === "left" ? "540px" : undefined }}
+          className="font-body text-lg"
+          style={{
+            maxWidth: align === "left" ? "540px" : undefined,
+            color: dark ? "rgba(255,255,255,0.55)" : "var(--text-secondary)",
+          }}
         >
           {subheading}
         </motion.p>
