@@ -242,3 +242,52 @@ Commit: `5d66323` — pushed to origin/main.
 4. Set up Sanity project (free tier) + add env vars to Vercel so blog can serve content
 5. Individual fence type pages (/services/wood-fence, /vinyl-fence, etc.) — Phase 5
 6. Pricing page (/pricing) — Phase 5
+
+### Session 5 — 2026-04-01
+**Completed: Blog architecture finalized + Shop (Stripe + Printful + Resend) built for branded merch**
+
+Blog:
+- Sanity Studio page updated to lazy-load both config and NextStudio inside dynamic() to prevent createContext SSR crash during build
+- `/studio/layout.tsx` — robots noindex added
+
+Shop (client confirmed: branded merch — hats, tees, hoodies, mugs via Printful POD):
+- `web/src/lib/cart.tsx` — React Context cart, localStorage persist, variant-aware item keys
+- `web/src/lib/printful.ts` — Printful API client, `createPrintfulOrder`, `parseVariantName`, `COLOR_MAP`
+- `web/src/lib/printful-seeded-products.json` — fallback data for Printful API downtime
+- `web/src/data/shop.ts` — product catalog (4 SKUs, Printful IDs are placeholders)
+- `web/src/components/layout/CartDrawer.tsx` — slide-in drawer in SiteHeader (build-log.md Pattern #2)
+- `web/src/app/shop/page.tsx` — category filter, ProductCard with live variant fetch, color swatches, size chips, success banner
+- `web/src/app/api/printful/products/route.ts` — live + seeded fallback
+- `web/src/app/api/printful/variants/[id]/route.ts` — variant name parsing
+- `web/src/app/api/stripe/checkout/route.ts` — Stripe checkout session, API version 2026-03-25.dahlia
+- `web/src/app/api/stripe/webhook/route.ts` — Printful POD fulfillment + Resend owner alert for manual items
+- CartProvider added to layout.tsx; cart icon + badge added to SiteHeader desktop CTA row
+- Shop added to nav + sitemap (priority 0.6)
+- design-system.md §11 updated — shop approved for branded merch
+
+Build: ✓ TypeScript clean — 15 routes total
+
+**Next Session Starts At:**
+Required env vars (add to .env.local + Vercel before going live):
+- `NEXT_PUBLIC_SANITY_PROJECT_ID` + `NEXT_PUBLIC_SANITY_DATASET` — run `npx sanity@latest init` inside web/
+- `SANITY_REVALIDATE_SECRET` — set same value in Sanity webhook config
+- `STRIPE_SECRET_KEY` + `STRIPE_WEBHOOK_SECRET` — Stripe dashboard → Developers
+- `PRINTFUL_API_KEY` — Printful → Settings → API → Create token
+- `RESEND_API_KEY` — resend.com (free tier: 3k emails/month)
+- `NEXT_PUBLIC_WEB3FORMS_KEY` — web3forms.com (contact form)
+- `OWNER_EMAIL` — Roger's email for order alerts
+
+Blog images:
+- Generated 10 photorealistic 16:9 JPEG images via fal-ai/flux-pro/v1.1 — one per static blog post
+- Stored at `web/public/images/blog/<slug>.jpg` (112–310 KB each)
+- `StaticPost` type gains optional `image` field; STATIC_AS_POSTS mapper passes path through `mainImage.asset.url`
+- Both `FeaturedPostCard` and `PostCard` now render real images instead of the 🏡 emoji fallback
+- Rerunnable generator: `web/scripts/generate-blog-images.mjs` (supports `--slug=<slug>` for single regeneration)
+- Build: ✓ TypeScript clean — commit `0b209cd` pushed to origin/main
+
+Remaining Phase 5:
+1. og-image.jpg generation (1200×630)
+2. Individual fence type pages (/services/wood-fence, etc.)
+3. Pricing page (/pricing)
+4. NH Permit Guide + Pool Fence Compliance pages
+5. Phase 7: Lighthouse audit + Google Analytics
