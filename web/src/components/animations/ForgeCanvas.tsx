@@ -109,10 +109,12 @@ function getLayout(W: number, H: number): Layout {
     // keep the tip at the subheadline level rather than hiding behind the CTA buttons.
     const n = 1; const w = 18;
     const fullH = H > 750 ? 240 : 200;
+    // Hero content is now items-start (fixed position, not vertically centered).
+    // Cap groundY so the tip stays inside the subheadline on all device heights.
     return {
       n, spacing: 0, w, fullH,
       startX: W * 0.5,
-      groundY: H * 0.88,
+      groundY: Math.min(H * 0.78, 700),
       isMobile: true,
     };
   }
