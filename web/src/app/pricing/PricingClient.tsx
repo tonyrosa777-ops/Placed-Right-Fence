@@ -75,7 +75,7 @@ const TIERS = [
     id: "premium",
     name: "Premium",
     price: 5500,
-    badge: "Full Service",
+    badge: null,
     headline: "The complete build.",
     description:
       "Every capability, fully built and launched. Includes the full merch store, 10+ service area pages, and 30 days of post-launch support so nothing breaks silently.",
