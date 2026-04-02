@@ -31,7 +31,6 @@ export default function HeroSection() {
         muted
         loop
         playsInline
-        poster="/images/hero-after.jpg"
       />
 
       {/* ── Layered overlays for legibility ───────────────────────────────── */}
