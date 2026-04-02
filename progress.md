@@ -291,3 +291,30 @@ Remaining Phase 5:
 3. Pricing page (/pricing)
 4. NH Permit Guide + Pool Fence Compliance pages
 5. Phase 7: Lighthouse audit + Google Analytics
+
+### Session 6 — 2026-04-01
+**Completed: Nav cleanup + homepage full-page teasers**
+
+Nav fix:
+- `SiteHeader.tsx` PRIMARY_HREFS corrected: `/services /gallery /blog /shop` (was /services /gallery /about)
+- Quiz removed from `nav` array in `site.ts` — quiz is accessible via CTA sections, not top nav
+
+New homepage section components (all in `web/src/components/sections/`):
+- `QuizCTASection.tsx` — dark primary strip after ServicesSection; 3-step pill pills + gold CTA button driving to /quiz; "60-second Fence Finder"
+- `GalleryTeaser.tsx` — 6 fence-type category cards (wood/vinyl/aluminum/chain link/pool/repair) on white bg with hover accent top bar → /gallery
+- `BlogTeaser.tsx` — 3 most recent blog posts with real images (`/images/blog/*.jpg`) + category chips + read time → /blog
+- `AboutTeaser.tsx` — 2-col: founder story (left), 4 value tiles (right) → /about
+- `FAQTeaser.tsx` — first 3 buying-blocker FAQs + "See All FAQs →" → /faq
+- `ShopTeaser.tsx` — 3 product cards (hoodie/hat/sticker) on dark primary bg → /shop
+
+Homepage `page.tsx` now:
+Hero → Services → QuizCTA → Gallery → Blog → About → Trust → Testimonials → FAQ → ServiceAreas → Shop
+
+All 6 new sections + nav fix committed as `86ee6e7` and pushed to origin/main.
+Build: ✓ TypeScript clean — 34 static pages
+
+**Next Session:**
+1. og-image.jpg (1200×630) — still needed for social shares
+2. Individual fence type pages (/services/wood-fence, etc.) — Phase 5 SEO
+3. NH Permit Guide + Pool Fence Compliance pages — content SEO
+4. Phase 7: Lighthouse audit + Google Analytics
