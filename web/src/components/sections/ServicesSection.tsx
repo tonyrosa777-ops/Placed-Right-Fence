@@ -10,7 +10,8 @@ import { services, sectionCopy } from "@/data/site";
 
 const s = sectionCopy.services;
 
-export default function ServicesSection() {
+export default function ServicesSection({ limit }: { limit?: number } = {}) {
+  const visibleServices = limit ? services.slice(0, limit) : services;
   return (
     <section
       className="py-16 lg:py-24"
@@ -29,7 +30,7 @@ export default function ServicesSection() {
 
         {/* Services grid — 3 cols desktop, 1 mobile */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {services.map((service, i) => (
+          {visibleServices.map((service, i) => (
             <FadeIn key={service.id} delay={i * 0.07} direction="up">
               <ServiceCard service={service} />
             </FadeIn>
@@ -37,10 +38,15 @@ export default function ServicesSection() {
         </div>
 
         {/* Bottom CTA */}
-        <FadeIn className="mt-12 text-center">
+        <FadeIn className="mt-12 text-center flex flex-col sm:flex-row items-center justify-center gap-4">
           <Button href={s.cta.href} variant="primary" size="lg">
             {s.cta.label} →
           </Button>
+          {limit && (
+            <Button href="/services" variant="secondary" size="lg">
+              See All Services →
+            </Button>
+          )}
         </FadeIn>
 
       </div>

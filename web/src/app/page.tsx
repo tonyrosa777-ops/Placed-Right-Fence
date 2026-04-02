@@ -14,7 +14,7 @@ export default function HomePage() {
   return (
     <>
       <HeroSection />
-      <ServicesSection />
+      <ServicesSection limit={3} />
       <QuizCTASection />
       <GalleryTeaser />
       <BlogTeaser />
