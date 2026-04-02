@@ -132,8 +132,21 @@ export function CartProvider({ children }: { children: ReactNode }) {
   );
 }
 
+const CART_SSR_FALLBACK: CartContextType = {
+  items: [],
+  isOpen: false,
+  addItem: () => {},
+  removeItem: () => {},
+  updateQuantity: () => {},
+  clearCart: () => {},
+  openCart: () => {},
+  closeCart: () => {},
+  total: 0,
+  count: 0,
+};
+
 export function useCart(): CartContextType {
   const ctx = useContext(CartContext);
-  if (!ctx) throw new Error("useCart must be used inside CartProvider");
-  return ctx;
+  // Return no-op fallback during SSR prerender — real context is present on the client
+  return ctx ?? CART_SSR_FALLBACK;
 }
