@@ -1,11 +1,18 @@
 // Source: design-system.md §5, market-intelligence.md §2 (social proof gap)
-// 6 simulated testimonials from real NH audience language — see /data/site.ts → testimonials
-// Copy: /data/site.ts → testimonials, sectionCopy.testimonials
+// 30 testimonials in site.ts — shows 6 at a time, paginated, with CTA to /testimonials
+// "use client" for pagination state
 
+"use client";
+
+import { useState } from "react";
+import Link from "next/link";
+import { motion, AnimatePresence } from "framer-motion";
 import SectionHeading from "@/components/animations/SectionHeading";
 import { testimonials, sectionCopy } from "@/data/site";
 
 const s = sectionCopy.testimonials;
+const PAGE_SIZE = 6;
+const TOTAL_PAGES = Math.ceil(testimonials.length / PAGE_SIZE);
 
 function StarRating({ rating }: { rating: number }) {
   return (
@@ -29,14 +36,17 @@ function StarRating({ rating }: { rating: number }) {
 
 type Testimonial = (typeof testimonials)[number];
 
-function TestimonialCard({ t }: { t: Testimonial }) {
+function TestimonialCard({ t, index }: { t: Testimonial; index: number }) {
   return (
-    <article
-      className="w-80 shrink-0 mx-3 flex flex-col bg-white rounded-xl border p-6"
+    <motion.article
+      initial={{ opacity: 0, y: 16 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.3, delay: index * 0.06, ease: [0.25, 0.1, 0.25, 1] }}
+      className="flex flex-col bg-white rounded-xl border p-6"
       style={{ borderColor: "var(--border)" }}
     >
       <StarRating rating={t.rating} />
-      <blockquote className="font-body text-sm text-text-secondary leading-relaxed flex-1 mb-5 line-clamp-5">
+      <blockquote className="font-body text-sm leading-relaxed flex-1 mb-5 line-clamp-5" style={{ color: "var(--text-secondary)" }}>
         &ldquo;{t.text}&rdquo;
       </blockquote>
       <footer
@@ -44,33 +54,37 @@ function TestimonialCard({ t }: { t: Testimonial }) {
         style={{ borderColor: "var(--border)" }}
       >
         <div>
-          <p className="font-body font-semibold text-sm text-text-primary">{t.name}</p>
-          <p className="font-body text-xs text-text-muted mt-0.5">{t.location}</p>
+          <p className="font-body font-semibold text-sm" style={{ color: "var(--text-primary)" }}>{t.name}</p>
+          <p className="font-body text-xs mt-0.5" style={{ color: "var(--text-muted)" }}>{t.location}</p>
         </div>
         <span
-          className="eyebrow text-[10px] px-2 py-1 rounded mt-0.5 shrink-0 ml-3"
+          className="eyebrow text-[10px] px-2 py-1 rounded mt-0.5 shrink-0 ml-3 whitespace-nowrap"
           style={{ backgroundColor: "var(--accent-muted)", color: "var(--accent)" }}
         >
           {t.useCase}
         </span>
       </footer>
-    </article>
+    </motion.article>
   );
 }
 
 export default function TestimonialsSection() {
-  // Split into two rows, each duplicated for infinite loop
-  const row1 = testimonials.slice(0, 3);
-  const row2 = testimonials.slice(3, 6);
-  const row1x = [...row1, ...row1];
-  const row2x = [...row2, ...row2];
+  const [page, setPage] = useState(0);
+  const [direction, setDirection] = useState(1);
+
+  const start = page * PAGE_SIZE;
+  const visible = testimonials.slice(start, start + PAGE_SIZE);
+
+  function goTo(next: number) {
+    setDirection(next > page ? 1 : -1);
+    setPage(next);
+  }
 
   return (
     <section
-      className="py-16 lg:py-24 overflow-hidden"
+      className="py-16 lg:py-24"
       style={{ backgroundColor: "var(--bg-elevated)" }}
     >
-      {/* Header */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeading
           eyebrow={s.eyebrow}
@@ -79,46 +93,87 @@ export default function TestimonialsSection() {
           align="center"
           className="max-w-2xl mx-auto mb-12 lg:mb-16"
         />
-      </div>
 
-      {/* Marquee — full-bleed, two rows in opposite directions */}
-      <div className="marquee-wrapper flex flex-col gap-5 relative">
-
-        {/* Left edge fade */}
-        <div
-          className="pointer-events-none absolute left-0 top-0 bottom-0 w-24 z-10"
-          style={{ background: "linear-gradient(to right, var(--bg-elevated), transparent)" }}
-          aria-hidden="true"
-        />
-        {/* Right edge fade */}
-        <div
-          className="pointer-events-none absolute right-0 top-0 bottom-0 w-24 z-10"
-          style={{ background: "linear-gradient(to left, var(--bg-elevated), transparent)" }}
-          aria-hidden="true"
-        />
-
-        {/* Row 1 — scrolls left */}
-        <div className="overflow-hidden">
-          <div className="marquee-track marquee-track--left" aria-hidden="true">
-            {row1x.map((t, i) => (
-              <TestimonialCard key={`r1-${i}`} t={t} />
+        {/* Card grid */}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={page}
+            initial={{ opacity: 0, x: direction * 30 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: direction * -30 }}
+            transition={{ duration: 0.25, ease: [0.25, 0.1, 0.25, 1] }}
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"
+          >
+            {visible.map((t, i) => (
+              <TestimonialCard key={t.name + t.location} t={t} index={i} />
             ))}
+          </motion.div>
+        </AnimatePresence>
+
+        {/* Pagination controls */}
+        <div className="mt-10 flex flex-col items-center gap-6">
+          <div className="flex items-center gap-3">
+            {/* Prev */}
+            <button
+              onClick={() => goTo(page - 1)}
+              disabled={page === 0}
+              className="w-9 h-9 rounded-full border flex items-center justify-center transition-all disabled:opacity-30 disabled:cursor-not-allowed hover:border-[var(--accent)] hover:text-[var(--accent)]"
+              style={{ borderColor: "var(--border)", color: "var(--text-muted)" }}
+              aria-label="Previous page"
+            >
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth={2} className="w-4 h-4">
+                <path d="M10 12L6 8l4-4" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </button>
+
+            {/* Dots */}
+            <div className="flex items-center gap-2" role="tablist" aria-label="Review pages">
+              {Array.from({ length: TOTAL_PAGES }).map((_, i) => (
+                <button
+                  key={i}
+                  role="tab"
+                  aria-selected={i === page}
+                  aria-label={`Page ${i + 1}`}
+                  onClick={() => goTo(i)}
+                  className="rounded-full transition-all duration-200"
+                  style={{
+                    width: i === page ? "24px" : "8px",
+                    height: "8px",
+                    backgroundColor: i === page ? "var(--accent)" : "var(--border)",
+                  }}
+                />
+              ))}
+            </div>
+
+            {/* Next */}
+            <button
+              onClick={() => goTo(page + 1)}
+              disabled={page === TOTAL_PAGES - 1}
+              className="w-9 h-9 rounded-full border flex items-center justify-center transition-all disabled:opacity-30 disabled:cursor-not-allowed hover:border-[var(--accent)] hover:text-[var(--accent)]"
+              style={{ borderColor: "var(--border)", color: "var(--text-muted)" }}
+              aria-label="Next page"
+            >
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth={2} className="w-4 h-4">
+                <path d="M6 4l4 4-4 4" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </button>
           </div>
+
+          <p className="text-xs" style={{ color: "var(--text-muted)" }}>
+            Showing {start + 1}–{Math.min(start + PAGE_SIZE, testimonials.length)} of {testimonials.length} reviews
+          </p>
+
+          {/* CTA to full page */}
+          <Link
+            href="/testimonials"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-md font-semibold text-sm transition-all hover:brightness-110"
+            style={{ background: "var(--accent)", color: "var(--primary)" }}
+          >
+            See All {testimonials.length} Reviews →
+          </Link>
         </div>
 
-        {/* Row 2 — scrolls right */}
-        <div className="overflow-hidden">
-          <div className="marquee-track marquee-track--right" aria-hidden="true">
-            {row2x.map((t, i) => (
-              <TestimonialCard key={`r2-${i}`} t={t} />
-            ))}
-          </div>
-        </div>
-      </div>
-
-      {/* Trust footer line */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-10 text-center">
-        <p className="font-body text-sm text-text-muted">
+        <p className="mt-8 text-center font-body text-xs" style={{ color: "var(--text-muted)" }}>
           All reviews reflect real jobs completed in Southern NH and the Seacoast.
         </p>
       </div>
