@@ -102,13 +102,13 @@ interface Layout {
 
 function getLayout(W: number, H: number): Layout {
   if (W < 640) {
-    // Mobile: fence sits at ~87% viewport height — visible in initial view after
-    // trust badges move to TrustSection (hero content ends around 80%)
-    const n = 6; const spacing = 24; const w = 8; const fullH = 52;
+    // Mobile: single centered spear-tip picket — tall gold beacon behind the headline
+    // Tip lands at ~groundY - fullH (~62% down on a 844px screen)
+    const n = 1; const w = 18; const fullH = 220;
     return {
-      n, spacing, w, fullH,
-      startX: W * 0.5 - ((n - 1) * spacing) / 2,
-      groundY: H * 0.87,
+      n, spacing: 0, w, fullH,
+      startX: W * 0.5,
+      groundY: H * 0.88,
       isMobile: true,
     };
   }
@@ -212,9 +212,10 @@ export default function ForgeCanvas() {
     // ── Spawn convergence streams ────────────────────────────────────────────
     function spawnStreams(p: Picket) {
       const mobile = currentLayout.isMobile;
-      const n      = mobile ? 5 : (6 + Math.floor(Math.random() * 3));
-      const spread = mobile ? 0.5 : 0.8;   // tighter spread on mobile
-      const jitter = mobile ? 16  : 38;
+      // Single picket on mobile needs wider spread to fill the viewport dramatically
+      const n      = mobile ? 9 : (6 + Math.floor(Math.random() * 3));
+      const spread = mobile ? 1.5 : 0.8;
+      const jitter = mobile ? 48  : 38;
 
       for (let i = 0; i < n; i++) {
         const angle = (i / n) * Math.PI * 2 + Math.random() * 0.7;
@@ -229,10 +230,11 @@ export default function ForgeCanvas() {
 
     // ── Forge flash ──────────────────────────────────────────────────────────
     function triggerForge(p: Picket, now: number, lout: Layout) {
-      const maxR      = lout.isMobile ? 22  : 72;
-      const nSparks   = lout.isMobile ? 5   : 8;
-      const sparkBase = lout.isMobile ? 12  : 26;
-      const sparkRng  = lout.isMobile ? 10  : 38;
+      // Single picket on mobile — larger ring burst and more sparks to match impact
+      const maxR      = lout.isMobile ? 60  : 72;
+      const nSparks   = lout.isMobile ? 11  : 8;
+      const sparkBase = lout.isMobile ? 28  : 26;
+      const sparkRng  = lout.isMobile ? 36  : 38;
 
       rings.push({ x: p.x, y: p.groundY, startR: 3, maxR,          born: now, duration: 400 });
       rings.push({ x: p.x, y: p.groundY, startR: 2, maxR: maxR / 2, born: now, duration: 250 });
@@ -258,7 +260,7 @@ export default function ForgeCanvas() {
 
       const [r, g, b] = heatRGB(ct);
       const glow  = Math.max(0, 1 - ct);
-      const maxBlur = currentLayout.isMobile ? 12 : 28;
+      const maxBlur = currentLayout.isMobile ? 26 : 28;
       const blur  = glow * maxBlur + 4;
 
       const shY  = gy - h * 0.78;   // shoulder y (where shaft meets tip)
@@ -337,8 +339,10 @@ export default function ForgeCanvas() {
 
       const railT = railAt >= 0 ? Math.min(1, (elapsed - railAt) / RAIL_DUR) : 0;
 
-      // ── Idle breathing — applies after rail is fully drawn ─────────────────
-      if (railT >= 1) {
+      // ── Idle breathing — fires after rail completes, or immediately for single picket
+      // Single picket has no rail; trigger breathing after its cooling phase finishes
+      const singlePicketIdle = pickets.length === 1 && elapsed > (pickets[0].forgeAt + COOL_MS * 0.85);
+      if (railT >= 1 || singlePicketIdle) {
         for (const p of pickets) {
           if (p.phase === "settle") {
             // Oscillate coolingT in [0.89, 0.96] — subtle amber-gold pulse
