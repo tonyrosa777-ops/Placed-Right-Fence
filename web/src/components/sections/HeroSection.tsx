@@ -23,15 +23,25 @@ export default function HeroSection() {
       style={{ backgroundColor: "#0D0D0D", paddingTop: "72px" }}
     >
 
-      {/* ── Video background — full bleed ─────────────────────────────────── */}
-      <video
-        className="absolute inset-0 w-full h-full object-cover"
-        src="/images/hero-video.mp4"
-        autoPlay
-        muted
-        loop
-        playsInline
-      />
+      {/* ── Desktop (lg+): full-bleed video ──────────────────────────────── */}
+      <div className="hidden lg:block absolute inset-0">
+        <video
+          className="w-full h-full object-cover"
+          src="/images/hero-video.mp4"
+          autoPlay
+          muted
+          loop
+          playsInline
+        />
+      </div>
+
+      {/* ── Mobile (< lg): Ken Burns still — hero-after.jpg ──────────────── */}
+      <div className="lg:hidden absolute inset-0 overflow-hidden">
+        <div
+          className="animate-kenburns absolute inset-0 bg-cover bg-center bg-no-repeat"
+          style={{ backgroundImage: "url('/images/hero-after.jpg')" }}
+        />
+      </div>
 
       {/* ── Layered overlays for legibility ───────────────────────────────── */}
 

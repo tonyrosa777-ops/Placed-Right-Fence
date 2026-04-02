@@ -77,3 +77,13 @@ h1, h2, h3 {
   text-transform: uppercase;
   color: var(--text-muted);
 }
+
+/* ─── Ken Burns Animation — mobile hero background ───────────────────────── */
+@keyframes kenburns {
+  0%   { transform: scale(1)    translate(0, 0);         }
+  100% { transform: scale(1.08) translate(-1.5%, -1%);   }
+}
+.animate-kenburns {
+  animation: kenburns 10s ease-in-out infinite alternate;
+  will-change: transform;
+}
