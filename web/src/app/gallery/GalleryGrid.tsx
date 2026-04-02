@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import FadeIn from "@/components/animations/FadeIn";
+import { motion, AnimatePresence } from "framer-motion";
 import { siteConfig } from "@/data/site";
 
 const galleryItems = [
@@ -30,31 +30,29 @@ const FILTERS: { value: FilterValue; label: string }[] = [
 
 function GalleryCard({ item }: { item: (typeof galleryItems)[number] }) {
   return (
-    <FadeIn direction="up">
-      <div
-        className="rounded-xl overflow-hidden border group cursor-pointer transition-all duration-200 hover:shadow-[0_8px_32px_rgba(0,0,0,0.1)] hover:border-accent"
-        style={{ borderColor: "var(--border)" }}
-      >
-        <div className={`${item.aspectClass} relative overflow-hidden`}>
-          <Image
-            src={item.src}
-            alt={item.label}
-            fill
-            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-            className="object-cover transition-transform duration-500 group-hover:scale-105"
-          />
-          <div
-            className="absolute inset-0 flex items-end p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-200"
-            style={{ background: "linear-gradient(to top, rgba(13,13,13,0.8) 0%, transparent 60%)" }}
-          >
-            <p className="font-body font-semibold text-sm text-white">{item.label}</p>
-          </div>
-        </div>
-        <div className="p-4 bg-white">
-          <p className="font-body font-semibold text-sm text-text-primary">{item.label}</p>
+    <div
+      className="rounded-xl overflow-hidden border group cursor-pointer transition-all duration-200 hover:shadow-[0_8px_32px_rgba(0,0,0,0.1)] hover:border-accent"
+      style={{ borderColor: "var(--border)" }}
+    >
+      <div className={`${item.aspectClass} relative overflow-hidden`}>
+        <Image
+          src={item.src}
+          alt={item.label}
+          fill
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+          className="object-cover transition-transform duration-500 group-hover:scale-105"
+        />
+        <div
+          className="absolute inset-0 flex items-end p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+          style={{ background: "linear-gradient(to top, rgba(13,13,13,0.8) 0%, transparent 60%)" }}
+        >
+          <p className="font-body font-semibold text-sm text-white">{item.label}</p>
         </div>
       </div>
-    </FadeIn>
+      <div className="p-4 bg-white">
+        <p className="font-body font-semibold text-sm text-text-primary">{item.label}</p>
+      </div>
+    </div>
   );
 }
 
@@ -96,19 +94,33 @@ export default function GalleryGrid() {
         </div>
       </section>
 
-      {/* Gallery grid */}
+      {/* Gallery grid — animated filter */}
       <section
         className="py-12 lg:py-16"
         style={{ backgroundColor: "var(--bg-base)" }}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {visible.map((item) => (
-              <GalleryCard key={item.id} item={item} />
-            ))}
-          </div>
+          <motion.div
+            layout
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"
+          >
+            <AnimatePresence mode="popLayout">
+              {visible.map((item) => (
+                <motion.div
+                  key={item.id}
+                  layout
+                  initial={{ opacity: 0, scale: 0.94 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.94 }}
+                  transition={{ duration: 0.22, ease: [0.25, 0.1, 0.25, 1] }}
+                >
+                  <GalleryCard item={item} />
+                </motion.div>
+              ))}
+            </AnimatePresence>
+          </motion.div>
 
-          <FadeIn className="mt-10 text-center" delay={0.1}>
+          <div className="mt-10 text-center">
             <p className="font-body text-xs text-text-muted max-w-sm mx-auto">
               Client photos from completed Southern NH installs being added weekly.
               Follow{" "}
@@ -123,7 +135,7 @@ export default function GalleryGrid() {
               </a>
               {" "}for the latest.
             </p>
-          </FadeIn>
+          </div>
         </div>
       </section>
     </>

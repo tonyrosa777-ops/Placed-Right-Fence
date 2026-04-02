@@ -3,6 +3,7 @@
 // Source: market-intelligence.md §2 buying blockers
 
 import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import FadeIn from "@/components/animations/FadeIn";
 import Button from "@/components/ui/Button";
 import { faq, siteConfig } from "@/data/site";
@@ -52,14 +53,22 @@ function AccordionItem({
             </svg>
           </span>
         </button>
-        <div
-          className="overflow-hidden transition-all duration-300"
-          style={{ maxHeight: open ? "500px" : "0px", opacity: open ? 1 : 0 }}
-        >
-          <p className="font-body text-sm text-text-secondary leading-relaxed pb-5">
-            {answer}
-          </p>
-        </div>
+        <AnimatePresence initial={false}>
+          {open && (
+            <motion.div
+              key="content"
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: "auto", opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.28, ease: [0.25, 0.1, 0.25, 1] }}
+              style={{ overflow: "hidden" }}
+            >
+              <p className="font-body text-sm text-text-secondary leading-relaxed pb-5">
+                {answer}
+              </p>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </FadeIn>
   );

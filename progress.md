@@ -4,7 +4,7 @@
 **Client:** Placed Right Fence Co. LLC | Nashua, NH (Southern NH and Seacoast)
 **Business Type:** Family-run residential fence installation and repair contractor
 **Launch Target:** April 2026 (ASAP — client wants live in 3–4 weeks; spring is peak season)
-**Last Updated:** 2026-04-01
+**Last Updated:** 2026-04-01 (Session 3)
 **Current Phase:** Phase 5 — Secondary Pages & Polish
 
 ---
@@ -179,3 +179,37 @@ Phase 5 + 6 remaining work:
 - Web3Forms key needed before /contact form works live
 - fal.ai image generation deferred (needs API key + time)
 - og-image.jpg does not exist yet (metadata references /og-image.jpg) — will 404 on social shares
+
+### Session 3 — 2026-04-01
+**Completed: Animation Overhaul — doubled animation quantity and quality across all pages**
+
+New animation components created:
+- `ScrollProgress.tsx` — 2px gold bar fixed at top, tracks scroll via `useScroll` + `useSpring`, hidden on `prefers-reduced-motion`
+- `PageTransition.tsx` — fade + y-slide between every page navigation using `AnimatePresence mode="wait"` + `usePathname`
+- `SectionHeading.tsx` — reusable eyebrow → animated h2 → gold scaleX rule reveal → subheading; replaces the old FadeIn header pattern across all sections
+- `CountUp.tsx` — rAF-driven cubic-ease number counter, fires on `useInView`, jumps to final value on `prefers-reduced-motion`
+- `FounderSection.tsx` — About page founder section extracted as client component; story slides in from left (x: -40→0), photo from right (x: 40→0), simultaneously on scroll
+
+Upgraded existing components:
+- `TestimonialsSection.tsx` — static 3-col grid replaced with two-row infinite CSS marquee; rows scroll in opposite directions at 42s/48s; pauses on hover; edge fades; `line-clamp-5` for uniform card heights
+- `FAQAccordion.tsx` — CSS `maxHeight` transition replaced with Framer Motion `AnimatePresence height: "auto"` for fluid accordion open/close
+- `GalleryGrid.tsx` — filter now uses `AnimatePresence mode="popLayout"` + `motion.div layout` for smooth card reordering on filter change
+- `ServicesSection.tsx` + `services/page.tsx` — `card-shine` CSS class added; diagonal light sweep on hover
+- `service-areas/page.tsx` — 4 stat boxes (48″, 72 hrs, 25+, 100%) upgraded from static text to `CountUp` animated on scroll
+
+CSS additions to `globals.css`:
+- `@keyframes marquee-left` + `marquee-right` + `.marquee-track` utilities
+- `.card-shine` + `::after` diagonal gradient sweep
+- `@keyframes cta-pulse` + `.cta-pulse` (fires 2× then stops) — applied to hero primary CTA and dark-section bottom CTAs
+
+`SectionHeading` wired into: ServicesSection, TrustSection, TestimonialsSection, ServiceAreasSection, services/page.tsx, service-areas/page.tsx, about/page.tsx
+
+Build: ✓ TypeScript clean, all 10 routes static
+
+**Next Session:**
+1. IMMEDIATE BLOCKER: Add NEXT_PUBLIC_WEB3FORMS_KEY to Vercel env vars
+2. fal.ai gallery photo generation — 9 images for gallery page
+3. og-image.jpg — needed before social shares work
+4. Individual fence type pages (/services/wood-fence etc.) — Phase 5
+5. Pricing page (/pricing) — Phase 5
+6. Lighthouse audit / performance — Phase 7

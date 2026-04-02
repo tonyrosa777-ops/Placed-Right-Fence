@@ -4,6 +4,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import FadeIn from "@/components/animations/FadeIn";
+import SectionHeading from "@/components/animations/SectionHeading";
 import Button from "@/components/ui/Button";
 import { services, siteConfig } from "@/data/site";
 
@@ -54,7 +55,7 @@ export default function ServicesPage() {
             {services.map((service, i) => (
               <FadeIn key={service.id} delay={i * 0.05} direction="up">
                 <div
-                  className="grid grid-cols-1 lg:grid-cols-3 gap-6 bg-white rounded-xl border p-6 lg:p-8 transition-all duration-200 hover:shadow-[0_4px_24px_rgba(201,168,76,0.12)]"
+                  className="grid grid-cols-1 lg:grid-cols-3 gap-6 bg-white rounded-xl border p-6 lg:p-8 card-shine transition-all duration-200 hover:shadow-[0_4px_24px_rgba(201,168,76,0.12)]"
                   style={{ borderColor: "var(--border)" }}
                 >
                   {/* Left: icon + name */}
@@ -126,18 +127,13 @@ export default function ServicesPage() {
         style={{ backgroundColor: "var(--bg-elevated)", borderColor: "var(--border)" }}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <FadeIn className="max-w-2xl mx-auto text-center mb-12">
-            <p className="eyebrow text-text-muted mb-3">Why Our Installations Last</p>
-            <h2
-              className="font-display text-text-primary mb-4"
-              style={{ fontSize: "clamp(1.75rem, 3vw, 2.5rem)", lineHeight: 1.15 }}
-            >
-              The Difference Is What You Don't See.
-            </h2>
-            <p className="font-body text-text-secondary">
-              The part of your fence you'll never see — the post, the concrete, the depth — is the only part that matters for how long it lasts. We do that part right.
-            </p>
-          </FadeIn>
+          <SectionHeading
+            eyebrow="Why Our Installations Last"
+            heading="The Difference Is What You Don't See."
+            subheading="The part of your fence you'll never see — the post, the concrete, the depth — is the only part that matters for how long it lasts. We do that part right."
+            align="center"
+            className="max-w-2xl mx-auto mb-12"
+          />
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
             {[
               {
@@ -187,7 +183,7 @@ export default function ServicesPage() {
             <p className="font-body text-base mb-8 max-w-xl mx-auto" style={{ color: "rgba(255,255,255,0.75)" }}>
               Free on-site estimate within 72 hours. Written quote before any work begins.
             </p>
-            <Button href="/contact" variant="primary" size="lg">
+            <Button href="/contact" variant="primary" size="lg" className="cta-pulse">
               Get Your Free Estimate →
             </Button>
           </FadeIn>

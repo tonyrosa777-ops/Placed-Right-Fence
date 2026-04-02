@@ -5,6 +5,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import FadeIn from "@/components/animations/FadeIn";
+import SectionHeading from "@/components/animations/SectionHeading";
+import CountUp from "@/components/animations/CountUp";
 import Button from "@/components/ui/Button";
 import { serviceAreas, siteConfig } from "@/data/site";
 
@@ -137,13 +139,12 @@ export default function ServiceAreasPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <FadeIn>
-              <p className="eyebrow text-text-muted mb-3">Why Local Matters</p>
-              <h2
-                className="font-display text-text-primary mb-5"
-                style={{ fontSize: "clamp(1.75rem, 3vw, 2.5rem)", lineHeight: 1.15 }}
-              >
-                NH Winters Punish Fences Set by Out-of-State Crews.
-              </h2>
+              <SectionHeading
+                eyebrow="Why Local Matters"
+                heading="NH Winters Punish Fences Set by Out-of-State Crews."
+                align="left"
+                className="mb-5"
+              />
               <div className="space-y-4">
                 <p className="font-body text-text-secondary leading-relaxed">
                   New Hampshire has a 48-inch frost depth. Our soil is full of granite. Mud season moves everything that isn't properly anchored. If your installer doesn't know these realities firsthand, your fence pays the price.
@@ -156,22 +157,23 @@ export default function ServiceAreasPage() {
             <FadeIn delay={0.12} direction="up">
               <div className="grid grid-cols-2 gap-4">
                 {[
-                  { stat: "48″", label: "Minimum post depth — NH frost line" },
-                  { stat: "72 hrs", label: "Free estimate turnaround" },
-                  { stat: "25+", label: "Cities in our coverage area" },
-                  { stat: "100%", label: "Written estimates before work begins" },
+                  { to: 48,  suffix: "″",    label: "Minimum post depth — NH frost line" },
+                  { to: 72,  suffix: " hrs", label: "Free estimate turnaround" },
+                  { to: 25,  suffix: "+",    label: "Cities in our coverage area" },
+                  { to: 100, suffix: "%",    label: "Written estimates before work begins" },
                 ].map((item) => (
                   <div
                     key={item.label}
                     className="rounded-xl border bg-white p-5 text-center"
                     style={{ borderColor: "var(--border)" }}
                   >
-                    <p
-                      className="font-display text-3xl mb-1"
+                    <CountUp
+                      to={item.to}
+                      suffix={item.suffix}
+                      duration={1600}
+                      className="font-display text-3xl mb-1 block"
                       style={{ color: "var(--accent)" }}
-                    >
-                      {item.stat}
-                    </p>
+                    />
                     <p className="font-body text-xs text-text-muted leading-snug">{item.label}</p>
                   </div>
                 ))}
@@ -197,7 +199,7 @@ export default function ServiceAreasPage() {
             >
               On-site within 72 hours. Written quote before any work starts.
             </p>
-            <Button href="/contact" variant="primary" size="lg">
+            <Button href="/contact" variant="primary" size="lg" className="cta-pulse">
               Request a Free Estimate →
             </Button>
           </FadeIn>

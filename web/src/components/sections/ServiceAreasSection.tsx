@@ -4,6 +4,7 @@
 
 import Link from "next/link";
 import FadeIn from "@/components/animations/FadeIn";
+import SectionHeading from "@/components/animations/SectionHeading";
 import Button from "@/components/ui/Button";
 import { serviceAreas, sectionCopy } from "@/data/site";
 
@@ -15,16 +16,13 @@ export default function ServiceAreasSection() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* Header */}
-        <FadeIn className="text-center max-w-2xl mx-auto mb-12 lg:mb-16">
-          <p className="eyebrow text-text-muted mb-3">{s.eyebrow}</p>
-          <h2
-            className="font-display text-text-primary mb-4"
-            style={{ fontSize: "clamp(2rem, 3.5vw, 2.75rem)", lineHeight: 1.15 }}
-          >
-            {s.headline}
-          </h2>
-          <p className="font-body text-text-secondary text-lg">{s.subheadline}</p>
-        </FadeIn>
+        <SectionHeading
+          eyebrow={s.eyebrow}
+          heading={s.headline}
+          subheading={s.subheadline}
+          align="center"
+          className="max-w-2xl mx-auto mb-12 lg:mb-16"
+        />
 
         {/* Two-column region layout */}
         <FadeIn direction="up">

@@ -3,6 +3,7 @@
 // Copy: /data/site.ts → trustSignals, sectionCopy.trust
 
 import FadeIn from "@/components/animations/FadeIn";
+import SectionHeading from "@/components/animations/SectionHeading";
 import { trustSignals, sectionCopy } from "@/data/site";
 
 const s = sectionCopy.trust;
@@ -50,16 +51,13 @@ export default function TrustSection() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* Header */}
-        <FadeIn className="max-w-2xl mb-12 lg:mb-16">
-          <p className="eyebrow text-text-muted mb-3">{s.eyebrow}</p>
-          <h2
-            className="font-display text-text-primary mb-4"
-            style={{ fontSize: "clamp(2rem, 3.5vw, 2.75rem)", lineHeight: 1.15 }}
-          >
-            {s.headline}
-          </h2>
-          <p className="font-body text-text-secondary text-lg">{s.subheadline}</p>
-        </FadeIn>
+        <SectionHeading
+          eyebrow={s.eyebrow}
+          heading={s.headline}
+          subheading={s.subheadline}
+          align="left"
+          className="max-w-2xl mb-12 lg:mb-16"
+        />
 
         {/* Trust signals grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
