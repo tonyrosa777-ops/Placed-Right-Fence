@@ -97,18 +97,38 @@ function springOut(t: number): number {
 interface Layout {
   n: number; spacing: number; w: number; fullH: number;
   startX: number; groundY: number;
+  isMobile: boolean;
 }
 
 function getLayout(W: number, H: number): Layout {
-  const mobile = W < 768;
-  const n        = mobile ? 7  : 10;
-  const spacing  = mobile ? 26 : 46;
-  const w        = mobile ? 9  : 15;
-  const fullH    = mobile ? 78 : 148;
-  const totalW   = (n - 1) * spacing;
-  const centerX  = mobile ? W * 0.50 : W * 0.72;
-  const groundY  = mobile ? H * 0.84 : H * 0.73;
-  return { n, spacing, w, fullH, startX: centerX - totalW / 2, groundY };
+  if (W < 640) {
+    // Mobile: tiny fence hugging the very bottom of the hero — stays below content
+    const n = 6; const spacing = 24; const w = 8; const fullH = 46;
+    return {
+      n, spacing, w, fullH,
+      startX: W * 0.5 - ((n - 1) * spacing) / 2,
+      groundY: H * 0.95,
+      isMobile: true,
+    };
+  }
+  if (W < 1024) {
+    // Tablet: moderate fence, centered lower half
+    const n = 8; const spacing = 36; const w = 12; const fullH = 100;
+    return {
+      n, spacing, w, fullH,
+      startX: W * 0.5 - ((n - 1) * spacing) / 2,
+      groundY: H * 0.80,
+      isMobile: false,
+    };
+  }
+  // Desktop: full 10-picket fence, right-side positioned
+  const n = 10; const spacing = 46; const w = 15; const fullH = 148;
+  return {
+    n, spacing, w, fullH,
+    startX: W * 0.72 - ((n - 1) * spacing) / 2,
+    groundY: H * 0.73,
+    isMobile: false,
+  };
 }
 
 // ─── Component ─────────────────────────────────────────────────────────────────
@@ -139,9 +159,11 @@ export default function ForgeCanvas() {
     let sparks: Spark[]   = [];
     let railAt  = -1;              // elapsed ms when rail starts
     let railParticles: { t: number; speed: number }[] = [];
+    let currentLayout: Layout = getLayout(800, 600); // will be overwritten on first resize
 
     // ── Build pickets from layout ────────────────────────────────────────────
     function build(lout: Layout) {
+      currentLayout = lout;
       pickets = [];
       rings   = [];
       sparks  = [];
@@ -188,28 +210,38 @@ export default function ForgeCanvas() {
 
     // ── Spawn convergence streams ────────────────────────────────────────────
     function spawnStreams(p: Picket) {
-      const n = 6 + Math.floor(Math.random() * 3);
+      const mobile = currentLayout.isMobile;
+      const n      = mobile ? 5 : (6 + Math.floor(Math.random() * 3));
+      const spread = mobile ? 0.5 : 0.8;   // tighter spread on mobile
+      const jitter = mobile ? 16  : 38;
+
       for (let i = 0; i < n; i++) {
         const angle = (i / n) * Math.PI * 2 + Math.random() * 0.7;
-        const dist  = p.fullH * (0.45 + Math.random() * 0.8);
+        const dist  = p.fullH * (0.45 + Math.random() * spread);
         const sx    = p.x + Math.cos(angle) * dist;
         const sy    = p.groundY - Math.random() * p.fullH * 0.55 + Math.sin(angle) * dist * 0.25;
-        const cx    = sx + (p.x - sx) * (0.25 + Math.random() * 0.35) + (Math.random() - 0.5) * 38;
-        const cy    = sy + (p.groundY - sy) * 0.3 + (Math.random() - 0.5) * 22;
-        p.particles.push({ sx, sy, cx, cy, t: 0, speed: 0.006 + Math.random() * 0.005, size: 1.5 + Math.random() * 1.5 });
+        const cx    = sx + (p.x - sx) * (0.25 + Math.random() * 0.35) + (Math.random() - 0.5) * jitter;
+        const cy    = sy + (p.groundY - sy) * 0.3 + (Math.random() - 0.5) * (jitter * 0.6);
+        p.particles.push({ sx, sy, cx, cy, t: 0, speed: 0.007 + Math.random() * 0.005, size: 1.2 + Math.random() * 1.2 });
       }
     }
 
     // ── Forge flash ──────────────────────────────────────────────────────────
-    function triggerForge(p: Picket, now: number) {
-      rings.push({ x: p.x, y: p.groundY, startR: 4, maxR: 72, born: now, duration: 420 });
-      rings.push({ x: p.x, y: p.groundY, startR: 2, maxR: 36, born: now, duration: 260 });
-      for (let i = 0; i < 8; i++) {
-        const angle = (i / 8) * Math.PI * 2 + Math.random() * 0.55;
+    function triggerForge(p: Picket, now: number, lout: Layout) {
+      const maxR      = lout.isMobile ? 22  : 72;
+      const nSparks   = lout.isMobile ? 5   : 8;
+      const sparkBase = lout.isMobile ? 12  : 26;
+      const sparkRng  = lout.isMobile ? 10  : 38;
+
+      rings.push({ x: p.x, y: p.groundY, startR: 3, maxR,          born: now, duration: 400 });
+      rings.push({ x: p.x, y: p.groundY, startR: 2, maxR: maxR / 2, born: now, duration: 250 });
+
+      for (let i = 0; i < nSparks; i++) {
+        const angle = (i / nSparks) * Math.PI * 2 + Math.random() * 0.55;
         sparks.push({
           x: p.x, y: p.groundY, angle,
-          maxLen: 26 + Math.random() * 38,
-          born: now, duration: 290 + Math.random() * 110,
+          maxLen: sparkBase + Math.random() * sparkRng,
+          born: now, duration: 280 + Math.random() * 110,
           white: Math.random() > 0.45,
         });
       }
@@ -225,7 +257,8 @@ export default function ForgeCanvas() {
 
       const [r, g, b] = heatRGB(ct);
       const glow  = Math.max(0, 1 - ct);
-      const blur  = glow * 28 + 5;
+      const maxBlur = currentLayout.isMobile ? 12 : 28;
+      const blur  = glow * maxBlur + 4;
 
       const shY  = gy - h * 0.78;   // shoulder y (where shaft meets tip)
       const tipY = gy - h;           // tip point
@@ -281,7 +314,7 @@ export default function ForgeCanvas() {
         if (p.phase === "stream" && elapsed >= p.forgeAt) {
           p.phase = "rise";
           p.particles = [];
-          triggerForge(p, now);
+          triggerForge(p, now, currentLayout);
         }
 
         if (p.phase === "rise") {
