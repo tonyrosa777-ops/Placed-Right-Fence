@@ -21,6 +21,25 @@ export default function HeroSection() {
       className="relative w-full min-h-screen flex items-center overflow-hidden"
       style={{ backgroundColor: "#0D0D0D", paddingTop: "72px" }}
     >
+      {/*
+        ── Video background ──────────────────────────────────────────────────
+        Phase 4: Drop hero-video.mp4 (Kling AI output) into /public/images/
+        and uncomment the <video> block below. The dark overlay + gradient
+        above will handle legibility automatically.
+        ─────────────────────────────────────────────────────────────────────
+      */}
+      {/* <video
+        className="absolute inset-0 w-full h-full object-cover"
+        src="/images/hero-video.mp4"
+        autoPlay
+        muted
+        loop
+        playsInline
+      /> */}
+
+      {/* Dark overlay — keeps text legible over video (or placeholder) */}
+      <div className="pointer-events-none absolute inset-0 bg-black/50" />
+
       {/* Subtle gold radial glow — matches card atmosphere */}
       <div
         className="pointer-events-none absolute inset-0 opacity-40"
@@ -30,7 +49,7 @@ export default function HeroSection() {
         }}
       />
 
-      {/* Very subtle noise texture feel via vignette */}
+      {/* Vignette */}
       <div
         className="pointer-events-none absolute inset-0"
         style={{
