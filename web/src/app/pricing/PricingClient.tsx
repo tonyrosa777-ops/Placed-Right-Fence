@@ -42,7 +42,7 @@ const TIERS = [
   {
     id: "growth",
     name: "Growth",
-    price: 3400,
+    price: 3000,
     badge: "Most Popular",
     headline: "Dominate local search.",
     description:
@@ -73,7 +73,7 @@ const TIERS = [
   {
     id: "premium",
     name: "Premium",
-    price: 5800,
+    price: 5500,
     badge: "Full Service",
     headline: "The complete build.",
     description:
@@ -632,7 +632,7 @@ export default function PricingClient() {
                 className="px-8 py-4 rounded-xl font-semibold text-base transition-all hover:brightness-110"
                 style={{ background: "var(--accent)", color: "var(--primary)" }}
               >
-                Get the Growth Plan — $3,400
+                Get the Growth Plan — $3,000
               </Link>
               <Link
                 href="/contact"
