@@ -131,7 +131,7 @@ export default function HeroSection() {
             {...up(ctaDelay)}
             className="flex flex-col sm:flex-row gap-4 mb-10"
           >
-            <Button href={hero.primaryCta.href} variant="primary" size="lg">
+            <Button href={hero.primaryCta.href} variant="primary" size="lg" className="cta-pulse">
               {hero.primaryCta.label} →
             </Button>
             <Button

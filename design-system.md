@@ -383,7 +383,7 @@ Derived from market-intelligence.md Section 8 (competitor analysis) and Section 
 
 | Section | Include? | Rationale |
 |---------|----------|-----------|
-| Shop (Stripe + Printful) | **No** | Service business, not e-commerce. Remove entirely. |
+| Shop (Stripe + Printful) | **Yes — approved 2026-04-01** | Branded merchandise (hats, tees, hoodies, mugs) via Printful POD. Client confirmed. Stripe + custom React cart. Route: /shop. |
 | Blog (Sanity CMS) | **Simplified** | Phase 3: 2–3 static content pages (permits, frost line, pool code). Full CMS in Phase 5 only if client wants to self-manage content. Given 3–4 week launch target, static is faster. |
 | Quiz / Lead capture | **Yes — replace with multi-step estimate form** | The "quiz" pattern becomes the multi-step visual estimate form (CUSTOM BUILD — market-intelligence.md Section 5 Gap 4). Route: /estimate or modal on every page. |
 | Instagram feed | **Phase 5** | Client only has 3 posts on @placedrightfence. No feed worth showing at launch. Add once they have 12+ posts. |
