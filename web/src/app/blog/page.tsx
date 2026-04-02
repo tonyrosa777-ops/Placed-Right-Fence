@@ -25,7 +25,7 @@ interface Post {
   slug: { current: string };
   publishedAt: string;
   excerpt: string;
-  mainImage: { asset: { url: string; metadata: { lqip: string } }; alt: string } | null;
+  mainImage: { asset: { url: string; metadata: { lqip: string | null } }; alt: string } | null;
   categories: { _id: string; title: string; slug: { current: string } }[];
   estimatedReadingTime: number;
 }
@@ -43,7 +43,9 @@ const STATIC_AS_POSTS: Post[] = staticBlogPosts.map((p) => ({
   slug: { current: p.slug },
   publishedAt: p.publishedAt,
   excerpt: p.excerpt,
-  mainImage: null,
+  mainImage: p.image
+    ? { asset: { url: p.image, metadata: { lqip: null } }, alt: p.title }
+    : null,
   categories: p.categories.map((cat) => ({
     _id: cat,
     title: cat,
@@ -196,7 +198,7 @@ function FeaturedPostCard({ post }: { post: Post }) {
                 fill
                 className="object-cover"
                 placeholder={post.mainImage.asset.metadata?.lqip ? "blur" : "empty"}
-                blurDataURL={post.mainImage.asset.metadata?.lqip}
+                blurDataURL={post.mainImage.asset.metadata?.lqip ?? undefined}
                 sizes="(max-width: 1024px) 100vw, 50vw"
               />
             ) : (
@@ -281,7 +283,7 @@ function PostCard({ post }: { post: Post }) {
               fill
               className="object-cover"
               placeholder={post.mainImage.asset.metadata?.lqip ? "blur" : "empty"}
-              blurDataURL={post.mainImage.asset.metadata?.lqip}
+              blurDataURL={post.mainImage.asset.metadata?.lqip ?? undefined}
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             />
           ) : (

@@ -17,6 +17,7 @@ export interface StaticPost {
   publishedAt: string;
   categories: string[];
   estimatedReadingTime: number;
+  image?: string; // path relative to /public, e.g. /images/blog/<slug>.jpg
   sections: Section[];
 }
 
@@ -30,6 +31,7 @@ export const staticBlogPosts: StaticPost[] = [
     publishedAt: "2025-04-01",
     categories: ["Pool Compliance"],
     estimatedReadingTime: 6,
+    image: "/images/blog/nh-pool-fence-code-requirements.jpg",
     sections: [
       {
         type: "p",
@@ -145,6 +147,7 @@ export const staticBlogPosts: StaticPost[] = [
     publishedAt: "2025-04-03",
     categories: ["Installation Tips"],
     estimatedReadingTime: 5,
+    image: "/images/blog/how-deep-fence-posts-new-hampshire.jpg",
     sections: [
       {
         type: "p",
@@ -231,6 +234,7 @@ export const staticBlogPosts: StaticPost[] = [
     publishedAt: "2025-04-05",
     categories: ["Materials Guide"],
     estimatedReadingTime: 7,
+    image: "/images/blog/wood-vs-vinyl-fence-new-hampshire.jpg",
     sections: [
       {
         type: "p",
@@ -346,6 +350,7 @@ export const staticBlogPosts: StaticPost[] = [
     publishedAt: "2025-04-07",
     categories: ["Permits & Regulations"],
     estimatedReadingTime: 5,
+    image: "/images/blog/fence-permit-guide-new-hampshire.jpg",
     sections: [
       {
         type: "p",
@@ -448,6 +453,7 @@ export const staticBlogPosts: StaticPost[] = [
     publishedAt: "2025-04-09",
     categories: ["Dog Owners"],
     estimatedReadingTime: 6,
+    image: "/images/blog/best-fence-for-dogs-new-hampshire.jpg",
     sections: [
       {
         type: "p",
@@ -546,6 +552,7 @@ export const staticBlogPosts: StaticPost[] = [
     publishedAt: "2025-04-11",
     categories: ["Pricing"],
     estimatedReadingTime: 6,
+    image: "/images/blog/fence-installation-cost-new-hampshire-2025.jpg",
     sections: [
       {
         type: "p",
@@ -681,6 +688,7 @@ export const staticBlogPosts: StaticPost[] = [
     publishedAt: "2025-04-13",
     categories: ["Installation Tips"],
     estimatedReadingTime: 4,
+    image: "/images/blog/best-time-install-fence-new-hampshire.jpg",
     sections: [
       {
         type: "p",
@@ -761,6 +769,7 @@ export const staticBlogPosts: StaticPost[] = [
     publishedAt: "2025-04-15",
     categories: ["Materials Guide"],
     estimatedReadingTime: 5,
+    image: "/images/blog/chain-link-vs-aluminum-fence-new-hampshire.jpg",
     sections: [
       {
         type: "p",
@@ -883,6 +892,7 @@ export const staticBlogPosts: StaticPost[] = [
     publishedAt: "2025-04-17",
     categories: ["Hiring Tips"],
     estimatedReadingTime: 5,
+    image: "/images/blog/how-to-choose-fence-contractor-southern-nh.jpg",
     sections: [
       {
         type: "p",
@@ -981,6 +991,7 @@ export const staticBlogPosts: StaticPost[] = [
     publishedAt: "2025-04-19",
     categories: ["Repair & Maintenance"],
     estimatedReadingTime: 5,
+    image: "/images/blog/fence-repair-vs-replace-new-hampshire.jpg",
     sections: [
       {
         type: "p",
