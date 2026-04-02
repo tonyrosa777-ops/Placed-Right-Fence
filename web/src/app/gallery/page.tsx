@@ -57,7 +57,7 @@ function GalleryCard({
         <div className={`${item.aspectClass} relative overflow-hidden`}>
           <Image
             src={item.src}
-            alt={`${item.label} — ${item.location}`}
+            alt={item.label}
             fill
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
             className="object-cover transition-transform duration-500 group-hover:scale-105"
@@ -67,16 +67,12 @@ function GalleryCard({
             className="absolute inset-0 flex items-end p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-200"
             style={{ background: "linear-gradient(to top, rgba(13,13,13,0.8) 0%, transparent 60%)" }}
           >
-            <div>
-              <p className="font-body font-semibold text-sm text-white">{item.label}</p>
-              <p className="eyebrow text-[10px] text-white/70 mt-0.5">{item.location}</p>
-            </div>
+            <p className="font-body font-semibold text-sm text-white">{item.label}</p>
           </div>
         </div>
         {/* Card footer */}
         <div className="p-4 bg-white">
           <p className="font-body font-semibold text-sm text-text-primary">{item.label}</p>
-          <p className="font-body text-xs text-text-muted mt-0.5">{item.location}</p>
         </div>
       </div>
     </FadeIn>
