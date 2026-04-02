@@ -65,7 +65,7 @@ export default function HeroSection() {
 
   return (
     <section
-      className="relative w-full min-h-screen flex items-center overflow-hidden"
+      className="relative w-full min-h-screen flex items-start lg:items-center overflow-hidden"
       style={{ backgroundColor: "#0D0D0D", paddingTop: "72px" }}
     >
 
