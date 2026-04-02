@@ -4,6 +4,7 @@ import Image from "next/image";
 import { client } from "@/sanity/lib/client";
 import { allPostsQuery, allCategoriesQuery } from "@/sanity/lib/queries";
 import { siteConfig } from "@/data/site";
+import { staticBlogPosts } from "@/data/blog-posts";
 
 export const revalidate = 3600;
 
@@ -35,11 +36,30 @@ interface Category {
   slug: { current: string };
 }
 
+// Shape static posts to match the Sanity Post interface
+const STATIC_AS_POSTS: Post[] = staticBlogPosts.map((p) => ({
+  _id: p.slug,
+  title: p.title,
+  slug: { current: p.slug },
+  publishedAt: p.publishedAt,
+  excerpt: p.excerpt,
+  mainImage: null,
+  categories: p.categories.map((cat) => ({
+    _id: cat,
+    title: cat,
+    slug: { current: cat.toLowerCase().replace(/\s+/g, "-") },
+  })),
+  estimatedReadingTime: p.estimatedReadingTime,
+}));
+
 export default async function BlogPage() {
-  const [posts, categories]: [Post[], Category[]] = await Promise.all([
+  const [sanityCms, categories]: [Post[], Category[]] = await Promise.all([
     client.fetch(allPostsQuery).catch(() => []),
     client.fetch(allCategoriesQuery).catch(() => []),
   ]);
+
+  // Use Sanity posts when available; fall back to static articles
+  const posts: Post[] = sanityCms.length > 0 ? sanityCms : STATIC_AS_POSTS;
 
   const featuredPost = posts[0] ?? null;
   const remainingPosts = posts.slice(1);
@@ -101,6 +121,7 @@ export default async function BlogPage() {
           {posts.length === 0 ? (
             <EmptyState />
           ) : (
+            // posts always has content (static fallback ensures this)
             <>
               {/* Featured Post */}
               {featuredPost && (

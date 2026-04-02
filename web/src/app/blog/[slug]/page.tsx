@@ -7,6 +7,8 @@ import type { PortableTextComponents } from "next-sanity";
 import { client } from "@/sanity/lib/client";
 import { postBySlugQuery, allPostSlugsQuery } from "@/sanity/lib/queries";
 import { siteConfig } from "@/data/site";
+import { staticBlogPosts } from "@/data/blog-posts";
+import StaticPostRenderer from "../StaticPostRenderer";
 
 export const revalidate = 3600;
 
@@ -15,8 +17,10 @@ interface Params {
 }
 
 export async function generateStaticParams(): Promise<Params[]> {
-  const slugs: string[] = await client.fetch(allPostSlugsQuery).catch(() => []);
-  return slugs.map((slug) => ({ slug }));
+  const sanitySlugs: string[] = await client.fetch(allPostSlugsQuery).catch(() => []);
+  const staticSlugs = staticBlogPosts.map((p) => p.slug);
+  const all = Array.from(new Set([...sanitySlugs, ...staticSlugs]));
+  return all.map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({
@@ -25,11 +29,13 @@ export async function generateMetadata({
   params: Promise<Params>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const post = await client.fetch(postBySlugQuery, { slug }).catch(() => null);
-  if (!post) return {};
+  const sanityPost = await client.fetch(postBySlugQuery, { slug }).catch(() => null);
+  const staticPost = staticBlogPosts.find((p) => p.slug === slug);
+  const source = sanityPost ?? staticPost;
+  if (!source) return {};
 
-  const title = post.seo?.metaTitle ?? post.title;
-  const description = post.seo?.metaDescription ?? post.excerpt ?? "";
+  const title = (sanityPost?.seo?.metaTitle ?? source.title) as string;
+  const description = (sanityPost?.seo?.metaDescription ?? ("excerpt" in source ? source.excerpt : "")) as string;
 
   return {
     title,
@@ -38,8 +44,8 @@ export async function generateMetadata({
       title,
       description,
       url: `${siteConfig.url}/blog/${slug}`,
-      images: post.mainImage?.asset?.url
-        ? [{ url: post.mainImage.asset.url, alt: post.mainImage.alt ?? title }]
+      images: sanityPost?.mainImage?.asset?.url
+        ? [{ url: sanityPost.mainImage.asset.url, alt: sanityPost.mainImage.alt ?? title }]
         : [],
     },
   };
@@ -172,9 +178,117 @@ export default async function BlogPostPage({
   params: Promise<Params>;
 }) {
   const { slug } = await params;
-  const post = await client.fetch(postBySlugQuery, { slug }).catch(() => null);
+  const sanityPost = await client.fetch(postBySlugQuery, { slug }).catch(() => null);
+  const staticPost = staticBlogPosts.find((p) => p.slug === slug);
 
-  if (!post) notFound();
+  if (!sanityPost && !staticPost) notFound();
+
+  // If Sanity has this post, render with PortableText (full Sanity path below)
+  // If not, render the static article
+  if (!sanityPost && staticPost) {
+    return (
+      <>
+        {/* Post Hero */}
+        <section className="bg-[var(--primary)] text-white pt-32 pb-16">
+          <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+            <nav className="mb-6 flex items-center gap-2 text-sm" style={{ color: "rgba(255,255,255,0.45)" }}>
+              <Link href="/blog" className="hover:text-white transition-colors">Blog</Link>
+              <span>/</span>
+              <span className="truncate">{staticPost.title}</span>
+            </nav>
+            {staticPost.categories.length > 0 && (
+              <div className="flex flex-wrap gap-2 mb-4">
+                {staticPost.categories.map((cat) => (
+                  <span
+                    key={cat}
+                    className="text-xs font-mono tracking-[0.06em] uppercase px-2 py-0.5 rounded"
+                    style={{ background: "var(--accent)", color: "var(--primary)" }}
+                  >
+                    {cat}
+                  </span>
+                ))}
+              </div>
+            )}
+            <h1 className="font-display text-3xl lg:text-4xl text-white leading-tight mb-4">
+              {staticPost.title}
+            </h1>
+            <div className="flex items-center gap-4 text-sm flex-wrap" style={{ color: "rgba(255,255,255,0.55)" }}>
+              <span>By Placed Right Fence Co.</span>
+              <span>·</span>
+              <time dateTime={staticPost.publishedAt}>
+                {new Date(staticPost.publishedAt).toLocaleDateString("en-US", {
+                  month: "long", day: "numeric", year: "numeric",
+                })}
+              </time>
+              {staticPost.estimatedReadingTime > 0 && (
+                <>
+                  <span>·</span>
+                  <span>{staticPost.estimatedReadingTime} min read</span>
+                </>
+              )}
+            </div>
+          </div>
+        </section>
+
+        {/* Article Body */}
+        <section className="py-16" style={{ background: "var(--bg-base)" }}>
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid grid-cols-1 lg:grid-cols-[1fr_280px] gap-12">
+              <article className="max-w-prose">
+                <p className="text-lg leading-relaxed mb-8 pb-8 border-b border-[var(--border)] font-medium" style={{ color: "var(--text-secondary)" }}>
+                  {staticPost.excerpt}
+                </p>
+                <StaticPostRenderer sections={staticPost.sections} />
+              </article>
+
+              {/* Sidebar */}
+              <aside className="space-y-6">
+                <div className="rounded-xl p-6 border border-[var(--accent)]" style={{ background: "var(--accent-muted)" }}>
+                  <p className="font-mono text-xs tracking-[0.08em] uppercase mb-2" style={{ color: "var(--accent)" }}>
+                    Ready to Get Started?
+                  </p>
+                  <h3 className="font-display text-lg mb-2 leading-tight" style={{ color: "var(--text-primary)" }}>
+                    Free On-Site Estimate
+                  </h3>
+                  <p className="text-sm mb-4" style={{ color: "var(--text-secondary)" }}>
+                    We come to you within 72 hours. Written estimate before any work begins.
+                  </p>
+                  <Link
+                    href="/contact"
+                    className="w-full flex items-center justify-center gap-1 px-4 py-2.5 rounded-md font-semibold text-sm transition-all hover:brightness-110"
+                    style={{ background: "var(--accent)", color: "var(--primary)" }}
+                  >
+                    Get Free Estimate →
+                  </Link>
+                </div>
+
+                <div className="rounded-xl p-6 border border-[var(--border)]" style={{ background: "var(--bg-card)" }}>
+                  <p className="font-mono text-xs tracking-[0.08em] uppercase mb-4" style={{ color: "var(--text-muted)" }}>
+                    Why Placed Right
+                  </p>
+                  <ul className="space-y-3">
+                    {["Free estimate within 72 hours", "Posts set below the frost line", "Fully insured — NH born & raised", "Written estimate that doesn't change"].map((item) => (
+                      <li key={item} className="flex items-start gap-2 text-sm" style={{ color: "var(--text-secondary)" }}>
+                        <span style={{ color: "var(--accent)" }} className="mt-0.5 shrink-0">✓</span>
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <Link href="/blog" className="flex items-center gap-2 text-sm hover:opacity-80 transition-opacity" style={{ color: "var(--text-muted)" }}>
+                  ← Back to all articles
+                </Link>
+              </aside>
+            </div>
+          </div>
+        </section>
+      </>
+    );
+  }
+
+  // Sanity path — original PortableText rendering
+  const post = sanityPost;
 
   return (
     <>
