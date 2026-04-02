@@ -1,24 +1,12 @@
 "use client";
-// Sanity Studio — client-only, cannot SSR
-// Access at /studio (no-index — see metadata export)
+// Sanity Studio — rendered client-only via StudioClient
+// Access at /studio (robots: no-index set in layout.tsx)
 import dynamic from "next/dynamic";
 
-// Both the config and NextStudio are loaded lazily inside dynamic()
-// so sanity.config (which calls createContext at module level) never
-// runs on the server during Next.js build page-data collection.
-const NextStudio = dynamic(
-  async () => {
-    const [{ NextStudio: Studio }, { default: config }] = await Promise.all([
-      import("next-sanity/studio"),
-      import("../../../../sanity.config"),
-    ]);
-    const Page = () => <Studio config={config} />;
-    Page.displayName = "SanityStudioPage";
-    return Page;
-  },
-  { ssr: false }
-);
+// dynamic + ssr:false ensures StudioClient (which calls React.createContext
+// at module level through sanity packages) never runs on the server.
+const StudioClient = dynamic(() => import("./StudioClient"), { ssr: false });
 
 export default function StudioPage() {
-  return <NextStudio />;
+  return <StudioClient />;
 }
