@@ -213,3 +213,32 @@ Build: ✓ TypeScript clean, all 10 routes static
 4. Individual fence type pages (/services/wood-fence etc.) — Phase 5
 5. Pricing page (/pricing) — Phase 5
 6. Lighthouse audit / performance — Phase 7
+
+### Session 4 — 2026-04-01
+**Completed: Blog/Sanity infrastructure committed — build passes clean**
+
+Discovered uncommitted work from a prior session:
+- `web/src/app/blog/page.tsx` — full Sanity-powered blog listing with featured post, category filter, empty state, ISR (`revalidate = 3600`)
+- `web/src/app/blog/[slug]/page.tsx` — individual post page with full PortableText renderer (h2–h4, normal, blockquote, bullet/number lists, strong/em/code/link marks, image, callToAction block types), sidebar estimate CTA + trust signals, `generateStaticParams`
+- `web/src/sanity/` — `client.ts` (with `?? "placeholder"` build guard), `queries.ts`, `image.ts`, schema types for post/author/category/blockContent
+- `web/sanity.config.ts` — embedded Sanity Studio at `/studio`
+- `web/src/app/api/revalidate/route.ts` — on-demand ISR webhook
+- `web/src/app/studio/layout.tsx` — toolbar-clean layout for Studio route
+
+Build result: `✓ 14/14 pages pass, TypeScript clean`. Build previously crashing with "Configuration must contain `projectId`" — resolved by `?? "placeholder"` guard in client.ts; Sanity fetches gracefully return empty data when env vars are absent; blog shows "Guides coming soon" empty state.
+
+Commit: `5d66323` — pushed to origin/main.
+
+**Blockers / Open Items:**
+- `NEXT_PUBLIC_WEB3FORMS_KEY` still missing from Vercel — /contact form dead on live site
+- `NEXT_PUBLIC_SANITY_PROJECT_ID` + `NEXT_PUBLIC_SANITY_DATASET` needed to serve real blog content
+- `og-image.jpg` still missing — social shares will 404 on image
+- `web/src/lib/cart.tsx` + `web/src/data/shop.ts` + `web/src/lib/printful.ts` — template artifacts, not used, not committed; delete them
+
+**Next Session:**
+1. BLOCKER: Add `NEXT_PUBLIC_WEB3FORMS_KEY` to Vercel env vars (contact form)
+2. Clean up unused template artifacts: `cart.tsx`, `shop.ts`, `printful.ts`, `printful-seeded-products.json`
+3. Generate `og-image.jpg` (1200×630) for social shares
+4. Set up Sanity project (free tier) + add env vars to Vercel so blog can serve content
+5. Individual fence type pages (/services/wood-fence, /vinyl-fence, etc.) — Phase 5
+6. Pricing page (/pricing) — Phase 5
