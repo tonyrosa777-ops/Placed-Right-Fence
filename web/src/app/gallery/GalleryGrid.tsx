@@ -162,11 +162,8 @@ export default function GalleryGrid() {
         style={{ backgroundColor: "var(--bg-base)" }}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            layout
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"
-          >
-            <AnimatePresence mode="popLayout">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            <AnimatePresence initial={false} mode="popLayout">
               {visible.map((item) => (
                 <motion.div
                   key={item.id}
@@ -180,7 +177,7 @@ export default function GalleryGrid() {
                 </motion.div>
               ))}
             </AnimatePresence>
-          </motion.div>
+          </div>
 
           <div className="mt-10 text-center">
             <p className="font-body text-xs text-text-muted max-w-sm mx-auto">
