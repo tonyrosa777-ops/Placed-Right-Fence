@@ -3,16 +3,26 @@
 // Always dark background (matches business card identity).
 // Transparent on homepage hero → solid #0D0D0D on scroll. Always solid on inner pages.
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { nav, siteConfig } from "@/data/site";
 import Button from "@/components/ui/Button";
+import CartDrawer from "@/components/layout/CartDrawer";
+import { useCart } from "@/lib/cart";
+
+// Primary links always visible on desktop — highest conversion value
+const PRIMARY_HREFS = ["/services", "/gallery", "/about"];
+const primaryNav = nav.filter((item) => PRIMARY_HREFS.includes(item.href));
+const moreNav    = nav.filter((item) => !PRIMARY_HREFS.includes(item.href));
 
 export default function SiteHeader() {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [moreOpen, setMoreOpen] = useState(false);
+  const moreRef = useRef<HTMLDivElement>(null);
+  const { count, openCart } = useCart();
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
   const isHome = pathname === "/";
@@ -28,12 +38,24 @@ export default function SiteHeader() {
     return () => { document.body.style.overflow = ""; };
   }, [mobileOpen]);
 
-  useEffect(() => { setMobileOpen(false); }, [pathname]);
+  useEffect(() => { setMobileOpen(false); setMoreOpen(false); }, [pathname]);
+
+  // Close "More" dropdown on outside click
+  useEffect(() => {
+    function handler(e: MouseEvent) {
+      if (moreRef.current && !moreRef.current.contains(e.target as Node)) {
+        setMoreOpen(false);
+      }
+    }
+    if (moreOpen) document.addEventListener("mousedown", handler);
+    return () => document.removeEventListener("mousedown", handler);
+  }, [moreOpen]);
 
   const isTransparent = isHome && !scrolled && !mobileOpen;
 
   return (
     <>
+      <CartDrawer />
       <header
         className={cn(
           "fixed top-0 left-0 right-0 z-50 h-[72px] transition-all duration-300",
@@ -58,9 +80,9 @@ export default function SiteHeader() {
             </span>
           </Link>
 
-          {/* Desktop nav links */}
-          <nav className="hidden lg:flex items-center gap-7">
-            {nav.map((item) => (
+          {/* Desktop nav — primary links + More dropdown */}
+          <nav className="hidden lg:flex items-center gap-6">
+            {primaryNav.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
@@ -69,6 +91,45 @@ export default function SiteHeader() {
                 {item.label}
               </Link>
             ))}
+
+            {/* More dropdown */}
+            <div ref={moreRef} className="relative">
+              <button
+                onClick={() => setMoreOpen((v) => !v)}
+                className="flex items-center gap-1 font-body font-medium text-[15px] text-white/75 hover:text-accent transition-colors duration-150"
+              >
+                More
+                <svg
+                  viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth={1.8}
+                  className={cn("w-3 h-3 transition-transform duration-200", moreOpen ? "rotate-180" : "")}
+                >
+                  <polyline points="2 4 6 8 10 4" />
+                </svg>
+              </button>
+
+              <AnimatePresence>
+                {moreOpen && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -6 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -6 }}
+                    transition={{ duration: 0.15 }}
+                    className="absolute top-full left-0 mt-3 w-44 rounded-xl border py-1.5 shadow-xl z-50"
+                    style={{ background: "#111", borderColor: "rgba(201,168,76,0.2)" }}
+                  >
+                    {moreNav.map((item) => (
+                      <Link
+                        key={item.href}
+                        href={item.href}
+                        className="block px-4 py-2.5 text-sm font-body text-white/70 hover:text-accent hover:bg-white/5 transition-colors duration-100"
+                      >
+                        {item.label}
+                      </Link>
+                    ))}
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
           </nav>
 
           {/* Desktop CTA row */}
@@ -79,6 +140,20 @@ export default function SiteHeader() {
             >
               {siteConfig.phone}
             </a>
+            {/* Cart icon */}
+            <button
+              onClick={openCart}
+              aria-label={`Cart (${count} items)`}
+              className="relative flex items-center justify-center w-9 h-9 text-white/70 hover:text-accent transition-colors"
+            >
+              🛒
+              {count > 0 && (
+                <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full text-[10px] font-bold flex items-center justify-center"
+                  style={{ background: "var(--accent)", color: "var(--primary)" }}>
+                  {count}
+                </span>
+              )}
+            </button>
             <Button href="/contact" variant="primary" size="sm">
               Get Free Estimate
             </Button>
