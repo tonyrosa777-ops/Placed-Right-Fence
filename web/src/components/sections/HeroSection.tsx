@@ -6,7 +6,7 @@
 import { motion } from "framer-motion";
 import { hero } from "@/data/site";
 import Button from "@/components/ui/Button";
-import HeroParticles from "@/components/animations/HeroParticles";
+import ForgeCanvas from "@/components/animations/ForgeCanvas";
 
 const EASE = [0.25, 0.1, 0.25, 1] as const;
 
@@ -75,8 +75,8 @@ export default function HeroSection() {
       <div className="orb orb-2" />
       <div className="orb orb-3" />
 
-      {/* ── Canvas particle system ─────────────────────────────────────── */}
-      <HeroParticles />
+      {/* ── The Forge — canvas 2D fence-forging animation ─────────────── */}
+      <ForgeCanvas />
 
       {/* ── Subtle center vignette — focuses eye on content ───────────── */}
       <div
