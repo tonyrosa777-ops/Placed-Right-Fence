@@ -1,11 +1,11 @@
 // Source: market-intelligence.md §5 Gap 3 (photo proof gap — zero competitors have real photos)
-// Gallery page — uses placeholder grid until fal.ai generated images are produced (Phase 4)
-// When fal.ai images land: replace placeholder divs with <Image> components
+// Gallery page — fal.ai generated images in /public/gallery/
 
 import type { Metadata } from "next";
+import Image from "next/image";
 import FadeIn from "@/components/animations/FadeIn";
 import Button from "@/components/ui/Button";
-import { services, siteConfig } from "@/data/site";
+import { siteConfig } from "@/data/site";
 
 export const metadata: Metadata = {
   title: "Project Gallery — NH Fence Installation Photos",
@@ -19,17 +19,17 @@ export const metadata: Metadata = {
   },
 };
 
-// Gallery data — replace src with real paths when fal.ai assets land
+// Gallery data — fal.ai generated photos in /public/gallery/
 const galleryItems = [
-  { id: 1, type: "wood", label: "Cedar Privacy Fence", location: "Bedford, NH", aspectClass: "aspect-[4/3]" },
-  { id: 2, type: "vinyl", label: "White Vinyl Privacy", location: "Nashua, NH", aspectClass: "aspect-square" },
-  { id: 3, type: "aluminum", label: "Ornamental Aluminum", location: "Portsmouth, NH", aspectClass: "aspect-[4/3]" },
-  { id: 4, type: "chain-link", label: "Galvanized Chain Link", location: "Manchester, NH", aspectClass: "aspect-[4/3]" },
-  { id: 5, type: "wood", label: "Dog-Ear Privacy Fence", location: "Merrimack, NH", aspectClass: "aspect-square" },
-  { id: 6, type: "vinyl", label: "Tan Vinyl with Gate", location: "Hudson, NH", aspectClass: "aspect-[4/3]" },
-  { id: 7, type: "aluminum", label: "Pool Code Aluminum", location: "Exeter, NH", aspectClass: "aspect-[4/3]" },
-  { id: 8, type: "wood", label: "Pressure-Treated Posts", location: "Londonderry, NH", aspectClass: "aspect-square" },
-  { id: 9, type: "repair", label: "Storm Damage Repair", location: "Dover, NH", aspectClass: "aspect-[4/3]" },
+  { id: 1, type: "wood", label: "Cedar Privacy Fence", location: "Bedford, NH", aspectClass: "aspect-[4/3]", src: "/gallery/gallery-1.jpg" },
+  { id: 2, type: "vinyl", label: "White Vinyl Privacy", location: "Nashua, NH", aspectClass: "aspect-square", src: "/gallery/gallery-2.jpg" },
+  { id: 3, type: "aluminum", label: "Ornamental Aluminum", location: "Portsmouth, NH", aspectClass: "aspect-[4/3]", src: "/gallery/gallery-3.jpg" },
+  { id: 4, type: "chain-link", label: "Galvanized Chain Link", location: "Manchester, NH", aspectClass: "aspect-[4/3]", src: "/gallery/gallery-4.jpg" },
+  { id: 5, type: "wood", label: "Dog-Ear Privacy Fence", location: "Merrimack, NH", aspectClass: "aspect-square", src: "/gallery/gallery-5.jpg" },
+  { id: 6, type: "vinyl", label: "Tan Vinyl with Gate", location: "Hudson, NH", aspectClass: "aspect-[4/3]", src: "/gallery/gallery-6.jpg" },
+  { id: 7, type: "aluminum", label: "Pool Code Aluminum", location: "Exeter, NH", aspectClass: "aspect-[4/3]", src: "/gallery/gallery-7.jpg" },
+  { id: 8, type: "wood", label: "Pressure-Treated Posts", location: "Londonderry, NH", aspectClass: "aspect-square", src: "/gallery/gallery-8.jpg" },
+  { id: 9, type: "repair", label: "Storm Damage Repair", location: "Dover, NH", aspectClass: "aspect-[4/3]", src: "/gallery/gallery-9.jpg" },
 ] as const;
 
 const SERVICE_FILTERS = [
@@ -41,42 +41,27 @@ const SERVICE_FILTERS = [
   { value: "repair", label: "Repair" },
 ] as const;
 
-// Warm placeholder colors per fence type
-const PALETTE: Record<string, string> = {
-  wood: "linear-gradient(135deg, #C9A84C18 0%, #F5F0E8 60%, #C9A84C0A 100%)",
-  vinyl: "linear-gradient(135deg, #0D0D0D08 0%, #EDE8DF 60%, #0D0D0D12 100%)",
-  aluminum: "linear-gradient(135deg, #6B7A8D18 0%, #F0EDE6 60%, #6B7A8D0A 100%)",
-  "chain-link": "linear-gradient(135deg, #8A7A6018 0%, #EDE8DF 60%, #8A7A600A 100%)",
-  repair: "linear-gradient(135deg, #C9A84C12 0%, #F5F0E8 60%, #C9A84C18 100%)",
-};
 
 function GalleryCard({
   item,
 }: {
   item: (typeof galleryItems)[number];
 }) {
-  const serviceMatch = services.find((s) => s.id === item.type);
   return (
     <FadeIn direction="up">
       <div
         className="rounded-xl overflow-hidden border group cursor-pointer transition-all duration-200 hover:shadow-[0_8px_32px_rgba(0,0,0,0.1)] hover:border-accent"
         style={{ borderColor: "var(--border)" }}
       >
-        {/* Image placeholder */}
-        <div
-          className={`${item.aspectClass} relative overflow-hidden`}
-          style={{ background: PALETTE[item.type] }}
-        >
-          {/* Fence icon */}
-          <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 p-4">
-            <span className="text-3xl opacity-40">{serviceMatch?.icon ?? "🏗️"}</span>
-            <p
-              className="eyebrow text-[10px] text-center opacity-50"
-              style={{ color: "var(--primary)" }}
-            >
-              Photo coming soon
-            </p>
-          </div>
+        {/* Photo */}
+        <div className={`${item.aspectClass} relative overflow-hidden`}>
+          <Image
+            src={item.src}
+            alt={`${item.label} — ${item.location}`}
+            fill
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+            className="object-cover transition-transform duration-500 group-hover:scale-105"
+          />
           {/* Hover overlay */}
           <div
             className="absolute inset-0 flex items-end p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-200"
