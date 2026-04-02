@@ -4,7 +4,7 @@
 
 import FadeIn from "@/components/animations/FadeIn";
 import SectionHeading from "@/components/animations/SectionHeading";
-import { trustSignals, sectionCopy } from "@/data/site";
+import { trustSignals, sectionCopy, hero } from "@/data/site";
 
 const s = sectionCopy.trust;
 
@@ -49,6 +49,27 @@ export default function TrustSection() {
   return (
     <section className="py-16 lg:py-24" style={{ backgroundColor: "var(--bg-base)" }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        {/* Trust badge strip — moved down from hero */}
+        <FadeIn direction="up" delay={0}>
+          <div className="flex flex-wrap gap-3 mb-12 lg:mb-16">
+            {hero.trustBadges.map((badge) => (
+              <div
+                key={badge}
+                className="flex items-center gap-2 px-4 py-2 rounded-full border text-sm font-body font-medium"
+                style={{ borderColor: "var(--accent)", color: "var(--text-secondary)", backgroundColor: "var(--accent-muted)" }}
+              >
+                <span
+                  className="flex-shrink-0 w-4 h-4 rounded-full flex items-center justify-center text-[10px] font-bold"
+                  style={{ backgroundColor: "var(--accent)", color: "var(--primary)" }}
+                >
+                  ✓
+                </span>
+                {badge}
+              </div>
+            ))}
+          </div>
+        </FadeIn>
 
         {/* Header */}
         <SectionHeading

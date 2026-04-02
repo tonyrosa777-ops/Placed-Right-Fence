@@ -102,12 +102,13 @@ interface Layout {
 
 function getLayout(W: number, H: number): Layout {
   if (W < 640) {
-    // Mobile: tiny fence hugging the very bottom of the hero — stays below content
-    const n = 6; const spacing = 24; const w = 8; const fullH = 46;
+    // Mobile: fence sits at ~87% viewport height — visible in initial view after
+    // trust badges move to TrustSection (hero content ends around 80%)
+    const n = 6; const spacing = 24; const w = 8; const fullH = 52;
     return {
       n, spacing, w, fullH,
       startX: W * 0.5 - ((n - 1) * spacing) / 2,
-      groundY: H * 0.95,
+      groundY: H * 0.87,
       isMobile: true,
     };
   }

@@ -57,12 +57,11 @@ const up = (delay = 0) => ({
 });
 
 export default function HeroSection() {
-  // Headline word count → derive CTA + trust delays
+  // Headline word count → derive CTA delays
   const headlineWords = hero.headline.replace(/\n/g, " ").split(" ").length;
   const headlineEndDelay = 0.15 + headlineWords * 0.08; // ~0.7s for 7 words
   const subDelay = headlineEndDelay + 0.1;
   const ctaDelay = subDelay + 0.3;
-  const trustDelay = ctaDelay + 0.25;
 
   return (
     <section
@@ -88,7 +87,7 @@ export default function HeroSection() {
       />
 
       {/* ── Content ────────────────────────────────────────────────────── */}
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-16 lg:pt-20 lg:pb-28">
         <div className="max-w-3xl">
 
           {/* Eyebrow */}
@@ -144,28 +143,6 @@ export default function HeroSection() {
             </Button>
           </motion.div>
 
-          {/* Trust badges */}
-          <motion.div
-            {...up(trustDelay)}
-            className="flex flex-wrap gap-x-6 gap-y-2.5"
-          >
-            {hero.trustBadges.map((badge) => (
-              <div key={badge} className="flex items-center gap-2">
-                <span
-                  className="flex-shrink-0 w-4 h-4 rounded-full flex items-center justify-center text-[#0D0D0D] text-[10px] font-bold"
-                  style={{ backgroundColor: "var(--accent)" }}
-                >
-                  ✓
-                </span>
-                <span
-                  className="font-body text-sm"
-                  style={{ color: "rgba(255,255,255,0.55)" }}
-                >
-                  {badge}
-                </span>
-              </div>
-            ))}
-          </motion.div>
 
         </div>
       </div>
