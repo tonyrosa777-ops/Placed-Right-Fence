@@ -103,8 +103,12 @@ interface Layout {
 function getLayout(W: number, H: number): Layout {
   if (W < 640) {
     // Mobile: single centered spear-tip picket — tall gold beacon behind the headline
-    // Tip lands just below the subheadline text
-    const n = 1; const w = 18; const fullH = 200;
+    // Tip lands just below the subheadline text.
+    // fullH is viewport-height-aware: on tall modern phones the hero content sits
+    // lower (flex items-center pushes it down), so the picket must be taller to
+    // keep the tip at the subheadline level rather than hiding behind the CTA buttons.
+    const n = 1; const w = 18;
+    const fullH = H > 750 ? 240 : 200;
     return {
       n, spacing: 0, w, fullH,
       startX: W * 0.5,
