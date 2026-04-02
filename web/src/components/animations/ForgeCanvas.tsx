@@ -129,11 +129,11 @@ function getLayout(W: number, H: number): Layout {
     };
   }
   // Desktop: full 10-picket fence, right-side positioned
-  const n = 10; const spacing = 46; const w = 15; const fullH = 220;
+  const n = 10; const spacing = 46; const w = 15; const fullH = 240;
   return {
     n, spacing, w, fullH,
     startX: W * 0.72 - ((n - 1) * spacing) / 2,
-    groundY: H * 0.58,
+    groundY: H * 0.73,
     isMobile: false,
   };
 }
