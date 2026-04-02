@@ -104,7 +104,7 @@ function getLayout(W: number, H: number): Layout {
   if (W < 640) {
     // Mobile: single centered spear-tip picket — tall gold beacon behind the headline
     // Tip lands just below the subheadline text
-    const n = 1; const w = 18; const fullH = 200;
+    const n = 1; const w = 18; const fullH = 185;
     return {
       n, spacing: 0, w, fullH,
       startX: W * 0.5,
