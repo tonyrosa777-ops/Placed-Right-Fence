@@ -39,7 +39,7 @@ export default function HeroSection() {
       <div className="lg:hidden absolute inset-0 overflow-hidden">
         <div
           className="animate-kenburns absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={{ backgroundImage: "url('/images/hero-after.jpg')" }}
+          style={{ backgroundImage: "url('/images/ending-photo.jpg')" }}
         />
       </div>
 
