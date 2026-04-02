@@ -103,12 +103,12 @@ interface Layout {
 function getLayout(W: number, H: number): Layout {
   if (W < 640) {
     // Mobile: single centered spear-tip picket — tall gold beacon behind the headline
-    // Tip lands at ~groundY - fullH (~70% down on a 844px screen, below subheadline)
-    const n = 1; const w = 17; const fullH = 175;
+    // Tip lands just below the subheadline text
+    const n = 1; const w = 18; const fullH = 200;
     return {
       n, spacing: 0, w, fullH,
       startX: W * 0.5,
-      groundY: H * 0.91,
+      groundY: H * 0.88,
       isMobile: true,
     };
   }
