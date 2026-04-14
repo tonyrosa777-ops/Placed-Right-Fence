@@ -7,6 +7,197 @@ import { getColorHex } from "@/lib/printful";
 import { products, SHOP_CATEGORIES } from "@/data/shop";
 import type { Product } from "@/data/shop";
 
+// ── Launch flag ───────────────────────────────────────────────────────────────
+// Set NEXT_PUBLIC_SHOP_LIVE=true once Stripe + Printful keys are configured in Vercel.
+// Until then, the page shows a "Coming Soon" takeover with email capture.
+const SHOP_LIVE = process.env.NEXT_PUBLIC_SHOP_LIVE === "true";
+
+// ── Coming Soon takeover ─────────────────────────────────────────────────────
+
+function ComingSoonShop() {
+  const [email, setEmail] = useState("");
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [errorMsg, setErrorMsg] = useState("");
+
+  const web3formsKey = process.env.NEXT_PUBLIC_WEB3FORMS_KEY;
+
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    if (!email) return;
+    setStatus("loading");
+    setErrorMsg("");
+
+    try {
+      if (!web3formsKey) {
+        setStatus("error");
+        setErrorMsg("Signup form is not configured yet. Please email us directly.");
+        return;
+      }
+      const res = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({
+          access_key: web3formsKey,
+          subject: "Shop Waitlist Signup — Placed Right Fence",
+          from_name: "Placed Right Fence — Shop Waitlist",
+          email,
+          source: "shop_coming_soon",
+        }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        setStatus("success");
+        setEmail("");
+      } else {
+        setStatus("error");
+        setErrorMsg(data.message || "Something went wrong. Please try again.");
+      }
+    } catch {
+      setStatus("error");
+      setErrorMsg("Network error. Please try again.");
+    }
+  }
+
+  return (
+    <>
+      {/* Hero */}
+      <section className="bg-[var(--primary)] pt-32 pb-20 relative overflow-hidden">
+        {/* Subtle background accent */}
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 opacity-[0.06]"
+          style={{
+            backgroundImage:
+              "radial-gradient(circle at 20% 20%, var(--accent) 0%, transparent 50%), radial-gradient(circle at 80% 80%, var(--accent) 0%, transparent 50%)",
+          }}
+        />
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative">
+          <p
+            className="font-mono text-xs tracking-[0.08em] uppercase mb-4"
+            style={{ color: "var(--accent)" }}
+          >
+            Placed Right Merch
+          </p>
+          <h1 className="font-display text-4xl lg:text-6xl text-white leading-tight mb-5">
+            Going Live Soon.
+          </h1>
+          <p className="text-white/65 text-lg max-w-xl mx-auto leading-relaxed mb-10">
+            Branded hats, tees, hoodies, and stickers for homeowners, crew, and anyone who
+            appreciates a fence built right. Drop your email and we&rsquo;ll let you know the
+            minute the shop opens.
+          </p>
+
+          {/* Email capture */}
+          {status === "success" ? (
+            <div
+              className="inline-flex flex-col items-center gap-2 px-6 py-5 rounded-xl"
+              style={{
+                background: "rgba(201,168,76,0.12)",
+                border: "1px solid rgba(201,168,76,0.35)",
+              }}
+            >
+              <svg viewBox="0 0 24 24" fill="none" className="w-7 h-7" style={{ color: "var(--accent)" }}>
+                <path
+                  d="M5 12l5 5L20 7"
+                  stroke="currentColor"
+                  strokeWidth={2.5}
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+              <p className="font-display text-xl text-white">You&rsquo;re on the list.</p>
+              <p className="text-sm text-white/60">
+                We&rsquo;ll email you the moment the shop opens.
+              </p>
+            </div>
+          ) : (
+            <form
+              onSubmit={handleSubmit}
+              className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto"
+            >
+              <input
+                type="email"
+                required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="you@example.com"
+                className="flex-1 px-4 py-3 rounded-md border text-sm outline-none transition-all"
+                style={{
+                  background: "rgba(255,255,255,0.05)",
+                  borderColor: "rgba(255,255,255,0.15)",
+                  color: "white",
+                }}
+                disabled={status === "loading"}
+              />
+              <button
+                type="submit"
+                disabled={status === "loading"}
+                className="px-6 py-3 rounded-md font-semibold text-sm transition-all hover:brightness-110 disabled:opacity-50 cta-pulse"
+                style={{ background: "var(--accent)", color: "var(--primary)" }}
+              >
+                {status === "loading" ? "Sending…" : "Notify Me"}
+              </button>
+            </form>
+          )}
+
+          {status === "error" && (
+            <p className="mt-4 text-sm" style={{ color: "#f87171" }}>
+              {errorMsg}
+            </p>
+          )}
+
+          <p className="mt-6 text-xs text-white/40 max-w-sm mx-auto">
+            We&rsquo;ll only email you about the shop launch. No newsletter, no spam.
+          </p>
+        </div>
+      </section>
+
+      {/* Sneak peek — greyscale/blurred product silhouettes to signal life */}
+      <section className="py-20" style={{ background: "var(--bg-elevated)" }}>
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <p
+            className="font-mono text-xs tracking-[0.08em] uppercase mb-3 text-center"
+            style={{ color: "var(--text-muted)" }}
+          >
+            Dropping Soon
+          </p>
+          <h2
+            className="font-display text-2xl lg:text-3xl mb-10 text-center"
+            style={{ color: "var(--text-primary)" }}
+          >
+            A sneak peek at the first collection.
+          </h2>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {["Hoodie", "Hat", "Tee", "Sticker Pack"].map((item) => (
+              <div
+                key={item}
+                className="aspect-square rounded-xl border flex flex-col items-center justify-center gap-3 transition-all hover:scale-[1.02]"
+                style={{
+                  background: "linear-gradient(135deg, var(--primary) 0%, #1a1a1a 100%)",
+                  borderColor: "var(--border)",
+                }}
+              >
+                <svg viewBox="0 0 48 48" fill="none" className="w-10 h-10 opacity-40">
+                  <rect x="4" y="20" width="40" height="24" rx="2" stroke="var(--accent)" strokeWidth="2" />
+                  <path d="M4 20 L24 8 L44 20" stroke="var(--accent)" strokeWidth="2" />
+                </svg>
+                <span
+                  className="font-mono text-[10px] tracking-[0.12em] uppercase"
+                  style={{ color: "var(--accent)", opacity: 0.6 }}
+                >
+                  {item}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    </>
+  );
+}
+
+// ── Original live shop (kept intact — renders when SHOP_LIVE is true) ────────
+
 interface Variant {
   id: number;
   name: string;
@@ -83,7 +274,6 @@ function ProductCard({ product }: { product: Product }) {
       className="rounded-xl overflow-hidden border border-[var(--border)] flex flex-col transition-shadow hover:shadow-lg"
       style={{ background: "var(--bg-card)" }}
     >
-      {/* Image */}
       <div className="relative h-56 bg-[var(--bg-elevated)]">
         {previewUrl ? (
           <Image src={previewUrl} alt={product.name} fill className="object-cover" sizes="(max-width:768px) 100vw, 33vw" />
@@ -122,7 +312,6 @@ function ProductCard({ product }: { product: Product }) {
           </div>
         ) : (
           <>
-            {/* Color swatches */}
             {colors.length > 0 && (
               <div className="flex flex-wrap gap-1.5">
                 {colors.map((color) => (
@@ -141,7 +330,6 @@ function ProductCard({ product }: { product: Product }) {
               </div>
             )}
 
-            {/* Size chips */}
             {sizes.length > 0 && (
               <div className="flex flex-wrap gap-1.5">
                 {sizes.map((size) => (
@@ -180,7 +368,7 @@ function ProductCard({ product }: { product: Product }) {
   );
 }
 
-export default function ShopPage() {
+function LiveShop() {
   const [activeCategory, setActiveCategory] = useState<string>("All");
   const filtered = activeCategory === "All"
     ? products
@@ -188,7 +376,6 @@ export default function ShopPage() {
 
   return (
     <>
-      {/* Hero */}
       <section className="bg-[var(--primary)] pt-32 pb-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <p className="font-mono text-xs tracking-[0.08em] uppercase mb-3" style={{ color: "var(--accent)" }}>
@@ -198,18 +385,9 @@ export default function ShopPage() {
           <p className="text-white/60 text-lg max-w-xl mb-6">
             Branded gear for homeowners, crew, and anyone who appreciates a fence built right.
           </p>
-          {/* Preview banner — remove once STRIPE_SECRET_KEY + PRINTFUL_API_KEY are set */}
-          <div
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium"
-            style={{ background: "rgba(201,168,76,0.15)", border: "1px solid rgba(201,168,76,0.4)", color: "rgba(201,168,76,0.9)" }}
-          >
-            <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: "var(--accent)" }} />
-            Preview — checkout activates when Stripe + Printful keys are configured
-          </div>
         </div>
       </section>
 
-      {/* Category filter */}
       <div className="bg-[var(--bg-elevated)] border-b border-[var(--border)]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex gap-2 flex-wrap">
           {SHOP_CATEGORIES.map((cat) => (
@@ -229,7 +407,6 @@ export default function ShopPage() {
         </div>
       </div>
 
-      {/* Grid */}
       <section className="py-16" style={{ background: "var(--bg-base)" }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -245,4 +422,8 @@ export default function ShopPage() {
       </Suspense>
     </>
   );
+}
+
+export default function ShopPage() {
+  return SHOP_LIVE ? <LiveShop /> : <ComingSoonShop />;
 }

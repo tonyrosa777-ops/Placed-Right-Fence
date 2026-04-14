@@ -318,6 +318,33 @@ Memory saved: `project_forge_canvas_locked.md` — getLayout() values locked, do
 3. NH Permit Guide + Pool Fence Compliance content pages
 4. Phase 7: Lighthouse audit + Google Analytics
 
+### Session 9 — 2026-04-14
+**Completed: Canonical domain swap + Shop coming-soon launch**
+
+Canonical domain is now `placedrightfences.com` (plural). `placedrightfence.com` (singular) will 301-redirect to canonical via Vercel domain settings.
+
+Files updated:
+- `siteConfig.domain` + `siteConfig.url` + `siteConfig.email` → placedrightfences.com
+- `web/src/app/layout.tsx` metadataBase + OpenGraph URL → placedrightfences.com
+- `web/src/app/api/stripe/webhook/route.ts` from-address → shop@placedrightfences.com
+- `CLAUDE.md` DOMAIN variable updated with canonical + redirect note
+
+Shop coming-soon takeover (`web/src/app/shop/page.tsx`):
+- Feature flag: `NEXT_PUBLIC_SHOP_LIVE=true` toggles between live shop and coming-soon
+- Default = coming-soon. `<ComingSoonShop>` renders centered hero ("Going Live Soon."), email capture form posting to Web3Forms with `source: "shop_coming_soon"`, sneak-peek grid with 4 greyscale product silhouettes
+- Success state: green checkmark card "You're on the list."
+- Existing `<LiveShop>` + ProductCard logic preserved in same file, activates via flag
+- `ShopTeaser` on homepage: eyebrow now reads "Placed Right Gear · Going Live Soon"; CTA changed from "Shop All Gear →" to "Join the Waitlist →"; lands on new coming-soon page
+
+**Vercel action items (for Anthony):**
+1. Add both domains to Vercel project → Settings → Domains
+2. Set `placedrightfences.com` as primary → Vercel auto-301s the other
+3. Update DNS at registrar: both domains' A records → 76.76.21.21 (or CNAME to cname.vercel-dns.com for www)
+4. Env vars needed live: `NEXT_PUBLIC_WEB3FORMS_KEY` (for contact + shop waitlist), eventually `NEXT_PUBLIC_SHOP_LIVE=true` + Stripe/Printful keys when shop is ready
+5. Update Google Business Profile URL to placedrightfences.com post-propagation
+
+Build: ✓ TypeScript clean, 34 static routes.
+
 ### Session 8 — 2026-04-14
 **Completed: Client update pass (Jen's notes) — tagline, 1% promise, pricing format, Trex + Luxury services, review realism**
 

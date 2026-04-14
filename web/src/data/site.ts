@@ -8,7 +8,7 @@ export const siteConfig = {
   description:
     "Southern NH's trusted family fence installer. Wood, vinyl, aluminum, and chain link — built below the frost line, built to last. Free on-site estimates within 72 hours.",
   phone: "(978) 207-4077",
-  email: "info@placedrightfence.com",
+  email: "info@placedrightfences.com",
   address: {
     street: "221 Main St #8008",
     city: "Nashua",
@@ -21,8 +21,8 @@ export const siteConfig = {
     instagramHandle: "@placedrightfence",
   },
   estimateWindow: "72 hours",
-  domain: "placedrightfence.com",
-  url: "https://placedrightfence.com",
+  domain: "placedrightfences.com",
+  url: "https://placedrightfences.com",
 } as const;
 
 // ─── Our Promise ─────────────────────────────────────────────────────────────

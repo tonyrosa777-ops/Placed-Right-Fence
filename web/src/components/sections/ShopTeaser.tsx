@@ -43,19 +43,19 @@ export default function ShopTeaser() {
             className="font-mono text-xs tracking-[0.1em] uppercase mb-3"
             style={{ color: "var(--accent)" }}
           >
-            Placed Right Gear
+            Placed Right Gear · Going Live Soon
           </p>
           <h2
             className="font-display text-white mb-3"
             style={{ fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)", lineHeight: 1.1 }}
           >
-            Represent NH's Fence Company.
+            Represent NH&rsquo;s Fence Company.
           </h2>
           <p
             className="font-body text-sm max-w-lg mx-auto"
             style={{ color: "rgba(255,255,255,0.5)" }}
           >
-            Hats, hoodies, and stickers. Built for people who appreciate things done right.
+            Hats, hoodies, and stickers dropping soon. Join the waitlist to get early access.
           </p>
         </FadeIn>
 
@@ -117,7 +117,7 @@ export default function ShopTeaser() {
               color: "var(--primary)",
             }}
           >
-            Shop All Gear →
+            Join the Waitlist →
           </Link>
         </FadeIn>
 

@@ -1,7 +1,7 @@
 # CLAUDE.md — Placed Right Fence Co. LLC Project Rules
 #
 # BUSINESS_NAME:    Placed Right Fence Co. LLC
-# DOMAIN:           placedrightfence.com
+# DOMAIN:           placedrightfences.com (canonical) — placedrightfence.com 301-redirects to canonical
 # BUSINESS_TYPE:    family-run residential fence installation and repair contractor
 # LOCATION:         Nashua, NH (serves Southern NH and Seacoast)
 # LAUNCH_TARGET:    April 2026

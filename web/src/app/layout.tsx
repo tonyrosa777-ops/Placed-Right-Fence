@@ -7,6 +7,7 @@ import MobileCTABar from "@/components/layout/MobileCTABar";
 import SchemaOrg from "@/components/layout/SchemaOrg";
 import ScrollProgress from "@/components/animations/ScrollProgress";
 import PageTransition from "@/components/animations/PageTransition";
+import { CartProvider } from "@/lib/cart";
 
 const dmSerifDisplay = DM_Serif_Display({
   weight: ["400"],
@@ -38,11 +39,11 @@ export const metadata: Metadata = {
   },
   description:
     "Southern NH's trusted family fence installer. Wood, vinyl, aluminum, and chain link — built below the frost line, built to last. Free on-site estimates within 72 hours. Serving Nashua, Manchester, and all of Southern NH.",
-  metadataBase: new URL("https://placedrightfence.com"),
+  metadataBase: new URL("https://placedrightfences.com"),
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://placedrightfence.com",
+    url: "https://placedrightfences.com",
     siteName: "Placed Right Fence Co. LLC",
     title: "Placed Right Fence Co. LLC — Fence Installation & Repair | Nashua, NH",
     description:
@@ -78,14 +79,16 @@ export default function RootLayout({
       className={`${dmSerifDisplay.variable} ${dmSans.variable} ${ibmPlexMono.variable} h-full`}
     >
       <body className="min-h-full flex flex-col antialiased">
-          <ScrollProgress />
-          <SchemaOrg />
-          <SiteHeader />
-          <main className="flex-1">
-            <PageTransition>{children}</PageTransition>
-          </main>
-          <SiteFooter />
-          <MobileCTABar />
+          <CartProvider>
+            <ScrollProgress />
+            <SchemaOrg />
+            <SiteHeader />
+            <main className="flex-1">
+              <PageTransition>{children}</PageTransition>
+            </main>
+            <SiteFooter />
+            <MobileCTABar />
+          </CartProvider>
         </body>
     </html>
   );
