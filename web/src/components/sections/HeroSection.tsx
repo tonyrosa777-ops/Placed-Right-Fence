@@ -15,11 +15,17 @@ function WordReveal({
   text,
   startDelay = 0,
   stagger = 0.08,
+  glimmer = false,
+  glimmerStart = 1.2,
+  glimmerStep = 0.5,
   className = "",
 }: {
   text: string;
   startDelay?: number;
   stagger?: number;
+  glimmer?: boolean;
+  glimmerStart?: number;
+  glimmerStep?: number;
   className?: string;
 }) {
   const lines = text.split("\n");
@@ -30,14 +36,17 @@ function WordReveal({
       {lines.map((line, li) => (
         <span key={li} className="block">
           {line.split(" ").map((word) => {
-            const delay = startDelay + wordIndex++ * stagger;
+            const wi = wordIndex++;
+            const delay = startDelay + wi * stagger;
+            const glimmerDelay = glimmerStart + wi * glimmerStep;
             return (
               <motion.span
                 key={`${li}-${word}-${delay}`}
                 initial={{ opacity: 0, y: 18 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay, ease: EASE }}
-                className="inline-block mr-[0.22em]"
+                className={`inline-block mr-[0.22em]${glimmer ? " word-glimmer" : ""}`}
+                style={glimmer ? { animationDelay: `${glimmerDelay}s` } : undefined}
               >
                 {word}
               </motion.span>
@@ -104,7 +113,14 @@ export default function HeroSection() {
             className="font-display hero-glimmer leading-[1.06] mb-4"
             style={{ fontSize: "clamp(3rem, 6vw, 5rem)" }}
           >
-            <WordReveal text={hero.headline} startDelay={0.15} stagger={0.08} />
+            <WordReveal
+              text={hero.headline}
+              startDelay={0.15}
+              stagger={0.08}
+              glimmer
+              glimmerStart={1.3}
+              glimmerStep={0.55}
+            />
           </h1>
 
           {/* Tagline kicker — "When you install a Placed Right Fence." */}

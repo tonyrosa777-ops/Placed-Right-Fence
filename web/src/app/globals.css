@@ -181,44 +181,42 @@ h1, h2, h3 {
    Uses background-clip: text so the glimmer only paints inside the letters.
    Children (motion.span word reveals) inherit the transparent fill so the
    effect works on each word without interrupting their reveal animation. */
-.hero-glimmer {
+/* Container is just a color host; actual glimmer lives on each word span. */
+.hero-glimmer { color: #ffffff; }
+
+/* Per-word gold sweep. Each word carries .word-glimmer and its own
+   animation-delay so the highlight passes through words sequentially
+   (word 1 → word 2 → word 3 …), reading-style, at ~0.5s apart. */
+.word-glimmer {
   background-image: linear-gradient(
     110deg,
     #ffffff 0%,
-    #ffffff 44%,
-    #f4e7b0 48%,
+    #ffffff 30%,
+    #f4e7b0 45%,
     #C9A84C 50%,
-    #f4e7b0 52%,
-    #ffffff 56%,
+    #f4e7b0 55%,
+    #ffffff 70%,
     #ffffff 100%
   );
-  background-size: 400% 100%;
+  background-size: 300% 100%;
   background-position: 100% 0;
   background-repeat: no-repeat;
   -webkit-background-clip: text;
           background-clip: text;
   -webkit-text-fill-color: transparent;
           color: transparent;
-  animation: hero-glimmer 6s linear 1.2s infinite;
+  animation: word-glimmer 5s linear infinite;
 }
-.hero-glimmer > * {
-  -webkit-text-fill-color: transparent;
-          color: transparent;
-}
-@keyframes hero-glimmer {
-  0%   { background-position: 100% 0; }
-  88%  { background-position: 0% 0; }
-  100% { background-position: 0% 0; }
+@keyframes word-glimmer {
+  0%,  0%   { background-position: 100% 0; }
+  16%       { background-position: 0% 0; }
+  100%      { background-position: 0% 0; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .hero-glimmer {
+  .word-glimmer {
     animation: none;
     background: none;
-    -webkit-text-fill-color: #ffffff;
-            color: #ffffff;
-  }
-  .hero-glimmer > * {
     -webkit-text-fill-color: #ffffff;
             color: #ffffff;
   }
