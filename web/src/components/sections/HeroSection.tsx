@@ -119,7 +119,7 @@ export default function HeroSection() {
               stagger={0.08}
               glimmer
               glimmerStart={1.3}
-              glimmerStep={0.55}
+              glimmerStep={0.9}
             />
           </h1>
 
