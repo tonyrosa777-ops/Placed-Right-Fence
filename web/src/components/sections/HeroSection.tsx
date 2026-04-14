@@ -101,7 +101,7 @@ export default function HeroSection() {
 
           {/* H1 — word-by-word reveal */}
           <h1
-            className="font-display text-white leading-[1.06] mb-4"
+            className="font-display hero-glimmer leading-[1.06] mb-4"
             style={{ fontSize: "clamp(3rem, 6vw, 5rem)" }}
           >
             <WordReveal text={hero.headline} startDelay={0.15} stagger={0.08} />
