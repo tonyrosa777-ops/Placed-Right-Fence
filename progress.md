@@ -318,6 +318,27 @@ Memory saved: `project_forge_canvas_locked.md` — getLayout() values locked, do
 3. NH Permit Guide + Pool Fence Compliance content pages
 4. Phase 7: Lighthouse audit + Google Analytics
 
+### Session 10 — 2026-04-14
+**Completed: Jen's brand alignment pass — hero = tagline, services reordered, shelter copy exact to brochure**
+
+Hero ([site.ts](web/src/data/site.ts) `hero` + [HeroSection.tsx](web/src/components/sections/HeroSection.tsx)):
+- Headline swapped: "The Last Fence\nYou'll Ever Need." → **"Love Wins Where\nPickets Begin."**
+- NEW `hero.tagline` field renders as italic gold kicker between H1 and gold rule: "When you install a Placed Right Fence."
+- Subheadline rewritten: "Southern NH & NH Seacoast — live elsewhere, give us a call. We install Trex, vinyl, wood, chain link, aluminum and more…"
+- Eyebrow: "Family-Run · Southern NH & Seacoast · Fully Insured"
+- Trust badges: added "1% of Every Install → Animal Shelter" + emphasized "Fully Insured"
+- Primary CTA copy: "Get Your FREE Estimate" (all caps per Jen's brochure)
+
+Services reordered (Jen's card sequence): Trex/Composite → Vinyl → Wood → Chain Link → Aluminum → Repair → Luxury (coming soon). All consumers (ServicesSection, services page, EstimateForm Step1, GalleryTeaser if applicable) reflect automatically.
+
+Promise copy tightened to match Jen's brochure verbatim: "For every completed fence installation, we donate 1% of **your** total project to an approved **local** animal shelter of **your** choice…" (added "your" + "local"; footer short version matches)
+
+Service-areas section subheadline now echoes brochure: "Live elsewhere? Give us a call — free on-site estimates within 72 hours."
+
+Verified: no "7%" references anywhere in the code. All 1% promise copy is consistent.
+
+Build: ✓ TypeScript clean, 34 static routes.
+
 ### Session 9 — 2026-04-14
 **Completed: Canonical domain swap + Shop coming-soon launch**
 

@@ -31,8 +31,8 @@ export const siteConfig = {
 export const promise = {
   eyebrow: "Our Promise",
   headline: "Every Fence Helps a Shelter Pet.",
-  body: "For every completed fence installation, we donate 1% of the total project to an approved animal shelter of your choice. Donations are made directly to the shelter by Placed Right Fence and cannot be redeemed for cash or discounts.",
-  short: "1% of every completed install goes to the animal shelter of your choice.",
+  body: "For every completed fence installation, we donate 1% of your total project to an approved local animal shelter of your choice. Donations are made directly to the shelter by Placed Right Fence and cannot be redeemed for cash or discounts.",
+  short: "1% of your total project goes to the animal shelter of your choice.",
 } as const;
 
 // ─── Navigation ──────────────────────────────────────────────────────────────
@@ -53,17 +53,18 @@ export const nav = [
 // Source: market-intelligence.md §2 audience language, §9 emotional positioning gap
 
 export const hero = {
-  eyebrow: "Family-Run · Southern NH · Insured",
-  headline: "The Last Fence\nYou'll Ever Need.",
+  eyebrow: "Family-Run · Southern NH & Seacoast · Fully Insured",
+  headline: "Love Wins Where\nPickets Begin.",
+  tagline: "When you install a Placed Right Fence.",
   subheadline:
-    "A safe yard for your kids and dogs shouldn't be this hard to get. We install fences built for New Hampshire — below the frost line, through granite soil, guaranteed to stay straight.",
-  primaryCta: { label: "Get Your Free Estimate", href: "/contact" },
+    "Southern NH & NH Seacoast — live elsewhere, give us a call. We install Trex, vinyl, wood, chain link, aluminum and more, built below the frost line and guaranteed to stay straight.",
+  primaryCta: { label: "Get Your FREE Estimate", href: "/contact" },
   secondaryCta: { label: "See Our Work", href: "/gallery" },
   trustBadges: [
     "Free Estimate Within 72 Hours",
-    "Family-Owned & Insured",
+    "Family-Owned & Fully Insured",
+    "1% of Every Install → Animal Shelter",
     "NH Born & Raised",
-    "No Hidden Costs",
   ],
 } as const;
 
@@ -72,15 +73,15 @@ export const hero = {
 
 export const services = [
   {
-    id: "wood",
-    name: "Wood Fencing",
-    slug: "wood-fence",
-    tagline: "Classic. Private. Built for NH winters.",
+    id: "trex-composite",
+    name: "Trex / Composite Fencing",
+    slug: "trex-composite-fence",
+    tagline: "Premium composite. Zero upkeep.",
     description:
-      "Pressure-treated cedar and pine privacy fences with posts set below the 48-inch NH frost line. Your fence won't heave, shift, or rot within years like cheap installations. We build it once, right.",
-    useCases: ["Privacy", "Pet containment", "Property boundary", "Decorative"],
-    priceRange: "Starting at $25 / linear foot installed",
-    icon: "🪵",
+      "Trex® and engineered composite fencing — the strength and look of wood with none of the warping, rot, or staining. Backed by a 25-year manufacturer warranty and built on posts set below the 48-inch NH frost line.",
+    useCases: ["Privacy", "Premium curb appeal", "Long-term value", "Low maintenance"],
+    priceRange: "Starting at $55 / linear foot installed",
+    icon: "🌲",
     comingSoon: false,
   },
   {
@@ -96,15 +97,15 @@ export const services = [
     comingSoon: false,
   },
   {
-    id: "aluminum",
-    name: "Aluminum Fencing",
-    slug: "aluminum-fence",
-    tagline: "Elegant. Corrosion-free. Pool-code ready.",
+    id: "wood",
+    name: "Wood Fencing",
+    slug: "wood-fence",
+    tagline: "Classic. Private. Built for NH winters.",
     description:
-      "Ornamental aluminum that meets NH pool code compliance requirements out of the box. Rust-proof and powder-coated for permanent finish. Great for defining property lines with style.",
-    useCases: ["Pool safety", "Decorative boundary", "Pet containment", "Commercial"],
-    priceRange: "Starting at $30 / linear foot installed",
-    icon: "⚙️",
+      "Pressure-treated cedar and pine privacy fences with posts set below the 48-inch NH frost line. Your fence won't heave, shift, or rot within years like cheap installations. We build it once, right.",
+    useCases: ["Privacy", "Pet containment", "Property boundary", "Decorative"],
+    priceRange: "Starting at $25 / linear foot installed",
+    icon: "🪵",
     comingSoon: false,
   },
   {
@@ -120,15 +121,15 @@ export const services = [
     comingSoon: false,
   },
   {
-    id: "trex-composite",
-    name: "Trex / Composite Fencing",
-    slug: "trex-composite-fence",
-    tagline: "Premium composite. Zero upkeep.",
+    id: "aluminum",
+    name: "Aluminum Fencing",
+    slug: "aluminum-fence",
+    tagline: "Elegant. Corrosion-free. Pool-code ready.",
     description:
-      "Trex® and engineered composite fencing — the strength and look of wood with none of the warping, rot, or staining. Backed by a 25-year manufacturer warranty and built on posts set below the 48-inch NH frost line.",
-    useCases: ["Privacy", "Premium curb appeal", "Long-term value", "Low maintenance"],
-    priceRange: "Starting at $55 / linear foot installed",
-    icon: "🌲",
+      "Ornamental aluminum that meets NH pool code compliance requirements out of the box. Rust-proof and powder-coated for permanent finish. Great for defining property lines with style.",
+    useCases: ["Pool safety", "Decorative boundary", "Pet containment", "Commercial"],
+    priceRange: "Starting at $30 / linear foot installed",
+    icon: "⚙️",
     comingSoon: false,
   },
   {
@@ -577,9 +578,9 @@ export const sectionCopy = {
   },
   serviceAreas: {
     eyebrow: "Service Area",
-    headline: "Southern NH & Seacoast.",
+    headline: "Southern NH & NH Seacoast.",
     subheadline:
-      "We serve 25+ cities across Southern NH and the Seacoast. Free on-site estimates within 72 hours — wherever you are.",
+      "We serve 25+ cities across Southern NH and the Seacoast. Live elsewhere? Give us a call — free on-site estimates within 72 hours.",
     cta: { label: "See All Service Areas", href: "/service-areas" },
   },
 } as const;

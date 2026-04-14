@@ -101,17 +101,30 @@ export default function HeroSection() {
 
           {/* H1 — word-by-word reveal */}
           <h1
-            className="font-display text-white leading-[1.06] mb-6"
+            className="font-display text-white leading-[1.06] mb-4"
             style={{ fontSize: "clamp(3rem, 6vw, 5rem)" }}
           >
             <WordReveal text={hero.headline} startDelay={0.15} stagger={0.08} />
           </h1>
 
-          {/* Gold accent rule — appears after headline */}
+          {/* Tagline kicker — "When you install a Placed Right Fence." */}
+          <motion.p
+            {...up(headlineEndDelay - 0.05)}
+            className="font-display italic mb-6"
+            style={{
+              color: "var(--accent)",
+              fontSize: "clamp(1.125rem, 1.8vw, 1.5rem)",
+              lineHeight: 1.3,
+            }}
+          >
+            {hero.tagline}
+          </motion.p>
+
+          {/* Gold accent rule — appears after tagline */}
           <motion.div
             initial={{ scaleX: 0, originX: 0 }}
             animate={{ scaleX: 1 }}
-            transition={{ duration: 0.6, delay: headlineEndDelay, ease: EASE }}
+            transition={{ duration: 0.6, delay: headlineEndDelay + 0.05, ease: EASE }}
             className="h-px w-24 mb-6"
             style={{ backgroundColor: "var(--accent)" }}
           />
