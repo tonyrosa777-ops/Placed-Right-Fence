@@ -4,7 +4,7 @@
 **Client:** Placed Right Fence Co. LLC | Nashua, NH (Southern NH and Seacoast)
 **Business Type:** Family-run residential fence installation and repair contractor
 **Launch Target:** April 2026 (ASAP — client wants live in 3–4 weeks; spring is peak season)
-**Last Updated:** 2026-04-14 (Session 8)
+**Last Updated:** 2026-04-14 (Session 9)
 **Current Phase:** Phase 5 — Secondary Pages & Polish
 
 ---
@@ -336,12 +336,17 @@ Shop coming-soon takeover (`web/src/app/shop/page.tsx`):
 - Existing `<LiveShop>` + ProductCard logic preserved in same file, activates via flag
 - `ShopTeaser` on homepage: eyebrow now reads "Placed Right Gear · Going Live Soon"; CTA changed from "Shop All Gear →" to "Join the Waitlist →"; lands on new coming-soon page
 
-**Vercel action items (for Anthony):**
+**Vercel action items (DEFERRED — coming back to domain setup shortly):**
 1. Add both domains to Vercel project → Settings → Domains
 2. Set `placedrightfences.com` as primary → Vercel auto-301s the other
 3. Update DNS at registrar: both domains' A records → 76.76.21.21 (or CNAME to cname.vercel-dns.com for www)
 4. Env vars needed live: `NEXT_PUBLIC_WEB3FORMS_KEY` (for contact + shop waitlist), eventually `NEXT_PUBLIC_SHOP_LIVE=true` + Stripe/Printful keys when shop is ready
 5. Update Google Business Profile URL to placedrightfences.com post-propagation
+6. Post-propagation: verify 301 with `curl -I https://placedrightfence.com` (expect `location: https://placedrightfences.com/`)
+7. Resubmit sitemap to Google Search Console: `https://placedrightfences.com/sitemap.xml`
+8. Decide on email hosting for `info@placedrightfences.com` (MX records not yet configured)
+
+Code is fully swapped — safe to sit at this state until domain config is ready. Reverting is a one-line change in siteConfig if ever needed.
 
 Build: ✓ TypeScript clean, 34 static routes.
 
