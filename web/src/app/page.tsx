@@ -9,6 +9,7 @@ import TestimonialsSection from "@/components/sections/TestimonialsSection";
 import FAQTeaser from "@/components/sections/FAQTeaser";
 import ServiceAreasSection from "@/components/sections/ServiceAreasSection";
 import ShopTeaser from "@/components/sections/ShopTeaser";
+import PromiseSection from "@/components/sections/PromiseSection";
 
 export default function HomePage() {
   return (
@@ -19,6 +20,7 @@ export default function HomePage() {
       <GalleryTeaser />
       <BlogTeaser />
       <AboutTeaser />
+      <PromiseSection />
       <TrustSection />
       <TestimonialsSection />
       <FAQTeaser />

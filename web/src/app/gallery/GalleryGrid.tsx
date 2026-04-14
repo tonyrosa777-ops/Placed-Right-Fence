@@ -53,7 +53,6 @@ const CHAIN_LINK = [
   { id: 34, label: "Mini-Mesh Chain Link",          aspectClass: "aspect-[4/3]",  src: "/gallery/gallery-34.jpg" },
   { id: 35, label: "Chain Link Gate",               aspectClass: "aspect-[4/3]",  src: "/gallery/gallery-35.jpg" },
   { id: 36, label: "Chain Link Along Wooded Edge",  aspectClass: "aspect-square", src: "/gallery/gallery-36.jpg" },
-  { id: 37, label: "Commercial Chain Link",         aspectClass: "aspect-[4/3]",  src: "/gallery/gallery-37.jpg" },
 ] as const;
 
 const REPAIR = [
@@ -71,7 +70,7 @@ const REPAIR = [
 // "All" view: interleave wood → vinyl → aluminum → chain-link → repair, repeating
 const ALL_ITEMS = Array.from({ length: 9 }, (_, i) => [
   WOOD[i], VINYL[i], ALUMINUM[i], CHAIN_LINK[i], REPAIR[i],
-]).flat();
+]).flat().filter((item): item is NonNullable<typeof item> => Boolean(item));
 
 type FilterValue = "all" | "wood" | "vinyl" | "aluminum" | "chain-link" | "repair";
 

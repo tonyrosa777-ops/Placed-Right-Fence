@@ -72,7 +72,8 @@ function ReviewCard({ t }: { t: Testimonial }) {
 }
 
 export default function TestimonialsPage() {
-  const fiveStarCount = testimonials.filter((t) => t.rating === 5).length;
+  const totalRatings = testimonials.reduce((sum, t) => sum + t.rating, 0);
+  const avgRating = (totalRatings / testimonials.length).toFixed(1);
 
   return (
     <>
@@ -89,7 +90,7 @@ export default function TestimonialsPage() {
             Real Jobs. Real Results.
           </h1>
           <p className="text-white/65 text-lg max-w-2xl leading-relaxed">
-            {fiveStarCount} five-star reviews from families across Southern NH and the Seacoast —
+            {testimonials.length} verified reviews from families across Southern NH and the Seacoast —
             dog owners, pool installs, storm repairs, and first-time homeowners.
           </p>
 
@@ -100,7 +101,7 @@ export default function TestimonialsPage() {
               <p className="text-xs font-mono tracking-wide text-white/50 uppercase mt-1">Reviews</p>
             </div>
             <div>
-              <p className="font-display text-3xl text-white">5.0</p>
+              <p className="font-display text-3xl text-white">{avgRating}</p>
               <p className="text-xs font-mono tracking-wide text-white/50 uppercase mt-1">Avg Rating</p>
             </div>
             <div>

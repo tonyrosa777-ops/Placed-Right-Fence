@@ -4,7 +4,7 @@
 **Client:** Placed Right Fence Co. LLC | Nashua, NH (Southern NH and Seacoast)
 **Business Type:** Family-run residential fence installation and repair contractor
 **Launch Target:** April 2026 (ASAP — client wants live in 3–4 weeks; spring is peak season)
-**Last Updated:** 2026-04-01 (Session 3)
+**Last Updated:** 2026-04-14 (Session 8)
 **Current Phase:** Phase 5 — Secondary Pages & Polish
 
 ---
@@ -291,6 +291,58 @@ Remaining Phase 5:
 3. Pricing page (/pricing)
 4. NH Permit Guide + Pool Fence Compliance pages
 5. Phase 7: Lighthouse audit + Google Analytics
+
+### Session 7 — 2026-04-02
+**Completed: Hero animation polish — mobile + desktop both locked**
+
+ForgeCanvas `getLayout()` final approved values:
+- **Mobile (W<640):** n=1, w=18, fullH=H>750?240:200, startX=W*0.5, groundY=Math.min(H*0.78,700)
+- **Desktop (W≥1024):** n=10, spacing=46, w=15, fullH=240, startX=W*0.72-offset, groundY=H*0.73
+
+Changes made this session:
+- desktop groundY: H*0.73 → H*0.58 (then reverted back to H*0.73 — user only wanted picket height)
+- desktop fullH: 148 → 240 — picket tips now reach headline/gold rule area
+- Hero section: `flex items-start lg:items-center` (mobile content top-aligned, desktop centered)
+- `SiteHeader.tsx` PRIMARY_HREFS: added `/testimonials`, total = `/services /gallery /blog /shop /testimonials`
+- Pricing: removed "Full Service" badge from Premium tier (Growth is now unambiguous hero)
+- Service Areas page: full redesign — dark hero, stats row, region cards, dark "Why Local" section, CountUp stats
+- Nav: renamed "Reviews" → "Testimonials", promoted to primary nav
+- Homepage: alternating dark/light rhythm — BlogTeaser, TrustSection, FAQTeaser flipped dark
+- GalleryTeaser: replaced icon-card layout with 3 real fal.ai photos (wood/vinyl/aluminum)
+
+Memory saved: `project_forge_canvas_locked.md` — getLayout() values locked, do not change.
+
+**Next Session:**
+1. og-image.jpg (1200×630) — needed before social shares work
+2. Individual fence type pages (/services/wood-fence, etc.)
+3. NH Permit Guide + Pool Fence Compliance content pages
+4. Phase 7: Lighthouse audit + Google Analytics
+
+### Session 8 — 2026-04-14
+**Completed: Client update pass (Jen's notes) — tagline, 1% promise, pricing format, Trex + Luxury services, review realism**
+
+site.ts:
+- Tagline updated: "Love Wins Where Pickets Begin — When You Install a Placed Right Fence."
+- New `promise` export — 1% of every completed install donated to an approved animal shelter of the homeowner's choice
+- Services: priceRange reformatted to "Starting at $X / linear foot installed" across all types
+- NEW service: `trex-composite` (Trex / Composite Fencing — Starting at $55/lf)
+- NEW service: `luxury` (Luxury Fencing — `comingSoon: true`, waitlist CTA)
+- Pricing ranges: all three tiers converted from $X–$Y ranges to "Starting at $X"
+- Testimonials: 4 reviews dropped 5→4 stars (Alison F., Lisa T., Rob S., Janet F.) — avg now ~4.9 for realism
+
+New component: `PromiseSection.tsx` — gold-heart + black-paw SVG, centered brand promise block, wired into homepage between AboutTeaser and TrustSection
+SiteFooter: added promise callout (gold left border, short 1-line version) under tagline
+ServicesSection + services page: both render "Coming Soon" badge for `comingSoon` entries; href routes to /contact instead of /services/[slug]; CTA copy swaps to "Join the Waitlist →"
+EstimateForm: Step1 filters out coming-soon services from the fence-type picker
+TestimonialsPage: avg rating now computed from data (4.9), no longer hard-coded 5.0; hero copy changed from "{N} five-star reviews" → "{N} verified reviews"
+GalleryGrid + generate-gallery-extra.mjs: removed barbed-wire reference — `gallery-37.jpg` (Commercial Chain Link) dropped from CHAIN_LINK, script prompt rewritten to "top rail and tension wire"; ALL_ITEMS .filter() guards against empty tuple slots
+
+Build: ✓ TypeScript clean, 34 static routes, production build passes.
+
+**Still outstanding (client-side):**
+- New logo PNG + gold-heart/black-paw mark — pending delivery; PromiseSection uses inline SVG placeholders tuned to brand colors
+- Additional gallery photos — pending delivery from Roger
+- og-image.jpg (1200×630)
 
 ### Session 6 — 2026-04-01
 **Completed: Nav cleanup + homepage full-page teasers**

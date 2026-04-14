@@ -4,7 +4,7 @@
 export const siteConfig = {
   name: "Placed Right Fence Co. LLC",
   shortName: "Placed Right Fence",
-  tagline: "Love Wins Where Our Pickets Begin.",
+  tagline: "Love Wins Where Pickets Begin — When You Install a Placed Right Fence.",
   description:
     "Southern NH's trusted family fence installer. Wood, vinyl, aluminum, and chain link — built below the frost line, built to last. Free on-site estimates within 72 hours.",
   phone: "(978) 207-4077",
@@ -23,6 +23,16 @@ export const siteConfig = {
   estimateWindow: "72 hours",
   domain: "placedrightfence.com",
   url: "https://placedrightfence.com",
+} as const;
+
+// ─── Our Promise ─────────────────────────────────────────────────────────────
+// Client-confirmed 2026-04-14: 1% of every completed install donated to an animal shelter of the homeowner's choice.
+
+export const promise = {
+  eyebrow: "Our Promise",
+  headline: "Every Fence Helps a Shelter Pet.",
+  body: "For every completed fence installation, we donate 1% of the total project to an approved animal shelter of your choice. Donations are made directly to the shelter by Placed Right Fence and cannot be redeemed for cash or discounts.",
+  short: "1% of every completed install goes to the animal shelter of your choice.",
 } as const;
 
 // ─── Navigation ──────────────────────────────────────────────────────────────
@@ -69,8 +79,9 @@ export const services = [
     description:
       "Pressure-treated cedar and pine privacy fences with posts set below the 48-inch NH frost line. Your fence won't heave, shift, or rot within years like cheap installations. We build it once, right.",
     useCases: ["Privacy", "Pet containment", "Property boundary", "Decorative"],
-    priceRange: "$25–$45 per linear foot installed",
+    priceRange: "Starting at $25 / linear foot installed",
     icon: "🪵",
+    comingSoon: false,
   },
   {
     id: "vinyl",
@@ -80,8 +91,9 @@ export const services = [
     description:
       "Premium vinyl that won't rot, splinter, or need painting — ever. Perfect for NH homeowners who want privacy and curb appeal without the weekend maintenance. Available in white, tan, and gray.",
     useCases: ["Privacy", "Curb appeal", "Low maintenance", "Pool enclosure"],
-    priceRange: "$35–$60 per linear foot installed",
+    priceRange: "Starting at $35 / linear foot installed",
     icon: "🏡",
+    comingSoon: false,
   },
   {
     id: "aluminum",
@@ -91,8 +103,9 @@ export const services = [
     description:
       "Ornamental aluminum that meets NH pool code compliance requirements out of the box. Rust-proof and powder-coated for permanent finish. Great for defining property lines with style.",
     useCases: ["Pool safety", "Decorative boundary", "Pet containment", "Commercial"],
-    priceRange: "$30–$55 per linear foot installed",
+    priceRange: "Starting at $30 / linear foot installed",
     icon: "⚙️",
+    comingSoon: false,
   },
   {
     id: "chain-link",
@@ -102,8 +115,21 @@ export const services = [
     description:
       "Galvanized and vinyl-coated chain link — the workhorse of pet and yard containment. Posts set in concrete below frost line. Decades of containment for a fraction of the cost of wood or vinyl.",
     useCases: ["Pet containment", "Yard boundary", "Commercial", "Security"],
-    priceRange: "$15–$28 per linear foot installed",
+    priceRange: "Starting at $15 / linear foot installed",
     icon: "🔗",
+    comingSoon: false,
+  },
+  {
+    id: "trex-composite",
+    name: "Trex / Composite Fencing",
+    slug: "trex-composite-fence",
+    tagline: "Premium composite. Zero upkeep.",
+    description:
+      "Trex® and engineered composite fencing — the strength and look of wood with none of the warping, rot, or staining. Backed by a 25-year manufacturer warranty and built on posts set below the 48-inch NH frost line.",
+    useCases: ["Privacy", "Premium curb appeal", "Long-term value", "Low maintenance"],
+    priceRange: "Starting at $55 / linear foot installed",
+    icon: "🌲",
+    comingSoon: false,
   },
   {
     id: "repair",
@@ -115,6 +141,19 @@ export const services = [
     useCases: ["Storm damage repair", "Post replacement", "Section rebuild", "Gate repair"],
     priceRange: "Starting at $350 — free assessment included",
     icon: "🔧",
+    comingSoon: false,
+  },
+  {
+    id: "luxury",
+    name: "Luxury Fencing",
+    slug: "luxury-fence",
+    tagline: "Custom. Architectural. Coming soon.",
+    description:
+      "A curated line of high-end, architect-grade fencing — custom horizontal slat, hardwood, and specialty metal builds designed for statement properties. Launching later this season. Call to get on the waitlist for early design consultations.",
+    useCases: ["Custom design", "Estate properties", "Architectural", "Signature builds"],
+    priceRange: "Coming soon — inquire for waitlist",
+    icon: "✨",
+    comingSoon: true,
   },
 ] as const;
 
@@ -128,17 +167,17 @@ export const pricing = {
     {
       label: "Small Job",
       description: "Pet fence section, single repair, gate install",
-      range: "$1,200 – $2,500",
+      range: "Starting at $1,200",
     },
     {
       label: "Full Backyard",
       description: "Average residential privacy fence install",
-      range: "$4,000 – $8,000",
+      range: "Starting at $4,000",
     },
     {
       label: "Premium/Large",
       description: "Large lot, premium vinyl, full perimeter",
-      range: "$8,000 – $15,000",
+      range: "Starting at $8,000",
     },
   ],
 } as const;
@@ -172,7 +211,7 @@ export const testimonials = [
   {
     name: "Alison F.",
     location: "Exeter, NH",
-    rating: 5,
+    rating: 4,
     useCase: "Vinyl Privacy",
     text: "I was nervous about hiring a contractor I hadn't heard of before, but Roger was patient with all my questions and didn't make me feel rushed. He texted me updates the day of install which I really appreciated. The vinyl fence is exactly what I was hoping for — private, clean looking, and our neighbors actually came over to ask who did it.",
   },
@@ -214,7 +253,7 @@ export const testimonials = [
   {
     name: "Lisa T.",
     location: "Windham, NH",
-    rating: 5,
+    rating: 4,
     useCase: "HOA Approval",
     text: "Our HOA has really specific requirements about fence style and height, and a couple of the other contractors we called either couldn't answer our questions or gave us specs that wouldn't pass. Roger reviewed our HOA docs, gave us options that would definitely be approved, and handled the whole install without a single issue. HOA signed off first review.",
   },
@@ -235,7 +274,7 @@ export const testimonials = [
   {
     name: "Rob S.",
     location: "Concord, NH",
-    rating: 5,
+    rating: 4,
     useCase: "Gate Repair",
     text: "My driveway gate was sagging so badly it wouldn't close all the way. I figured I'd need a whole new section but Roger came out, looked at it, and said he could fix it with a post reset and some hardware. Done in a few hours, swings perfectly now. Honest about what it actually needed rather than trying to upsell me.",
   },
@@ -333,7 +372,7 @@ export const testimonials = [
   {
     name: "Janet F.",
     location: "Nottingham, NH",
-    rating: 5,
+    rating: 4,
     useCase: "Vinyl Semi-Privacy",
     text: "I wanted privacy in the back but didn't want to block the light from the garden on the side. Roger suggested a semi-privacy vinyl for the side sections and full privacy across the back. It works perfectly — I have the privacy where I need it and still get the sun I was worried about losing.",
   },

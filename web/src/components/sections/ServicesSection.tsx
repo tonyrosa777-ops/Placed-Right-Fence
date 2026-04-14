@@ -59,10 +59,11 @@ export default function ServicesSection({ limit }: { limit?: number } = {}) {
 type Service = (typeof services)[number];
 
 function ServiceCard({ service }: { service: Service }) {
+  const href = service.comingSoon ? "/contact" : `/services/${service.slug}`;
   return (
     <Link
-      href={`/services/${service.slug}`}
-      className="group card-shine flex flex-col bg-white rounded-xl border transition-all duration-200 overflow-hidden hover:border-accent hover:shadow-[0_8px_32px_rgba(0,0,0,0.08)]"
+      href={href}
+      className="group card-shine flex flex-col bg-white rounded-xl border transition-all duration-200 overflow-hidden hover:border-accent hover:shadow-[0_8px_32px_rgba(0,0,0,0.08)] relative"
       style={{ borderColor: "var(--border)" }}
     >
       {/* Card top accent bar — shows on hover */}
@@ -70,6 +71,15 @@ function ServiceCard({ service }: { service: Service }) {
         className="h-1 w-0 group-hover:w-full transition-all duration-300"
         style={{ backgroundColor: "var(--accent)" }}
       />
+
+      {service.comingSoon && (
+        <span
+          className="eyebrow text-[10px] absolute top-3 right-3 px-2 py-1 rounded"
+          style={{ backgroundColor: "var(--accent)", color: "var(--primary)" }}
+        >
+          Coming Soon
+        </span>
+      )}
 
       <div className="p-6 flex flex-col flex-1">
 
@@ -123,7 +133,7 @@ function ServiceCard({ service }: { service: Service }) {
             className="font-body text-sm font-medium transition-colors duration-150"
             style={{ color: "var(--accent)" }}
           >
-            Learn more →
+            {service.comingSoon ? "Join waitlist →" : "Learn more →"}
           </span>
         </div>
 

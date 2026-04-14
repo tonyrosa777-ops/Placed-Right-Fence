@@ -2,7 +2,7 @@
 // Static server component — no interactivity needed.
 
 import Link from "next/link";
-import { nav, siteConfig, trustSignals } from "@/data/site";
+import { nav, siteConfig, trustSignals, promise } from "@/data/site";
 
 export default function SiteFooter() {
   const year = new Date().getFullYear();
@@ -23,8 +23,17 @@ export default function SiteFooter() {
                 Nashua, NH · Est. 2024
               </span>
             </Link>
-            <p className="font-body text-sm text-white/70 max-w-xs leading-relaxed mb-6">
+            <p className="font-body text-sm text-white/70 max-w-xs leading-relaxed mb-4">
               {siteConfig.tagline} Serving Southern NH and the Seacoast — free on-site estimates within 72 hours.
+            </p>
+            <p
+              className="font-body text-xs max-w-xs leading-relaxed mb-6 border-l-2 pl-3"
+              style={{ color: "rgba(255,255,255,0.6)", borderColor: "var(--accent)" }}
+            >
+              <span className="eyebrow text-[10px] block mb-1" style={{ color: "var(--accent)" }}>
+                {promise.eyebrow}
+              </span>
+              {promise.short}
             </p>
             {/* Trust badges strip */}
             <div className="flex flex-wrap gap-2">

@@ -55,9 +55,17 @@ export default function ServicesPage() {
             {services.map((service, i) => (
               <FadeIn key={service.id} delay={i * 0.05} direction="up">
                 <div
-                  className="grid grid-cols-1 lg:grid-cols-3 gap-6 bg-white rounded-xl border p-6 lg:p-8 card-shine transition-all duration-200 hover:shadow-[0_4px_24px_rgba(201,168,76,0.12)]"
+                  className="grid grid-cols-1 lg:grid-cols-3 gap-6 bg-white rounded-xl border p-6 lg:p-8 card-shine transition-all duration-200 hover:shadow-[0_4px_24px_rgba(201,168,76,0.12)] relative"
                   style={{ borderColor: "var(--border)" }}
                 >
+                  {service.comingSoon && (
+                    <span
+                      className="eyebrow text-[10px] absolute top-4 right-4 px-2 py-1 rounded"
+                      style={{ backgroundColor: "var(--accent)", color: "var(--primary)" }}
+                    >
+                      Coming Soon
+                    </span>
+                  )}
                   {/* Left: icon + name */}
                   <div className="lg:col-span-1">
                     <span className="text-4xl block mb-3">{service.icon}</span>
@@ -111,7 +119,7 @@ export default function ServicesPage() {
                       </p>
                     </div>
                     <Button href="/contact" variant="primary" size="sm">
-                      Get a Free Estimate →
+                      {service.comingSoon ? "Join the Waitlist →" : "Get a Free Estimate →"}
                     </Button>
                   </div>
                 </div>

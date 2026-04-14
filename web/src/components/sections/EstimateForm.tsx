@@ -86,7 +86,7 @@ function Step1({ value, onChange }: { value: FenceType | ""; onChange: (v: Fence
       </h3>
       <p className="font-body text-sm text-text-secondary mb-6">Select the option that best fits what you have in mind.</p>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-        {services.map((service) => (
+        {services.filter((s) => !s.comingSoon).map((service) => (
           <button
             key={service.id}
             type="button"

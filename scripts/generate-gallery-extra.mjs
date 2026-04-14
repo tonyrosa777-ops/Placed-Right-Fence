@@ -180,7 +180,7 @@ const IMAGES = [
   {
     id: 37, filename: "gallery-37.jpg", image_size: "landscape_4_3",
     label: "Commercial Chain Link Installation",
-    prompt: `Ultra-photorealistic photograph of a heavy-gauge galvanized chain link fence installation along a commercial-residential boundary in New Hampshire, 6-foot tall chain link with barbed wire arm at the top, straight clean installation, industrial aesthetic, overcast sky, Canon EOS R5 35mm f/8, ${BASE}`,
+    prompt: `Ultra-photorealistic photograph of a heavy-gauge galvanized chain link fence installation along a commercial-residential boundary in New Hampshire, 6-foot tall chain link with top rail and tension wire, straight clean installation, industrial aesthetic, overcast sky, Canon EOS R5 35mm f/8, ${BASE}`,
   },
 
   // ── REPAIR extras (gallery-38 to gallery-45) ─────────────────────────────
