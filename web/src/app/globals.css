@@ -199,7 +199,7 @@ h1, h2, h3 {
           background-clip: text;
   -webkit-text-fill-color: transparent;
           color: transparent;
-  animation: hero-glimmer 5.5s ease-in-out 1.4s infinite;
+  animation: hero-glimmer 2.8s ease-in-out 1.2s infinite;
 }
 .hero-glimmer > * {
   -webkit-text-fill-color: transparent;
@@ -207,7 +207,7 @@ h1, h2, h3 {
 }
 @keyframes hero-glimmer {
   0%   { background-position: 100% 0; }
-  45%  { background-position: 0% 0; }
+  70%  { background-position: 0% 0; }
   100% { background-position: 0% 0; }
 }
 
