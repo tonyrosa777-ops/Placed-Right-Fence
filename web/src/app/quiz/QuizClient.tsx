@@ -2,7 +2,7 @@
 // Fence Finder Quiz — 4-question wizard + lead capture
 // Architecture modeled on enchanted-madison FindYourEscapeWizard pattern:
 //   questions → contact capture → personalized result screen
-// Submission: Web3Forms (same key as EstimateForm) — no backend required
+// Submission: Resend via /api/contact
 
 import { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -200,34 +200,30 @@ export default function QuizClient() {
     setSubmitting(true);
     setSubmitError("");
     try {
-      const body = {
-        access_key: process.env.NEXT_PUBLIC_WEB3FORMS_KEY ?? "DEMO_KEY",
-        subject: `Fence Finder Quiz Lead — ${recommendation.material}`,
-        from_name: contact.name,
-        name: contact.name,
-        phone: contact.phone,
-        email: contact.email,
-        address: contact.address,
-        quiz_trigger: answers.trigger,
-        quiz_fence_type: answers.fenceType,
-        quiz_timeline: answers.timeline,
-        quiz_size: answers.size,
-        recommendation: recommendation.headline,
-      };
-      const res = await fetch("https://api.web3forms.com/submit", {
+      const res = await fetch("/api/contact", {
         method: "POST",
-        headers: { "Content-Type": "application/json", Accept: "application/json" },
-        body: JSON.stringify(body),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          source: "quiz",
+          name: contact.name,
+          phone: contact.phone,
+          email: contact.email,
+          address: contact.address,
+          quiz_trigger: answers.trigger,
+          quiz_fence_type: answers.fenceType,
+          quiz_timeline: answers.timeline,
+          quiz_size: answers.size,
+          recommendation: recommendation.headline,
+        }),
       });
       const json = await res.json();
-      if (json.success || process.env.NEXT_PUBLIC_WEB3FORMS_KEY === undefined) {
+      if (json.success) {
         advance("result");
       } else {
         setSubmitError(`Something went wrong. Call us: ${siteConfig.phone}`);
       }
     } catch {
-      // Demo mode — advance to results anyway
-      advance("result");
+      setSubmitError(`Something went wrong. Call us: ${siteConfig.phone}`);
     } finally {
       setSubmitting(false);
     }

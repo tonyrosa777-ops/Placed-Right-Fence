@@ -1,7 +1,7 @@
 "use client";
 // Multi-step estimate form — 3 steps: fence type → project details → contact info
 // Source: market-intelligence.md §5 Gap 4 (visual fence-type selector)
-// Form delivery: Web3Forms (free, no backend) — set WEB3FORMS_KEY in .env.local
+// Form delivery: Resend via /api/contact (RESEND_API_KEY in .env.local)
 // Placeholder CTA Rule compliance: fully interactive with success state
 
 import { useState } from "react";
@@ -358,23 +358,20 @@ export default function EstimateForm() {
     try {
       const selectedService = services.find((s) => s.id === formData.fenceType);
       const selectedTimeline = TIMELINE_OPTIONS.find((t) => t.value === formData.timeline);
-      const body = {
-        access_key: process.env.NEXT_PUBLIC_WEB3FORMS_KEY ?? "DEMO_KEY",
-        subject: `New Fence Estimate Request — ${selectedService?.name ?? formData.fenceType}`,
-        from_name: formData.name,
-        name: formData.name,
-        phone: formData.phone,
-        email: formData.email,
-        address: formData.address,
-        fence_type: selectedService?.name ?? formData.fenceType,
-        linear_feet: formData.linearFeet || "Not provided",
-        timeline: selectedTimeline?.label ?? formData.timeline,
-        notes: formData.notes || "None",
-      };
-      const res = await fetch("https://api.web3forms.com/submit", {
+      const res = await fetch("/api/contact", {
         method: "POST",
-        headers: { "Content-Type": "application/json", Accept: "application/json" },
-        body: JSON.stringify(body),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          source: "estimate",
+          name: formData.name,
+          phone: formData.phone,
+          email: formData.email,
+          address: formData.address,
+          fence_type: selectedService?.name ?? formData.fenceType,
+          linear_feet: formData.linearFeet || "Not provided",
+          timeline: selectedTimeline?.label ?? formData.timeline,
+          notes: formData.notes || "None",
+        }),
       });
       const json = await res.json();
       if (json.success) {

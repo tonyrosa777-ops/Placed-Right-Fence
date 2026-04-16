@@ -19,8 +19,6 @@ function ComingSoonShop() {
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [errorMsg, setErrorMsg] = useState("");
 
-  const web3formsKey = process.env.NEXT_PUBLIC_WEB3FORMS_KEY;
-
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (!email) return;
@@ -28,20 +26,12 @@ function ComingSoonShop() {
     setErrorMsg("");
 
     try {
-      if (!web3formsKey) {
-        setStatus("error");
-        setErrorMsg("Signup form is not configured yet. Please email us directly.");
-        return;
-      }
-      const res = await fetch("https://api.web3forms.com/submit", {
+      const res = await fetch("/api/contact", {
         method: "POST",
-        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          access_key: web3formsKey,
-          subject: "Shop Waitlist Signup — Placed Right Fence",
-          from_name: "Placed Right Fence — Shop Waitlist",
+          source: "shop_waitlist",
           email,
-          source: "shop_coming_soon",
         }),
       });
       const data = await res.json();
@@ -50,7 +40,7 @@ function ComingSoonShop() {
         setEmail("");
       } else {
         setStatus("error");
-        setErrorMsg(data.message || "Something went wrong. Please try again.");
+        setErrorMsg("Something went wrong. Please try again.");
       }
     } catch {
       setStatus("error");

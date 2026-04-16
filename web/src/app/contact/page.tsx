@@ -1,6 +1,6 @@
 // Source: market-intelligence.md §5 Gap 4 (multi-step form), §7 (response guarantee)
 // Placeholder CTA Rule: EstimateForm is fully interactive with success state
-// Form delivery: Web3Forms — set NEXT_PUBLIC_WEB3FORMS_KEY in .env.local
+// Form delivery: Resend via /api/contact (RESEND_API_KEY in .env.local)
 
 import type { Metadata } from "next";
 import FadeIn from "@/components/animations/FadeIn";

@@ -457,6 +457,15 @@ Calendly integration:
 Bug fix:
 - Sanity build crash fixed — `??` (nullish coalescing) doesn't catch empty strings from `.env.local`; switched to `||` in both `client.ts` and `sanity.config.ts`; also changed placeholder from `"placeholder"` to `"p0000000"` (valid Sanity ID format)
 
+Resend form rewire:
+- Created `/api/contact/route.ts` — single Resend-powered API route handling 3 sources: `estimate`, `quiz`, `shop_waitlist`
+- Every `resend.emails.send()` has explicit `replyTo` set to lead's email (build-log Error #50 compliance)
+- HTML email templates with table layout for structured lead data
+- Input escaped with `esc()` to prevent HTML injection
+- Updated `EstimateForm.tsx`, `QuizClient.tsx`, `shop/page.tsx` — all POST to `/api/contact` instead of Web3Forms
+- Web3Forms fully removed — no more `NEXT_PUBLIC_WEB3FORMS_KEY` dependency
+- `from` addresses: `estimates@`, `quiz@`, `shop@` on `placedrightfences.com` (domain already verified in Resend)
+
 Build: ✓ TypeScript clean, all routes compile.
 
 **Still outstanding (client-side):**
@@ -464,7 +473,6 @@ Build: ✓ TypeScript clean, all routes compile.
 - `placedrightfence.com` redirect setup — needs Jen to update DNS + Vercel domain config
 - `STRIPE_SECRET_KEY` + `STRIPE_WEBHOOK_SECRET` — needs Stripe account
 - `PRINTFUL_API_KEY` — needs Printful API token
-- `NEXT_PUBLIC_WEB3FORMS_KEY` — needs Web3Forms registration
 - og-image.jpg (1200×630) — social shares
 
 **Next Session:**
