@@ -468,10 +468,19 @@ Resend form rewire:
 - Web3Forms fully removed — no more `NEXT_PUBLIC_WEB3FORMS_KEY` dependency
 - `from` addresses: `estimates@`, `quiz@`, `shop@` on `placedrightfences.com` (domain already verified in Resend)
 
+Official logo integration:
+- `placed-right-final-logo.png` received from Jen — gold picket fence crown + serif "PLACED RIGHT FENCE CO" on transparent bg
+- Copied to `web/public/images/logo.png`
+- **SiteHeader:** text wordmark replaced with logo image; header height increased 72px → 100px; logo 90px desktop / 80px mobile
+- **SiteFooter:** text wordmark replaced with logo at 140px height
+- **Mobile nav overlay:** logo at 72px below header
+- **Favicon + Apple touch icon:** `web/src/app/icon.png` + `apple-icon.png` generated from logo
+- **SchemaOrg:** `logo` and `image` fields added pointing to `/images/logo.png`
+- **All pages:** `pt-[72px]` → `pt-[100px]` across 10 files to match taller header
+
 Build: ✓ TypeScript clean, all routes compile.
 
 **Still outstanding (client-side):**
-- Finalized logo PNG — pending from Jen
 - `placedrightfence.com` redirect ✅ DONE — Northwest Forwarding → placedrightfences.com
 - `STRIPE_SECRET_KEY` + `STRIPE_WEBHOOK_SECRET` — needs Stripe account
 - `PRINTFUL_API_KEY` — needs Printful API token
