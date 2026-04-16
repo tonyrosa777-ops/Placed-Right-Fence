@@ -176,7 +176,7 @@ h1, h2, h3 {
 }
 
 /* ─── Hero Gold Glimmer ─────────────────────────────────────────────────────
-   Applied to the "Love Wins Where Pickets Begin." H1.
+   Applied to the "Love Wins Where Our Pickets Begin." H1.
    A gold highlight sweeps diagonally across the text every ~5s on a loop.
    Uses background-clip: text so the glimmer only paints inside the letters.
    Children (motion.span word reveals) inherit the transparent fill so the

@@ -4,7 +4,7 @@
 export const siteConfig = {
   name: "Placed Right Fence Co. LLC",
   shortName: "Placed Right Fence",
-  tagline: "Love Wins Where Pickets Begin — When You Install a Placed Right Fence.",
+  tagline: "Love Wins Where Our Pickets Begin — When You Install a Placed Right Fence.",
   description:
     "Southern NH's trusted family fence installer. Wood, vinyl, aluminum, and chain link — built below the frost line, built to last. Free on-site estimates within 72 hours.",
   phone: "(978) 207-4077",
@@ -54,7 +54,7 @@ export const nav = [
 
 export const hero = {
   eyebrow: "Family-Run · Southern NH & Seacoast · Fully Insured",
-  headline: "Love Wins Where\nPickets Begin.",
+  headline: "Love Wins Where\nOur Pickets Begin.",
   tagline: "When you install a Placed Right Fence.",
   subheadline:
     "Southern NH & NH Seacoast — live elsewhere, give us a call. We install Trex, vinyl, wood, chain link, aluminum and more, built below the frost line and guaranteed to stay straight.",
