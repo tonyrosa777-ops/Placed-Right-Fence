@@ -429,14 +429,16 @@ Build: ✓ TypeScript clean — 34 static pages
 
 Infrastructure / Domain:
 - `placedrightfences.com` (canonical) connected to Vercel and live
-- `placedrightfence.com` (singular, original) needs to be added as redirect → canonical in Vercel
+- `placedrightfence.com` (singular, original) ✅ redirecting to canonical
   - Original domain managed at https://accounts.northwestregisteredagent.com/#/dashpanel
-  - Claude.ai advice confirmed: add in Vercel Settings → Domains, set redirect to canonical — better for SEO (one authoritative domain)
-  - Requires Jen to update DNS records at registrar (same A + CNAME process)
+  - Vercel A record approach FAILED — Northwest DNS would not propagate the A record (`216.198.79.1`) no matter what we tried (blank host, `@`, full domain name)
+  - CNAME for `www.placedrightfence.com` worked immediately
+  - **Solution:** Used Northwest's built-in **Forwarding** setting (General tab → Forwarding section) to redirect `placedrightfence.com` → `www.placedrightfences.com` at the registrar level — bypasses the A record entirely
+  - Removed `placedrightfence.com` root from Vercel Domains (only `www.placedrightfence.com` remains, handled by CNAME)
 - Resend API key added to `.env.local` and domain verified through Resend
 - `.env.local` finalized with all project env var placeholders:
   - `FAL_KEY` ✅ (set)
-  - `NEXT_PUBLIC_WEB3FORMS_KEY` — still needs key
+  - `NEXT_PUBLIC_WEB3FORMS_KEY` — removed, replaced by Resend
   - `RESEND_API_KEY` ✅ (set)
   - `OWNER_EMAIL` ✅ (info@placedrightfence.com)
   - `STRIPE_SECRET_KEY` — needs Stripe account setup
@@ -470,7 +472,7 @@ Build: ✓ TypeScript clean, all routes compile.
 
 **Still outstanding (client-side):**
 - Finalized logo PNG — pending from Jen
-- `placedrightfence.com` redirect setup — needs Jen to update DNS + Vercel domain config
+- `placedrightfence.com` redirect ✅ DONE — Northwest Forwarding → placedrightfences.com
 - `STRIPE_SECRET_KEY` + `STRIPE_WEBHOOK_SECRET` — needs Stripe account
 - `PRINTFUL_API_KEY` — needs Printful API token
 - og-image.jpg (1200×630) — social shares
@@ -480,4 +482,4 @@ Build: ✓ TypeScript clean, all routes compile.
 2. Individual fence type pages (/services/wood-fence, etc.) — Phase 5 SEO
 3. NH Permit Guide + Pool Fence Compliance pages — content SEO
 4. Phase 7: Lighthouse audit + Google Analytics
-5. Wire `placedrightfence.com` redirect once Jen updates DNS
+5. Add `RESEND_API_KEY` + `OWNER_EMAIL` + `NEXT_PUBLIC_CALENDLY_URL` to Vercel env vars (production)
