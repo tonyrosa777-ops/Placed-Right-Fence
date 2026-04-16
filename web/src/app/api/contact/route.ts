@@ -27,7 +27,7 @@ export async function POST(req: Request) {
 }
 
 async function handleEstimate(body: Record<string, string>) {
-  const { name, email, phone, address, fence_type, linear_feet, timeline, notes } = body;
+  const { name, email, phone, address, fence_type, linear_feet, timeline, notes, sms_consent } = body;
 
   await resend.emails.send({
     from: "Placed Right Fence <estimates@placedrightfences.com>",
@@ -45,6 +45,7 @@ async function handleEstimate(body: Record<string, string>) {
         <tr><td style="padding:8px;font-weight:bold">Linear Feet</td><td style="padding:8px">${esc(linear_feet)}</td></tr>
         <tr><td style="padding:8px;font-weight:bold">Timeline</td><td style="padding:8px">${esc(timeline)}</td></tr>
         <tr><td style="padding:8px;font-weight:bold">Notes</td><td style="padding:8px">${esc(notes)}</td></tr>
+        <tr><td style="padding:8px;font-weight:bold">SMS Consent</td><td style="padding:8px">${esc(sms_consent)}</td></tr>
       </table>
     `,
   });

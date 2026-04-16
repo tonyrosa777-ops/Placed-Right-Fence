@@ -329,6 +329,7 @@ export default function EstimateForm() {
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
+  const [smsConsent, setSmsConsent] = useState(false);
 
   const [formData, setFormData] = useState<FormData>({
     fenceType: "",
@@ -371,6 +372,7 @@ export default function EstimateForm() {
           linear_feet: formData.linearFeet || "Not provided",
           timeline: selectedTimeline?.label ?? formData.timeline,
           notes: formData.notes || "None",
+          sms_consent: smsConsent ? "Yes" : "No",
         }),
       });
       const json = await res.json();
@@ -414,6 +416,37 @@ export default function EstimateForm() {
           />
         )}
       </div>
+
+      {/* SMS consent — optional, 10DLC compliance */}
+      {step === 3 && (
+        <div className="flex items-start gap-3 mt-6">
+          <input
+            id="smsConsent"
+            type="checkbox"
+            className="mt-1 h-4 w-4 rounded"
+            style={{ accentColor: "var(--accent)" }}
+            checked={smsConsent}
+            onChange={(e) => setSmsConsent(e.target.checked)}
+          />
+          <label
+            htmlFor="smsConsent"
+            className="font-body text-xs text-text-muted leading-relaxed"
+          >
+            By providing your phone number, you consent to receive text messages from
+            Placed Right Fence Co. for purposes related to our services. Message
+            frequency may vary. Message and data rates may apply. Reply HELP for help
+            or STOP to unsubscribe. See our{" "}
+            <a href="/privacy" className="underline hover:opacity-70" style={{ color: "var(--accent)" }}>
+              privacy policy
+            </a>{" "}
+            and{" "}
+            <a href="/terms" className="underline hover:opacity-70" style={{ color: "var(--accent)" }}>
+              terms and conditions
+            </a>
+            .
+          </label>
+        </div>
+      )}
 
       {error && (
         <p className="font-body text-sm mt-3" style={{ color: "var(--accent)" }}>

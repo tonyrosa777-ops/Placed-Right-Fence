@@ -123,9 +123,15 @@ export default function SiteFooter() {
           <p className="font-body text-xs text-white/40">
             © {year} Placed Right Fence Co. LLC. All rights reserved.
           </p>
-          <p className="font-body text-xs text-white/30">
-            Nashua, NH · Serving Southern NH &amp; Seacoast
-          </p>
+          <div className="flex items-center gap-4 font-body text-xs text-white/30">
+            <Link href="/privacy" className="hover:text-white/60 transition-colors">
+              Privacy Policy
+            </Link>
+            <span aria-hidden="true">·</span>
+            <Link href="/terms" className="hover:text-white/60 transition-colors">
+              Terms &amp; Conditions
+            </Link>
+          </div>
         </div>
       </div>
     </footer>
