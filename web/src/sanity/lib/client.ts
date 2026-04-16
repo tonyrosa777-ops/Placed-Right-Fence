@@ -2,8 +2,9 @@ import { createClient } from "next-sanity";
 
 // During build without env vars, use a no-op placeholder so the build doesn't throw.
 // Real fetches will gracefully return empty data — the blog shows its empty state.
-const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID ?? "placeholder";
-const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET ?? "production";
+// Use || (not ??) so empty strings from .env.local also fall through to the stub
+const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || "p0000000";
+const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET || "production";
 
 export const client = createClient({
   projectId,

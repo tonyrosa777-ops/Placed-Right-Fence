@@ -5,6 +5,7 @@
 import type { Metadata } from "next";
 import FadeIn from "@/components/animations/FadeIn";
 import EstimateForm from "@/components/sections/EstimateForm";
+import CalendlyEmbed from "@/components/sections/CalendlyEmbed";
 import { siteConfig, trustSignals } from "@/data/site";
 
 export const metadata: Metadata = {
@@ -166,6 +167,41 @@ export default function ContactPage() {
               </FadeIn>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* Calendly inline scheduler */}
+      <section
+        className="py-16 lg:py-24"
+        style={{ backgroundColor: "var(--bg-elevated)" }}
+      >
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <FadeIn>
+            <div className="text-center mb-8">
+              <p className="eyebrow text-text-muted mb-3">
+                Prefer to Pick a Time?
+              </p>
+              <h2
+                className="font-display text-text-primary mb-3"
+                style={{
+                  fontSize: "clamp(1.5rem, 3vw, 2.25rem)",
+                  lineHeight: 1.15,
+                }}
+              >
+                Schedule Your Free Estimate
+              </h2>
+              <p className="font-body text-text-secondary max-w-lg mx-auto">
+                Choose a time that works for you and we'll come out to walk the
+                property and give you a written quote on the spot.
+              </p>
+            </div>
+            <div
+              className="bg-white rounded-2xl border overflow-hidden"
+              style={{ borderColor: "var(--border)" }}
+            >
+              <CalendlyEmbed />
+            </div>
+          </FadeIn>
         </div>
       </section>
 

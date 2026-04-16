@@ -4,7 +4,7 @@
 **Client:** Placed Right Fence Co. LLC | Nashua, NH (Southern NH and Seacoast)
 **Business Type:** Family-run residential fence installation and repair contractor
 **Launch Target:** April 2026 (ASAP — client wants live in 3–4 weeks; spring is peak season)
-**Last Updated:** 2026-04-14 (Session 9)
+**Last Updated:** 2026-04-16 (Session 11)
 **Current Phase:** Phase 5 — Secondary Pages & Polish
 
 ---
@@ -423,3 +423,53 @@ Build: ✓ TypeScript clean — 34 static pages
 2. Individual fence type pages (/services/wood-fence, etc.) — Phase 5 SEO
 3. NH Permit Guide + Pool Fence Compliance pages — content SEO
 4. Phase 7: Lighthouse audit + Google Analytics
+
+### Session 11 — 2026-04-16
+**Completed: Domain live, Resend connected, Calendly inline embed, env.local finalized**
+
+Infrastructure / Domain:
+- `placedrightfences.com` (canonical) connected to Vercel and live
+- `placedrightfence.com` (singular, original) needs to be added as redirect → canonical in Vercel
+  - Original domain managed at https://accounts.northwestregisteredagent.com/#/dashpanel
+  - Claude.ai advice confirmed: add in Vercel Settings → Domains, set redirect to canonical — better for SEO (one authoritative domain)
+  - Requires Jen to update DNS records at registrar (same A + CNAME process)
+- Resend API key added to `.env.local` and domain verified through Resend
+- `.env.local` finalized with all project env var placeholders:
+  - `FAL_KEY` ✅ (set)
+  - `NEXT_PUBLIC_WEB3FORMS_KEY` — still needs key
+  - `RESEND_API_KEY` ✅ (set)
+  - `OWNER_EMAIL` ✅ (info@placedrightfence.com)
+  - `STRIPE_SECRET_KEY` — needs Stripe account setup
+  - `STRIPE_WEBHOOK_SECRET` — needs Stripe account setup
+  - `PRINTFUL_API_KEY` — needs Printful API token
+  - `NEXT_PUBLIC_SANITY_PROJECT_ID` — needs Sanity project
+  - `NEXT_PUBLIC_SANITY_DATASET` — defaults to production
+  - `SANITY_REVALIDATE_SECRET` — needs Sanity webhook
+  - `NEXT_PUBLIC_CALENDLY_URL` ✅ (https://calendly.com/placedrightfence-info/30min)
+  - `NEXT_PUBLIC_SHOP_LIVE` — defaults to false
+
+Calendly integration:
+- Created `CalendlyEmbed.tsx` — inline widget component, loads Calendly script on mount
+- Branded colors passed via URL params (bg=#fdfaf6, text=#0f172a, accent=#c87533)
+- Wired into `/contact` page as a second section below the estimate form: "Prefer to Pick a Time? Schedule Your Free Estimate"
+- Reads from `NEXT_PUBLIC_CALENDLY_URL` — renders nothing when env var is absent (graceful no-op)
+
+Bug fix:
+- Sanity build crash fixed — `??` (nullish coalescing) doesn't catch empty strings from `.env.local`; switched to `||` in both `client.ts` and `sanity.config.ts`; also changed placeholder from `"placeholder"` to `"p0000000"` (valid Sanity ID format)
+
+Build: ✓ TypeScript clean, all routes compile.
+
+**Still outstanding (client-side):**
+- Finalized logo PNG — pending from Jen
+- `placedrightfence.com` redirect setup — needs Jen to update DNS + Vercel domain config
+- `STRIPE_SECRET_KEY` + `STRIPE_WEBHOOK_SECRET` — needs Stripe account
+- `PRINTFUL_API_KEY` — needs Printful API token
+- `NEXT_PUBLIC_WEB3FORMS_KEY` — needs Web3Forms registration
+- og-image.jpg (1200×630) — social shares
+
+**Next Session:**
+1. og-image.jpg (1200×630) — needed for social shares
+2. Individual fence type pages (/services/wood-fence, etc.) — Phase 5 SEO
+3. NH Permit Guide + Pool Fence Compliance pages — content SEO
+4. Phase 7: Lighthouse audit + Google Analytics
+5. Wire `placedrightfence.com` redirect once Jen updates DNS
