@@ -184,7 +184,7 @@ export const pricing = {
 } as const;
 
 // ─── Testimonials ─────────────────────────────────────────────────────────────
-// 30 testimonials — simulated from real NH audience language (market-intelligence.md §2)
+// 11 testimonials — no timeframe references (business is new, ~2 months old)
 // Replace with actual client reviews as they are collected
 
 export const testimonials = [
@@ -193,7 +193,7 @@ export const testimonials = [
     location: "Merrimack, NH",
     rating: 5,
     useCase: "Dog Containment",
-    text: "We adopted a rescue dog in October and needed a fence fast before she figured out she could just walk out of the yard. Roger came out within 2 days, gave us a quote that didn't change, and the crew had the whole thing done in a day and a half. The fence looks amazing and she's been running laps ever since. Worth every penny.",
+    text: "We adopted a rescue dog and needed a fence fast before she figured out she could just walk out of the yard. Roger came out within 2 days, gave us a quote that didn't change, and the crew had the whole thing done in a day and a half. The fence looks amazing and she's been running laps ever since. Worth every penny.",
   },
   {
     name: "Tom & Karen B.",
@@ -203,25 +203,11 @@ export const testimonials = [
     text: "We got pool quotes from 3 companies. One never called back, one quoted us $4k over budget. Placed Right came in fair, explained every step of what they were doing to meet code, and got it done before our pool opening. Inspector passed it no issues. Would recommend to anyone in the area.",
   },
   {
-    name: "Dave P.",
-    location: "Hudson, NH",
-    rating: 5,
-    useCase: "Storm Repair",
-    text: "Had a section of our old stockade fence blow down in March. Posts were completely rotted at the base — hadn't been set right to begin with. These guys replaced the whole rear section with pressure-treated posts set below the frost line. Two months later everything still looks perfectly straight. Should've replaced it years ago.",
-  },
-  {
     name: "Alison F.",
     location: "Exeter, NH",
     rating: 4,
     useCase: "Vinyl Privacy",
     text: "I was nervous about hiring a contractor I hadn't heard of before, but Roger was patient with all my questions and didn't make me feel rushed. He texted me updates the day of install which I really appreciated. The vinyl fence is exactly what I was hoping for — private, clean looking, and our neighbors actually came over to ask who did it.",
-  },
-  {
-    name: "Mark C.",
-    location: "Manchester, NH",
-    rating: 5,
-    useCase: "New Home",
-    text: "Moved into a new house last spring and the yard was completely open. Had 2 kids and needed it done before summer. They squeezed us in, the price was fair — we got 2 other quotes — and the fence looks great. No complaints whatsoever. These are good people doing honest work.",
   },
   {
     name: "Jennifer R.",
@@ -235,7 +221,7 @@ export const testimonials = [
     location: "Londonderry, NH",
     rating: 5,
     useCase: "Cedar Privacy",
-    text: "We went back and forth between cedar and vinyl for months. Roger took the time to walk us through the real tradeoffs — not just the price difference but what maintenance actually looks like in NH winters. We went with cedar board-on-board and it looks incredible. Crew was fast, clean, and left the yard better than they found it.",
+    text: "We went back and forth between cedar and vinyl for a while. Roger took the time to walk us through the real tradeoffs — not just the price difference but what maintenance actually looks like in NH winters. We went with cedar board-on-board and it looks incredible. Crew was fast, clean, and left the yard better than they found it.",
   },
   {
     name: "Sarah M.",
@@ -249,14 +235,7 @@ export const testimonials = [
     location: "Salem, NH",
     rating: 5,
     useCase: "Ornamental Aluminum",
-    text: "We wanted something that looked nice but didn't require a lot of upkeep — our old wood fence was a constant project. Roger recommended aluminum and I'm glad we listened. It looks sharp, matches the house, and we haven't touched it since install. The price was very competitive with what we were quoted elsewhere.",
-  },
-  {
-    name: "Lisa T.",
-    location: "Windham, NH",
-    rating: 4,
-    useCase: "HOA Approval",
-    text: "Our HOA has really specific requirements about fence style and height, and a couple of the other contractors we called either couldn't answer our questions or gave us specs that wouldn't pass. Roger reviewed our HOA docs, gave us options that would definitely be approved, and handled the whole install without a single issue. HOA signed off first review.",
+    text: "We wanted something that looked nice but didn't require a lot of upkeep — our old wood fence was a constant project. Roger recommended aluminum and I'm glad we listened. It looks sharp, matches the house, and the price was very competitive with what we were quoted elsewhere.",
   },
   {
     name: "Pat O.",
@@ -266,13 +245,6 @@ export const testimonials = [
     text: "Our lot drops almost three feet from one side of the yard to the other. I was told by two other companies that a privacy fence on that slope would be a problem. Placed Right came out, measured everything, and explained exactly how they'd step the fence down to follow the grade. It came out perfectly and there are no gaps anywhere.",
   },
   {
-    name: "Donna C.",
-    location: "Milford, NH",
-    rating: 5,
-    useCase: "Frost Heave Fix",
-    text: "Had a vinyl fence from another company that heaved so bad over winter that three posts were completely out of the ground by spring. These guys came out, pulled the bad posts, reset them properly below frost depth, and it's been two winters now with zero movement. Wish I had called them first.",
-  },
-  {
     name: "Rob S.",
     location: "Concord, NH",
     rating: 4,
@@ -280,116 +252,11 @@ export const testimonials = [
     text: "My driveway gate was sagging so badly it wouldn't close all the way. I figured I'd need a whole new section but Roger came out, looked at it, and said he could fix it with a post reset and some hardware. Done in a few hours, swings perfectly now. Honest about what it actually needed rather than trying to upsell me.",
   },
   {
-    name: "Amy L.",
-    location: "Dover, NH",
-    rating: 5,
-    useCase: "Vinyl Privacy",
-    text: "We have neighbors on three sides and very little privacy. The white vinyl fence they installed makes such a huge difference — I can actually sit on my deck without feeling like I'm on display. Communication throughout the project was really good. They called the night before to confirm timing and showed up when they said they would.",
-  },
-  {
     name: "Phil G.",
     location: "Portsmouth, NH",
     rating: 5,
     useCase: "Chain Link",
     text: "Needed a chain link fence for the side yard where we park equipment. Nothing fancy, just something secure. They gave me a fair quote with no pressure to upgrade to something more expensive, showed up on time, and got it done right. I've already referred them to two neighbors.",
-  },
-  {
-    name: "Tanya K.",
-    location: "Durham, NH",
-    rating: 5,
-    useCase: "Dog Containment",
-    text: "We have two dogs — one who digs and one who jumps. I was upfront about both problems when I called. They came out, assessed the yard, and recommended the right fence height with a concrete footer section along the back where the digger works. Six months in, zero escapes. These guys actually listened.",
-  },
-  {
-    name: "Kevin D.",
-    location: "Pelham, NH",
-    rating: 5,
-    useCase: "Wood Privacy",
-    text: "I was skeptical about wood because I've seen so many fences fall apart after a few years around here. Roger explained what makes the difference — post depth, concrete, pressure-treated lumber — and showed me examples of installs they'd done years ago that still looked great. I went with it and I'm really happy with how it turned out.",
-  },
-  {
-    name: "Colleen N.",
-    location: "Hollis, NH",
-    rating: 5,
-    useCase: "Property Line",
-    text: "We had some ambiguity about where our property line was and I was worried about putting up a fence and having a problem with our neighbors. Roger actually helped us think through it and suggested we pull a survey before committing. We did, confirmed the line, and the fence went up with no issues. Good people to work with.",
-  },
-  {
-    name: "Jim H.",
-    location: "Goffstown, NH",
-    rating: 5,
-    useCase: "Vinyl Privacy",
-    text: "I'm 68 and I've owned this house for 30 years. Had a wood fence that finally gave up the ghost. My son helped me get a few quotes and we chose Placed Right because Roger was the only one who walked the entire yard with me instead of just measuring from the driveway. The new vinyl fence is beautiful and I don't have to worry about maintaining it.",
-  },
-  {
-    name: "Scott W.",
-    location: "Auburn, NH",
-    rating: 5,
-    useCase: "Chain Link",
-    text: "I own two rental properties and both needed fencing. Roger gave me a solid price on both jobs done back to back. The tenants have been happy, no issues since install, and the chain link has held up perfectly through two NH winters. Easy to work with and doesn't cut corners just because it's a rental.",
-  },
-  {
-    name: "Maria E.",
-    location: "Hooksett, NH",
-    rating: 5,
-    useCase: "Second Install",
-    text: "They did our backyard fence two years ago and it still looks brand new. When we decided to fence the side yard this spring, I didn't bother getting other quotes. Same crew, same quality, same price as they quoted. That kind of consistency is rare to find. Will keep calling them as long as we own this house.",
-  },
-  {
-    name: "Dan B.",
-    location: "Hampton, NH",
-    rating: 5,
-    useCase: "Pool Compliance",
-    text: "Pool code in our town is strict and I've heard stories about fences failing inspection. Roger knew exactly what was required, positioned everything correctly, and even caught that our gate latch was on the wrong side before inspection. It passed on the first visit. Saved us a ton of headaches.",
-  },
-  {
-    name: "Rachel M.",
-    location: "Kingston, NH",
-    rating: 5,
-    useCase: "Split Rail",
-    text: "We have a big open lot and wanted something that marked the yard without blocking the view. Split rail with wire mesh was the perfect call — keeps our dogs in, looks totally natural with the property, and wasn't nearly as expensive as I expected. Roger helped us figure out the right option for our situation rather than pushing us toward something we didn't need.",
-  },
-  {
-    name: "Greg A.",
-    location: "Plaistow, NH",
-    rating: 5,
-    useCase: "Dog Containment",
-    text: "We have an above-ground pool and two golden retrievers who think the pool is theirs. Needed a fence that would keep the dogs out of the pool area and also make it safe for the kids. They handled both problems in one install — pool code compliant on the pool side, solid fence everywhere else. Exactly what we needed.",
-  },
-  {
-    name: "Steph B.",
-    location: "Atkinson, NH",
-    rating: 5,
-    useCase: "Cedar Privacy",
-    text: "The cedar board-on-board they installed is honestly one of the best things we've done to the property. We got compliments from the neighbors before the crew even finished. They took their time setting the posts, the boards are all perfectly level, and the stain they recommended has held up great through the season.",
-  },
-  {
-    name: "Paul C.",
-    location: "Londonderry, NH",
-    rating: 5,
-    useCase: "New Construction",
-    text: "We built a new house and had the fence installed right after move-in. I appreciated that they were willing to work around the other contractors still finishing up the landscaping. Scheduling was flexible, they kept me updated, and the end result looks like it was always part of the property.",
-  },
-  {
-    name: "Janet F.",
-    location: "Nottingham, NH",
-    rating: 4,
-    useCase: "Vinyl Semi-Privacy",
-    text: "I wanted privacy in the back but didn't want to block the light from the garden on the side. Roger suggested a semi-privacy vinyl for the side sections and full privacy across the back. It works perfectly — I have the privacy where I need it and still get the sun I was worried about losing.",
-  },
-  {
-    name: "Mike T.",
-    location: "Rochester, NH",
-    rating: 5,
-    useCase: "Storm Repair",
-    text: "A tree came down in the ice storm in January and took out 40 feet of our chain link. Called Placed Right and they were out to assess within a couple of days even though it was the middle of winter. Got us on the schedule as soon as the ground cooperated and fixed it for exactly what they quoted.",
-  },
-  {
-    name: "Lori H.",
-    location: "Hampstead, NH",
-    rating: 5,
-    useCase: "Property Fence",
-    text: "We have 3 acres and needed to fence off the back section for the horses. This wasn't a standard suburban job and I wasn't sure if they'd want to take it on. Roger came out, measured everything, gave us an honest quote, and treated it like any other job. The fence is solid, the posts are set deep, and the horses haven't tested it once.",
   },
   {
     name: "Ed S.",
