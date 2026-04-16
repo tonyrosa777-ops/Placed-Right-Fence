@@ -12,6 +12,8 @@ export default function SchemaOrg() {
     alternateName: siteConfig.shortName,
     description: siteConfig.description,
     url: siteConfig.url,
+    logo: `${siteConfig.url}/images/logo.png`,
+    image: `${siteConfig.url}/images/logo.png`,
     telephone: siteConfig.phone,
     email: siteConfig.email,
     address: {

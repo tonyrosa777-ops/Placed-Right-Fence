@@ -37,7 +37,7 @@ const FEATURED_CITIES = [
 
 export default function ServiceAreasPage() {
   return (
-    <div className="pt-[72px]">
+    <div className="pt-[100px]">
 
       {/* ── Hero — dark ────────────────────────────────────────────────────── */}
       <section

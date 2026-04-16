@@ -21,7 +21,7 @@ export const metadata: Metadata = {
 
 export default function GalleryPage() {
   return (
-    <div className="pt-[72px]">
+    <div className="pt-[100px]">
 
       {/* Page Hero */}
       <section

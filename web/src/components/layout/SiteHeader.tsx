@@ -5,6 +5,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
@@ -58,7 +59,7 @@ export default function SiteHeader() {
       <CartDrawer />
       <header
         className={cn(
-          "fixed top-0 left-0 right-0 z-50 h-[72px] transition-all duration-300",
+          "fixed top-0 left-0 right-0 z-50 h-[100px] transition-all duration-300",
           isTransparent
             ? "bg-transparent"
             : "bg-[#0D0D0D] border-b border-[rgba(201,168,76,0.15)]"
@@ -66,18 +67,20 @@ export default function SiteHeader() {
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center justify-between">
 
-          {/* Logo wordmark */}
+          {/* Logo */}
           <Link
             href="/"
-            className="flex flex-col leading-none group"
+            className="relative shrink-0"
             onClick={() => setMobileOpen(false)}
           >
-            <span className="font-display text-[1.25rem] tracking-tight text-white transition-colors duration-200 group-hover:text-accent">
-              Placed Right Fence
-            </span>
-            <span className="eyebrow text-[10px] mt-0.5 text-white/40">
-              Nashua, NH · Est. 2024
-            </span>
+            <Image
+              src="/images/logo.png"
+              alt="Placed Right Fence Co."
+              width={320}
+              height={160}
+              className="h-[80px] sm:h-[90px] w-auto object-contain"
+              priority
+            />
           </Link>
 
           {/* Desktop nav — primary links + More dropdown */}
@@ -198,10 +201,21 @@ export default function SiteHeader() {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
             className="fixed inset-0 z-40 flex flex-col"
-            style={{ backgroundColor: "#0D0D0D", paddingTop: "72px" }}
+            style={{ backgroundColor: "#0D0D0D", paddingTop: "100px" }}
           >
+            {/* Logo in mobile overlay */}
+            <div className="px-8 pt-6 pb-2">
+              <Image
+                src="/images/logo.png"
+                alt="Placed Right Fence Co."
+                width={200}
+                height={100}
+                className="h-[72px] w-auto object-contain"
+              />
+            </div>
+
             {/* Nav links */}
-            <nav className="flex flex-col px-8 pt-10 gap-0 flex-1 overflow-y-auto">
+            <nav className="flex flex-col px-8 pt-4 gap-0 flex-1 overflow-y-auto">
               {nav.map((item, i) => (
                 <motion.div
                   key={item.href}

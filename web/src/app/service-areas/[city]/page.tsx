@@ -59,7 +59,7 @@ export default async function CityPage({
   const mapSrc = `https://maps.google.com/maps?q=${encodeURIComponent(data.mapQuery)}&output=embed&hl=en`;
 
   return (
-    <div className="pt-[72px]">
+    <div className="pt-[100px]">
 
       {/* ── Hero ───────────────────────────────────────────────────────────── */}
       <section className="py-16 lg:py-24" style={{ background: "var(--primary)" }}>

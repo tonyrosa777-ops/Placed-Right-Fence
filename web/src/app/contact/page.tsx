@@ -22,7 +22,7 @@ export const metadata: Metadata = {
 
 export default function ContactPage() {
   return (
-    <div className="pt-[72px]">
+    <div className="pt-[100px]">
 
       {/* Page layout: form left, trust right */}
       <section

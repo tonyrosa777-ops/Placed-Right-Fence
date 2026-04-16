@@ -232,7 +232,7 @@ export default function QuizClient() {
   const contactValid = contact.name && contact.phone && contact.email && contact.address;
 
   return (
-    <div className="min-h-screen pt-[72px]" style={{ background: "var(--bg-base)" }}>
+    <div className="min-h-screen pt-[100px]" style={{ background: "var(--bg-base)" }}>
       <div className="max-w-xl mx-auto px-4 py-16">
 
         {/* Header */}

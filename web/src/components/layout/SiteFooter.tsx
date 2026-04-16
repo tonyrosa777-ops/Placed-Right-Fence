@@ -2,6 +2,7 @@
 // Static server component — no interactivity needed.
 
 import Link from "next/link";
+import Image from "next/image";
 import { nav, siteConfig, trustSignals, promise } from "@/data/site";
 
 export default function SiteFooter() {
@@ -15,13 +16,14 @@ export default function SiteFooter() {
 
           {/* Brand column */}
           <div className="lg:col-span-2">
-            <Link href="/" className="flex flex-col leading-none mb-4">
-              <span className="font-display text-xl text-white tracking-tight">
-                Placed Right Fence Co. LLC
-              </span>
-              <span className="eyebrow text-[10px] text-white/40 mt-1">
-                Nashua, NH · Est. 2024
-              </span>
+            <Link href="/" className="inline-block mb-6">
+              <Image
+                src="/images/logo.png"
+                alt="Placed Right Fence Co."
+                width={360}
+                height={180}
+                className="h-[140px] w-auto object-contain"
+              />
             </Link>
             <p className="font-body text-sm text-white/70 max-w-xs leading-relaxed mb-4">
               {siteConfig.tagline} Serving Southern NH and the Seacoast — free on-site estimates within 72 hours.
