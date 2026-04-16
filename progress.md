@@ -478,17 +478,36 @@ Official logo integration:
 - **SchemaOrg:** `logo` and `image` fields added pointing to `/images/logo.png`
 - **All pages:** `pt-[72px]` → `pt-[100px]` across 10 files to match taller header
 
-Build: ✓ TypeScript clean, all routes compile.
+Tagline fix:
+- Corrected headline site-wide: "Love Wins Where Pickets Begin." → **"Love Wins Where Our Pickets Begin."** per Jen's direction
+- Updated in `site.ts` (tagline + hero.headline) and CSS comment in `globals.css`
+
+Testimonials cleanup:
+- Cut from 30 → 11 reviews — removed all that implied years of history ("two winters", "two years ago", "six months in", etc.)
+- Business is ~2 months old — no review should reference timeframes beyond recent
+- Kept 11 with diverse use cases: dog containment (2), pool compliance, vinyl privacy, cedar privacy, kids' play area, aluminum, sloped terrain, gate repair, chain link, wood privacy
+- All counts are dynamic (`testimonials.length`) — page auto-adjusts
+
+10DLC / SMS compliance (per Nextiva requirements):
+- Created `/privacy` page — full privacy policy (data collection, usage, disclosure, retention, cookies, SMS-specific language)
+- Created `/terms` page — SMS Terms and Conditions with opt-in/out/help message templates
+- Added optional SMS consent checkbox to estimate form Step 3 with linked text to /privacy and /terms
+- SMS consent status ("Yes"/"No") included in owner notification email
+- Privacy Policy + Terms & Conditions links added to footer bottom bar
+- Both pages added to sitemap (priority 0.2, yearly change frequency)
+
+Build: ✓ TypeScript clean, 39 static routes.
 
 **Still outstanding (client-side):**
-- `placedrightfence.com` redirect ✅ DONE — Northwest Forwarding → placedrightfences.com
 - `STRIPE_SECRET_KEY` + `STRIPE_WEBHOOK_SECRET` — needs Stripe account
 - `PRINTFUL_API_KEY` — needs Printful API token
 - og-image.jpg (1200×630) — social shares
+- Add `RESEND_API_KEY` + `OWNER_EMAIL` + `NEXT_PUBLIC_CALENDLY_URL` to Vercel env vars (production)
 
-**Next Session:**
-1. og-image.jpg (1200×630) — needed for social shares
-2. Individual fence type pages (/services/wood-fence, etc.) — Phase 5 SEO
-3. NH Permit Guide + Pool Fence Compliance pages — content SEO
-4. Phase 7: Lighthouse audit + Google Analytics
-5. Add `RESEND_API_KEY` + `OWNER_EMAIL` + `NEXT_PUBLIC_CALENDLY_URL` to Vercel env vars (production)
+**Action items for next meeting (week of 2026-04-21):**
+1. **Build out all service area city pages** — expand beyond Nashua/Manchester/Bedford to all 25+ cities for local search dominance
+2. **Create Instagram account** (`@placedrightfence`) and link it to the site — currently linked in footer/site.ts but account doesn't exist yet
+3. **FAQ update + estimate software embed** — awaiting embed code from Jen; update FAQ content and wire estimate button to new software
+4. og-image.jpg (1200×630) — needed for social shares
+5. Individual fence type pages (/services/wood-fence, etc.) — Phase 5 SEO
+6. NH Permit Guide + Pool Fence Compliance pages — content SEO
