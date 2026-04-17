@@ -199,7 +199,7 @@ export default function ServiceAreasPage() {
                   </h2>
                   <div className="flex flex-wrap gap-2">
                     {serviceAreas.primary.map((city) => {
-                      const slug = city.toLowerCase();
+                      const slug = city.toLowerCase().replace(/\s+/g, "-");
                       const hasPage = CITY_SLUGS.includes(slug);
                       return hasPage ? (
                         <Link
@@ -260,7 +260,7 @@ export default function ServiceAreasPage() {
                   </h2>
                   <div className="flex flex-wrap gap-2">
                     {serviceAreas.seacoast.map((city) => {
-                      const slug = city.toLowerCase();
+                      const slug = city.toLowerCase().replace(/\s+/g, "-");
                       const hasPage = CITY_SLUGS.includes(slug);
                       return hasPage ? (
                         <Link
