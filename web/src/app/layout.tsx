@@ -48,20 +48,11 @@ export const metadata: Metadata = {
     title: "Placed Right Fence Co. LLC — Fence Installation & Repair | Nashua, NH",
     description:
       "Southern NH's trusted family fence installer. Free on-site estimates within 72 hours.",
-    images: [
-      {
-        url: "/og-image.jpg",
-        width: 1200,
-        height: 630,
-        alt: "Placed Right Fence Co. LLC",
-      },
-    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Placed Right Fence Co. LLC — Fence Installation & Repair | Nashua, NH",
     description: "Southern NH's trusted family fence installer. Free estimates within 72 hours.",
-    images: ["/og-image.jpg"],
   },
   robots: {
     index: true,

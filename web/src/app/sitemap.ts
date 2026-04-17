@@ -3,6 +3,7 @@
 
 import type { MetadataRoute } from "next";
 import { services, siteConfig } from "@/data/site";
+import { CITY_SLUGS } from "@/data/service-area-cities";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const base = siteConfig.url;
@@ -80,24 +81,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly",
       priority: 0.8,
     },
-    {
-      url: `${base}/service-areas/nashua`,
+    // All 27 city service area pages
+    ...CITY_SLUGS.map((slug) => ({
+      url: `${base}/service-areas/${slug}`,
       lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.9,
-    },
-    {
-      url: `${base}/service-areas/manchester`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.9,
-    },
-    {
-      url: `${base}/service-areas/bedford`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
+      changeFrequency: "monthly" as const,
       priority: 0.8,
-    },
+    })),
     // Individual fence type pages
     ...services
       .filter((s) => !s.comingSoon)
@@ -107,6 +97,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
         changeFrequency: "monthly" as const,
         priority: 0.8,
       })),
+    // Content SEO pages
+    {
+      url: `${base}/resources/fence-permits-nh`,
+      lastModified: new Date(),
+      changeFrequency: "yearly",
+      priority: 0.7,
+    },
+    {
+      url: `${base}/resources/pool-fence-nh`,
+      lastModified: new Date(),
+      changeFrequency: "yearly",
+      priority: 0.7,
+    },
     {
       url: `${base}/privacy`,
       lastModified: new Date(),
