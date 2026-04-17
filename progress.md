@@ -287,7 +287,7 @@ Blog images:
 
 Remaining Phase 5:
 1. og-image.jpg generation (1200×630)
-2. Individual fence type pages (/services/wood-fence, etc.)
+2. ~~Individual fence type pages (/services/wood-fence, etc.)~~ ✅ Done (Session 12)
 3. Pricing page (/pricing)
 4. NH Permit Guide + Pool Fence Compliance pages
 5. Phase 7: Lighthouse audit + Google Analytics
@@ -504,10 +504,37 @@ Build: ✓ TypeScript clean, 39 static routes.
 - og-image.jpg (1200×630) — social shares
 - Add `RESEND_API_KEY` + `OWNER_EMAIL` + `NEXT_PUBLIC_CALENDLY_URL` to Vercel env vars (production)
 
+### Session 12 — 2026-04-16
+**Completed: Individual fence type detail pages (dynamic route)**
+
+Created `web/src/app/services/[slug]/page.tsx` — dynamic route for all 6 active fence types:
+- `/services/trex-composite-fence`
+- `/services/vinyl-fence`
+- `/services/wood-fence`
+- `/services/chain-link-fence`
+- `/services/aluminum-fence`
+- `/services/fence-repair`
+
+Page structure per fence type:
+- Dark hero with breadcrumb (Home > Services > [Type]), eyebrow, H1, tagline subtitle
+- Overview section: description, use case chips, price range callout card with CTA
+- "Why [Type] in New Hampshire" section: 4 benefits per fence type (inline data)
+- FAQ section: 3 questions per fence type (inline data, unique per material)
+- Dark CTA section with contextual label
+
+Technical details:
+- `generateStaticParams()` pre-renders all non-comingSoon services (6 pages)
+- `generateMetadata()` generates unique title + description + OG tags per page
+- comingSoon services (luxury) redirect to /contact
+- Updated `sitemap.ts` to include all 6 fence type URLs (priority 0.8)
+- TypeScript compiles clean
+
+Build: TypeScript clean.
+
 **Action items for next meeting (week of 2026-04-21):**
 1. **Build out all service area city pages** — expand beyond Nashua/Manchester/Bedford to all 25+ cities for local search dominance
 2. **Create Instagram account** (`@placedrightfence`) and link it to the site — currently linked in footer/site.ts but account doesn't exist yet
 3. **FAQ update + estimate software embed** — awaiting embed code from Jen; update FAQ content and wire estimate button to new software
 4. og-image.jpg (1200×630) — needed for social shares
-5. Individual fence type pages (/services/wood-fence, etc.) — Phase 5 SEO
+5. ~~Individual fence type pages (/services/wood-fence, etc.) — Phase 5 SEO~~ ✅ Done (Session 12)
 6. NH Permit Guide + Pool Fence Compliance pages — content SEO

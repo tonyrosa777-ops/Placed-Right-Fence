@@ -2,7 +2,7 @@
 // Source: progress.md Site Architecture
 
 import type { MetadataRoute } from "next";
-import { siteConfig } from "@/data/site";
+import { services, siteConfig } from "@/data/site";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const base = siteConfig.url;
@@ -98,6 +98,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly",
       priority: 0.8,
     },
+    // Individual fence type pages
+    ...services
+      .filter((s) => !s.comingSoon)
+      .map((s) => ({
+        url: `${base}/services/${s.slug}`,
+        lastModified: new Date(),
+        changeFrequency: "monthly" as const,
+        priority: 0.8,
+      })),
     {
       url: `${base}/privacy`,
       lastModified: new Date(),
