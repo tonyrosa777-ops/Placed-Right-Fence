@@ -6,7 +6,7 @@
 
 import { useState } from "react";
 import Button from "@/components/ui/Button";
-import { services } from "@/data/site";
+import { services, legal } from "@/data/site";
 
 type FenceType = (typeof services)[number]["id"];
 
@@ -432,10 +432,7 @@ export default function EstimateForm() {
             htmlFor="smsConsent"
             className="font-body text-xs text-text-muted leading-relaxed"
           >
-            By providing your phone number, you consent to receive text messages from
-            Placed Right Fence Co. for purposes related to our services. Message
-            frequency may vary. Message and data rates may apply. Reply HELP for help
-            or STOP to unsubscribe. See our{" "}
+            {legal.smsConsent} See our{" "}
             <a href="/privacy" className="underline hover:opacity-70" style={{ color: "var(--accent)" }}>
               privacy policy
             </a>{" "}

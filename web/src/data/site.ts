@@ -422,6 +422,350 @@ export const about = {
   ],
 } as const;
 
+// ─── Legal (Terms & Conditions + Privacy Policy) ──────────────────────────────
+// Source: Jen LaVault email 2026-04-17 (RingCentral 10DLC compliance review).
+// All copy here is the client's verbatim legal-reviewed text. Do not edit wording
+// without written approval from Jen — this must match what RingCentral reviews.
+
+export type LegalBlock =
+  | { kind: "p"; text: string }
+  | { kind: "ul"; items: string[] }
+  | { kind: "pLink"; before: string; linkText: string; linkHref: string; after?: string };
+
+export type LegalSection = {
+  title: string;
+  blocks: LegalBlock[];
+};
+
+export type LegalDocument = {
+  intro?: LegalBlock[];
+  sections: LegalSection[];
+};
+
+export const legal = {
+  lastUpdated: "April 17, 2026",
+
+  // SMS opt-in checkbox body — renders before the "See our privacy/terms" JSX links.
+  // Jen's verbatim updated text per 2026-04-17 email.
+  smsConsent:
+    "By providing your phone number, you consent to receive text messages from Placed Right Fence Co. for Account Notifications, Delivery Notifications, Customer service and occasional Marketing purposes related to our services. SMS communication will not be shared with any third party or affiliates for marketing purposes. If you do not wish to receive SMS messages, you can choose not to check the SMS consent box on our forms. Message frequency may vary. Message and data rates may apply. Reply HELP for help or STOP to unsubscribe.",
+
+  privacy: {
+    intro: [
+      {
+        kind: "p",
+        text: "Placed Right Fence Co., LLC (\u201CCompany,\u201D \u201Cwe,\u201D \u201Cus,\u201D or \u201Cour\u201D) respects your privacy and is committed to protecting your personal information.",
+      },
+      {
+        kind: "p",
+        text: "This Privacy Policy explains how we collect, use, and protect your information when you:",
+      },
+      {
+        kind: "ul",
+        items: [
+          "Visit our website",
+          "Request a quote or estimate",
+          "Contact us by phone, email, text or form",
+          "Engage our services",
+        ],
+      },
+      {
+        kind: "p",
+        text: "By using our services, you agree to the terms of this Privacy Policy.",
+      },
+    ],
+    sections: [
+      {
+        title: "1. Information We Collect",
+        blocks: [
+          {
+            kind: "p",
+            text: "We may collect personal information including your name, phone number, email address, service address, mailing address, project details, scheduling information, and any messages, documents, photographs, or videos you provide to us through our website, forms, email, phone, or other communications.",
+          },
+        ],
+      },
+      {
+        title: "2. How We Use Information",
+        blocks: [
+          {
+            kind: "p",
+            text: "We use the information we collect to provide estimates, communicate about your project, schedule consultations, installation and site visits for repairs, request or review documents, process quotes, invoices, collect payments, respond to inquiries, customer support, and send reminders, updates or promotions (optional), improve operations, maintain business records, and protect our business in the event of a dispute.",
+          },
+        ],
+      },
+      {
+        title: "3. SMS and Communication Consent",
+        blocks: [
+          {
+            kind: "p",
+            text: "If you provide your phone number and opt in through a website form or other communication channel, you consent to receive account notification, delivery notification, customer care communications and, where applicable, promotional SMS messages from Placed Right Fence Co., LLC. Message frequency may vary. Message and data rates may apply. Reply STOP to opt out or HELP for support.",
+          },
+        ],
+      },
+      {
+        title: "4. SMS Privacy Assurance",
+        blocks: [
+          {
+            kind: "p",
+            text: "No mobile opt-in data or text message consent will be shared with third parties or affiliates for their own marketing or promotional purposes. By providing your phone number, you consent to receive calls and text messages regarding your project.",
+          },
+        ],
+      },
+      {
+        title: "5. Photos, Videos, Quality Assurance, and Disputes",
+        blocks: [
+          {
+            kind: "p",
+            text: "We may take before-and-after photos or videos of project work for quality assurance, internal reference, documentation, and dispute resolution purposes. These materials will not be made public and will not be shared with anyone other than the client and internal employees with a legitimate need to know unless written consent is provided by the client.",
+          },
+        ],
+      },
+      {
+        title: "6. How Information May Be Shared",
+        blocks: [
+          {
+            kind: "p",
+            text: "SMS Consent, and phone numbers collected for SMS communication purposes will not be shared with any third party or affiliates for marketing purposes. We do not sell or rent your personal information. We may share information only as reasonably necessary to operate our business, provide requested services, process payments, work with professional advisers, comply with legal obligations, enforce our agreements, or protect our rights.",
+          },
+        ],
+      },
+      {
+        title: "7. Data Security & Retention",
+        blocks: [
+          {
+            kind: "p",
+            text: "We use reasonable administrative, technical, and organizational measures to protect your information from unauthorized access, loss, misuse, or disclosure. However, no method of transmission or storage is guaranteed to be completely secure. We retain your information as long as necessary for business, legal, and operational purposes.",
+          },
+        ],
+      },
+      {
+        title: "8. Cookies and Website Usage",
+        blocks: [
+          {
+            kind: "p",
+            text: "Our website may use cookies, analytics tools, or similar technologies to improve site performance, understand usage patterns and improve user experience.",
+          },
+        ],
+      },
+      {
+        title: "9. Your Rights & Options",
+        blocks: [
+          {
+            kind: "p",
+            text: "You may contact us to request access to, correction of, or deletion of certain personal information, subject to legal, business, or record-retention requirements. You may also opt out of SMS by replying STOP. If you do not wish to receive SMS messages, you can choose not to check the SMS consent box on our forms.",
+          },
+        ],
+      },
+      {
+        title: "10. Children\u2019s Privacy",
+        blocks: [
+          {
+            kind: "p",
+            text: "We do not knowingly collect information from children under 13.",
+          },
+        ],
+      },
+      {
+        title: "11. Third-Party Links",
+        blocks: [
+          {
+            kind: "p",
+            text: "We are not responsible for the privacy practices of external websites.",
+          },
+        ],
+      },
+      {
+        title: "12. Policy Accessibility",
+        blocks: [
+          {
+            kind: "p",
+            text: "This Privacy Policy is intended to be easy to find and is designed to be posted prominently on our website, including in the footer and near website forms where personal information is collected.",
+          },
+        ],
+      },
+      {
+        title: "13. Changes to This Policy",
+        blocks: [
+          {
+            kind: "p",
+            text: "We may update this Privacy Policy from time to time. Changes become effective when the updated policy is posted on the website unless otherwise stated.",
+          },
+        ],
+      },
+      {
+        title: "14. Contact",
+        blocks: [
+          {
+            kind: "p",
+            text: "Questions regarding this Privacy Policy may be directed to Placed Right Fence Co., LLC, through the contact information provided anywhere on our website.",
+          },
+          {
+            kind: "ul",
+            items: [
+              `Phone: ${siteConfig.phone}`,
+              `Email: ${siteConfig.email}`,
+              `Address: ${siteConfig.address.full}`,
+              `Website: ${siteConfig.url}`,
+            ],
+          },
+        ],
+      },
+    ],
+  } satisfies LegalDocument,
+
+  terms: {
+    sections: [
+      {
+        title: "1. Agreement to Terms",
+        blocks: [
+          {
+            kind: "p",
+            text: "By accepting an estimate, signing a contract, or engaging services with Placed Right Fence Co., LLC (\u201CCompany,\u201D \u201Cwe,\u201D \u201Cus,\u201D or \u201Cour\u201D), you (\u201CCustomer\u201D) agree to these Terms & Conditions.",
+          },
+        ],
+      },
+      {
+        title: "2. Estimates & Scope of Work",
+        blocks: [
+          {
+            kind: "p",
+            text: "All estimates are based on information provided at the time of quoting. Changes to materials, layout, terrain conditions, or scope of work may result in additional charges and require a written change, order or new quote.",
+          },
+        ],
+      },
+      {
+        title: "3. Payment Terms",
+        blocks: [
+          {
+            kind: "p",
+            text: "A minimum 50% deposit is required before scheduling installation. Remaining balance is due upon project completion unless otherwise stated. Late payments may be subject to additional fees.",
+          },
+        ],
+      },
+      {
+        title: "4. Cancellation Policy",
+        blocks: [
+          {
+            kind: "p",
+            text: "Customers may cancel within 3 business days of signature for full refund. After 3 days, deposit may be partially or fully non-refundable depending on materials ordered and labored scheduled and is up to the sole discretion of Placed Right Fence Co., LLC.",
+          },
+        ],
+      },
+      {
+        title: "5. Materials & Delays",
+        blocks: [
+          {
+            kind: "p",
+            text: "Placed Right Fence Co., LLC is not responsible for delays due to material shortages, manufacturer back orders, weather or unforeseen site conditions. No refunds will be issued for delays outside of our control.",
+          },
+        ],
+      },
+      {
+        title: "6. Permits & Property Lines",
+        blocks: [
+          {
+            kind: "p",
+            text: "Customer is responsible for verifying property lines. Permits may be obtained by the customer or by Placed Right Fence if selected as an additional service and is subject to additional fees.",
+          },
+        ],
+      },
+      {
+        title: "7. Underground Utilities",
+        blocks: [
+          {
+            kind: "p",
+            text: "Placed Right Fence Co., LLC is responsible for contacting and scheduling service by Dig Safe. Customer must disclose any private or unregistered utilities. The company is not liable for damage to undisclosed lines or utilities of any kind.",
+          },
+        ],
+      },
+      {
+        title: "8. Site Conditions",
+        blocks: [
+          {
+            kind: "p",
+            text: "Customers agree to provide reasonable access to the work area. Additional charges may apply for difficult terrain, obstructions, vegetation removal, old fence removal or undisclosed conditions.",
+          },
+        ],
+      },
+      {
+        title: "9. Warranty & Liability",
+        blocks: [
+          {
+            kind: "p",
+            text: "Workmanship warranties, if offered, will be outlined separately. The company is not responsible for acts of nature, ground shifting, or third-party damage. Liability is limited to the costs of services provided.",
+          },
+        ],
+      },
+      {
+        title: "10. SMS Communications",
+        blocks: [
+          {
+            kind: "p",
+            text: "By providing your phone number, you consent to receive SMS messages from Placed Right Fence Co., LLC in regard to our then current terms & conditions and our then current privacy policy.",
+          },
+          {
+            kind: "ul",
+            items: [
+              "Types: Account & Delivery notifications including scheduling updates, reminders, & changes, customer service, responding to issues, asking and answering questions and requested information, and occasional marketing of sales and discount promotions.",
+              "Frequency: Message frequency may vary. You may receive up to 5 SMS messages per week regarding your appointments or account status.",
+              "Rates: Msg & data rates may apply and is dependent on your carrier\u2019s pricing plan. These fees may vary if the message is sent domestically or internationally.",
+              "Opt-In: You may opt in to receive SMS messages from Placed Right Fence in the following ways: verbal communication, submitting an online form via our website, filling out a paper form, or via email.",
+              "Opt-Out: You can opt out of receiving SMS messages at any time. To do so, simply reply \u201CSTOP\u201D to any SMS message you receive. Alternatively, you can contact us directly to request removal from our messaging list.",
+              `Help: Reply HELP, or you can contact us directly via email or phone at ${siteConfig.phone} or ${siteConfig.email}.`,
+              "Optional: Do not check the SMS consent box if you do not want to receive SMS messages.",
+              "No sharing of SMS consent with third parties.",
+            ],
+          },
+        ],
+      },
+      {
+        title: "11. Photos & Marketing",
+        blocks: [
+          {
+            kind: "p",
+            text: "The company may take before and after photos for documentation and quality assurance. These will not be used publicly without customer consent, nor will they be provided to third parties.",
+          },
+        ],
+      },
+      {
+        title: "12. Dispute Resolution",
+        blocks: [
+          {
+            kind: "p",
+            text: "Any disputes shall be resolved in accordance with the laws of the state of New Hampshire.",
+          },
+        ],
+      },
+      {
+        title: "13. Privacy Reference",
+        blocks: [
+          {
+            kind: "pLink",
+            before: "Your information is handled in accordance with our ",
+            linkText: "privacy policy",
+            linkHref: "/privacy",
+            after: ".",
+          },
+        ],
+      },
+      {
+        title: "14. Contact Information",
+        blocks: [
+          {
+            kind: "ul",
+            items: [
+              `Phone: ${siteConfig.phone}`,
+              `Email: ${siteConfig.email}`,
+              `Address: ${siteConfig.address.full}`,
+              `Website: ${siteConfig.url}`,
+            ],
+          },
+        ],
+      },
+    ],
+  } satisfies LegalDocument,
+} as const;
+
 // ─── Section Headers ──────────────────────────────────────────────────────────
 
 export const sectionCopy = {

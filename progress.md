@@ -4,8 +4,20 @@
 **Client:** Placed Right Fence Co. LLC | Nashua, NH (Southern NH and Seacoast)
 **Business Type:** Family-run residential fence installation and repair contractor
 **Launch Target:** April 2026 (ASAP — client wants live in 3–4 weeks; spring is peak season)
-**Last Updated:** 2026-04-16 (Session 11)
+**Last Updated:** 2026-04-17 (Session 13)
 **Current Phase:** Phase 5 — Secondary Pages & Polish
+
+---
+
+## Operating Principles
+
+These are durable working rules for this project. They override comfort-level judgment calls.
+
+1. **No deferred cleanup.** If we can fix a rule violation while we're already in the file, we fix it now — in the same commit. We do not create "flag for later," "post-launch refactor," or "TODO" backlog items for things that could be done in the current session. Defer only when **physically blocked**: missing client-supplied asset (logo, photo), missing API key, pending client decision, or locked-down third-party system. (Captured 2026-04-17 after the RingCentral compliance update — Anthony rejected a minimal copy-swap that would have preserved an existing CLAUDE.md line-121 violation; we did the proper `/data/site.ts` refactor in the same commit.)
+2. **Pre-read protocol is non-negotiable.** Every session starts with the CLAUDE.md pre-read sequence. No context carried over from previous sessions.
+3. **Research-backed decisions only.** Every design, copy, UX, or technical call must be traceable to `market-intelligence.md` or `initial-business-data.md`. Surface unsupported decisions for review; do not make them unilaterally.
+4. **Progress after every subtask, not at session end.** Update this file immediately after each subtask closes. Batched updates lose information when context exhausts mid-build.
+5. **Atomic commits + push.** Every logical unit of work ships as one commit to `origin/main`. No staging work locally across sessions.
 
 ---
 
@@ -538,3 +550,32 @@ Build: TypeScript clean.
 4. og-image.jpg (1200×630) — needed for social shares
 5. ~~Individual fence type pages (/services/wood-fence, etc.) — Phase 5 SEO~~ ✅ Done (Session 12)
 6. NH Permit Guide + Pool Fence Compliance pages — content SEO
+
+### Session 13 — 2026-04-17
+**Completed: RingCentral 10DLC compliance update — T&C, Privacy, SMS opt-in**
+
+Trigger: Jen LaVault emailed at 6:21 PM (2026-04-17). RingCentral rejected the existing site copy during 10DLC carrier review. She attached verbatim legal-reviewed text for both pages and a tweak to the SMS opt-in checkbox label.
+
+Work performed:
+- Added `legal` export to `web/src/data/site.ts` with structured `LegalBlock` discriminated union (`p`, `ul`, `pLink`), `LegalSection`, and `LegalDocument` types. Contains Jen's verbatim privacy policy (intro + 14 sections) and terms & conditions (14 sections) + `smsConsent` string.
+- Created `web/src/components/legal/LegalRenderer.tsx` — shared `LegalSection` + `LegalBlockRenderer` components that switch on `block.kind`.
+- Rewrote `web/src/app/privacy/page.tsx` and `web/src/app/terms/page.tsx` as generic renderers — no hardcoded body copy.
+- Updated `web/src/components/sections/EstimateForm.tsx` SMS consent label to read `{legal.smsConsent}` + the existing inline privacy/terms anchors. New phrasing per Jen: "for Account Notifications, Delivery Notifications, Customer service and occasional Marketing purposes related to our services. SMS communication will not be shared with any third party or affiliates for marketing purposes. If you do not wish to receive SMS messages, you can choose not to check the SMS consent box on our forms."
+
+Rule violation fixed in the same session (per new Operating Principle #1):
+- Old privacy/terms pages hardcoded legal copy directly in JSX, breaking CLAUDE.md line 121 ("All copy lives in /data/site.ts"). Anthony rejected a minimal copy-swap that would have preserved the violation. We did the proper refactor in the same commit instead of flagging for later. No deferred cleanup item created.
+
+Verification:
+- `npm run build` — TypeScript strict mode passes; 71 static routes generated.
+- Dev-server QA via Playwright — `/privacy` renders intro + 14 numbered sections with real siteConfig values in contact block; `/terms` renders 14 sections including §10 SMS Communications intro + 8 bullets verbatim and §13 privacy link works; `/contact` estimate form Step 3 label matches Jen's exact new wording.
+
+Files touched:
+- `web/src/data/site.ts` (+275 lines legal export)
+- `web/src/components/legal/LegalRenderer.tsx` (new, 47 lines)
+- `web/src/app/privacy/page.tsx` (rewrite — 227 lines → 54 lines)
+- `web/src/app/terms/page.tsx` (rewrite — 144 lines → 46 lines)
+- `web/src/components/sections/EstimateForm.tsx` (SMS consent label swap)
+- `progress.md` (this entry + new Operating Principles section)
+- `C:\Projects\Optimus Assets\knowledge\build-log.md` (+2 pattern rows)
+
+Still outstanding: **Text Jen at (978) 207-4077** to confirm live — her explicit ask in the email.
