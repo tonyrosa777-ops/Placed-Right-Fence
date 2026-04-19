@@ -4,7 +4,7 @@
 **Client:** Placed Right Fence Co. LLC | Nashua, NH (Southern NH and Seacoast)
 **Business Type:** Family-run residential fence installation and repair contractor
 **Launch Target:** April 2026 (ASAP — client wants live in 3–4 weeks; spring is peak season)
-**Last Updated:** 2026-04-17 (Session 13)
+**Last Updated:** 2026-04-19 (Session 14)
 **Current Phase:** Phase 5 — Secondary Pages & Polish
 
 ---
@@ -579,3 +579,18 @@ Files touched:
 - `C:\Projects\Optimus Assets\knowledge\build-log.md` (+2 pattern rows)
 
 Still outstanding: **Text Jen at (978) 207-4077** to confirm live — her explicit ask in the email.
+
+### Session 14 — 2026-04-19
+**Completed: Removed `/pricing` sales page (site is live; Optimus sale closed on Premium tier)**
+
+Jen LeVault purchased the **Premium package — $5,500 (one-time)**. The public `/pricing` route was an Optimus sales-comparison page (Starter / Growth / Premium tiers with ROI calculator) — no longer needed post-sale and not useful to end customers of Placed Right Fence Co.
+
+Work performed:
+- Saved durable offer record at `optimus-offer-sold.md` (project root) — captures Premium tier scope verbatim from the pricing page before deletion so the contract is traceable after the page is gone.
+- Deleted `web/src/app/pricing/page.tsx` and `web/src/app/pricing/PricingClient.tsx` and the now-empty `pricing/` folder.
+- Removed `{ label: "Pricing", href: "/pricing" }` from the `nav` export in `web/src/data/site.ts`.
+- Removed `/pricing` entry from `web/src/app/sitemap.ts`.
+- Page-Wiring Rule enforced in reverse: nav + sitemap removed in the same commit as the page deletion.
+
+Verification:
+- `Grep "/pricing"` across `web/src` returns no matches — route is fully unlinked.

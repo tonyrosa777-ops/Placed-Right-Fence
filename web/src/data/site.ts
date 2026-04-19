@@ -46,7 +46,6 @@ export const nav = [
   { label: "Service Areas", href: "/service-areas" },
   { label: "About", href: "/about" },
   { label: "FAQ", href: "/faq" },
-  { label: "Pricing", href: "/pricing" },
 ] as const;
 
 // ─── Hero ─────────────────────────────────────────────────────────────────────
