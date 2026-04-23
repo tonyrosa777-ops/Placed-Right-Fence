@@ -705,6 +705,13 @@ Jen flagged two items mid-session:
 - `npm run build` — 74+ static routes, `/message` listed as static, all builds pass
 - Commit `5426d12` pushed to origin/main, Vercel auto-deploy triggered
 
+**Follow-up (commit `577a956`) — mailto prefill:**
+Anthony noticed that clicking the email address in the /message sidebar "did nothing." Diagnosed as a Chrome-side mailto-handler config, not a code bug (the href was already a correct `mailto:info@placedrightfence.com`). Fix on user side: enable Gmail as mailto handler via the overlapping-diamonds icon in the Chrome address bar on mail.google.com. On our side, added prefill so the experience is more useful once the handler IS set up:
+- `site.ts` gains a `mailto` export with shared subject (`Question from placedrightfences.com`) and body (`Hi Placed Right Fence team,\n\n`)
+- `lib/utils.ts` gains `buildMailto(email, subject?, body?)` helper using `URLSearchParams` for correct encoding
+- 3 call sites updated: footer, /contact trust sidebar, /message trust sidebar
+- **Deliberately kept bare** `mailto:${sender}` links in `api/contact/route.ts` (4 instances) — those open a REPLY to the lead's email from Jen's inbox, and subject/body should stay contextual to each inquiry
+
 **Follow-up (commit `f82bba3`) — Contact becomes a direct link, not a dropdown:**
 Anthony saw the deployed dropdown and pushed back: one click to the general-inquiry form is the expected behavior; the dropdown added friction. The "Get Free Estimate" CTA button in the header + hero already surfaces `/contact` prominently, so the second estimate link inside a dropdown was redundant.
 - `site.ts nav`: added `{ label: "Contact", href: "/message" }` in sixth position (between Shop and Service Areas).
