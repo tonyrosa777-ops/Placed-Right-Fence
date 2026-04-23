@@ -704,3 +704,10 @@ Jen flagged two items mid-session:
 - `npx tsc --noEmit` — exit 0, strict TS clean
 - `npm run build` — 74+ static routes, `/message` listed as static, all builds pass
 - Commit `5426d12` pushed to origin/main, Vercel auto-deploy triggered
+
+**Follow-up (commit `f82bba3`) — Contact becomes a direct link, not a dropdown:**
+Anthony saw the deployed dropdown and pushed back: one click to the general-inquiry form is the expected behavior; the dropdown added friction. The "Get Free Estimate" CTA button in the header + hero already surfaces `/contact` prominently, so the second estimate link inside a dropdown was redundant.
+- `site.ts nav`: added `{ label: "Contact", href: "/message" }` in sixth position (between Shop and Service Areas).
+- `SiteHeader PRIMARY_HREFS`: added `/message` so "Contact" renders in the primary desktop nav row, not stuck behind More.
+- Removed: `contactLinks` array, `contactOpen` state, `contactRef`, the entire Contact-dropdown JSX block, the separate mobile contactLinks loop. Mobile nav now picks up `/message` automatically through the shared `nav.map()` iteration.
+- Net diff: −76 / +7 lines. The "More" dropdown is now the only dropdown in the header again.
