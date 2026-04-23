@@ -613,3 +613,60 @@ Why this mattered: on Vercel these routes literally did not exist. `/shop` (when
 **Vercel env vars still outstanding (Session 11 flagged, still not added to production):**
 - `RESEND_API_KEY`, `OWNER_EMAIL`, `NEXT_PUBLIC_CALENDLY_URL` — already set locally, not yet in Vercel
 - Shop vars above (when ready)
+
+### Session 16 — 2026-04-23
+**Completed: Full shop infrastructure wired — Printful + Stripe live + all env vars in Vercel + multi-store header bug fixed**
+
+Live session with Jen. Every shop integration stood up end-to-end. Only remaining blocker is Jen publishing actual product designs in Printful.
+
+**Printful:**
+- Store created: `Placed Right Fence Co.` (id `18065829`) via Manual/API integration at `printful.com/dashboard/store`
+- Private token generated at `developers.printful.com/tokens` — name `Placed Right Fence Website — Vercel`, contact email `anthonyrosa14@icloud.com` (Anthony as operator, not Jen — she can't act on token-expiration alerts), max-duration expiration. Scopes: Sync products R/W, Orders R/W, Stores info R, File library R/W, Webhooks R/W.
+- Added `PRINTFUL_API_KEY` to `web/.env.local` + Vercel (Production + Preview, Sensitive ON)
+
+**Stripe:**
+- Jen completed business verification (Clothing and accessories, LLC + EIN) — account flipped to Live mode during session
+- Live API secret key (`sk_live_...`) added to `web/.env.local` + Vercel (Production + Preview, Sensitive ON)
+- Live webhook created at `dashboard.stripe.com/workbench/webhooks`:
+  - URL: `https://placedrightfences.com/api/stripe/webhook`
+  - Event: `checkout.session.completed` (single event — route at `web/src/app/api/stripe/webhook/route.ts:29` early-returns on anything else)
+  - API version: `2026-03-25.dahlia` (exact match with code pin at `webhook/route.ts:12`)
+  - Name: `Printful Fulfillment`
+- Live webhook signing secret (`whsec_...`) added to `web/.env.local` + Vercel (Production + Preview, Sensitive ON)
+
+**Resend:**
+- Rotated existing API key after Vercel flagged it "Needs Attention" (pre-dated the Sensitive flag feature). New key `re_...` added to `web/.env.local` + Vercel (Production + Preview, Sensitive ON). Old key revoked AFTER redeploy confirmed new key working.
+
+**Other env vars finally added to Vercel production** (Session 11 had flagged as outstanding):
+- `OWNER_EMAIL=info@placedrightfence.com` (non-sensitive, all 3 envs)
+- `NEXT_PUBLIC_CALENDLY_URL=https://calendly.com/placedrightfence-info/30min` (non-sensitive, all 3 envs)
+
+**Multi-store Printful bug — found + fixed in same session:**
+- Symptom: `/api/printful/products` endpoint kept returning `{"products":[...], "fallback":true}` after all env vars were set and multiple redeploys ran. Route was silently catching the Printful error and serving seeded fallback data from `web/src/lib/printful-seeded-products.json`.
+- Diagnosis (Claude ran direct Printful API calls with token from `.env.local`): `GET /stores` returned 200 with BOTH `Personal orders` + `Placed Right Fence Co.` listed. But `GET /store/products` returned `400: "This endpoint requires 'store_id'!"`. Printful's API requires an explicit store when a token has access to more than one.
+- Fix: `web/src/lib/printful.ts` refactored — extracted shared `printfulHeaders()` builder that reads `PRINTFUL_STORE_ID` from env and attaches as `X-PF-Store-Id` header on every request (list, variants, order creation). Added `PRINTFUL_STORE_ID=18065829` to `web/.env.local` + Vercel Production. Commit `75b1361` pushed, auto-deployed.
+- Verified post-fix: `curl https://placedrightfences.com/api/printful/products` → `{"products":[]}` (empty array, no fallback flag — correct, no products published yet).
+
+**What works right now:**
+- ✅ All 7 env vars in Vercel production (`PRINTFUL_API_KEY`, `PRINTFUL_STORE_ID`, `STRIPE_SECRET_KEY` live, `STRIPE_WEBHOOK_SECRET` live, `RESEND_API_KEY`, `OWNER_EMAIL`, `NEXT_PUBLIC_CALENDLY_URL`)
+- ✅ Printful API authenticated and returning real store data (empty, as expected)
+- ✅ Stripe live mode active, webhook signing configured and matching route API version
+- ✅ Resend rotated and ready (untested this session — next session should submit estimate form and confirm owner email fires)
+
+**What's still blocking public shop launch:**
+1. Jen finalizes 3–4 product designs — recommendation: hoodie + tee + hat + sticker pack (covers $8–$52 price spread, one item per category)
+2. Jen publishes them in Printful Product Catalog with her design files
+3. Anthony collects Sync Product IDs from Printful URLs and sends to Claude → 30-second edit to `web/src/data/shop.ts` replacing placeholder IDs `100000001`–`100000008`
+4. Dry-run test: flip `NEXT_PUBLIC_SHOP_LIVE=true` privately, Jen buys cheapest product with her real card (Stripe live mode = no test cards work), verify Stripe + Printful + owner email trifecta, refund in Stripe
+5. Flip `NEXT_PUBLIC_SHOP_LIVE=true` publicly, announce on Instagram/email list
+
+**Observed side effect (not a bug):**
+- `placedrightfences.com/api/...` 307-redirects to `www.placedrightfences.com/api/...`. Canonical in code (`siteConfig.url`) is the apex but Vercel domain config made www canonical. Functional but adds one hop. Can be flipped in Vercel Domain settings if we want apex as canonical. Low priority.
+
+**Still outstanding (non-shop, from progress.md rollup):**
+- `og-image.jpg` (1200×630) — social shares 404 on image
+- NH Permit Guide + Pool Fence Compliance content pages (zero-competition SEO)
+- `@placedrightfence` Instagram account — linked in footer but doesn't exist
+- Expand city pages beyond Nashua/Manchester/Bedford
+- FAQ update + estimate software embed (pending Jen's embed code)
+- Phase 7: Lighthouse audit + Google Analytics
