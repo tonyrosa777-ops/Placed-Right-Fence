@@ -15,21 +15,14 @@ import CartDrawer from "@/components/layout/CartDrawer";
 import { useCart } from "@/lib/cart";
 
 // Primary links always visible on desktop — highest conversion value
-const PRIMARY_HREFS = ["/services", "/gallery", "/blog", "/shop", "/testimonials"];
+const PRIMARY_HREFS = ["/services", "/gallery", "/blog", "/shop", "/testimonials", "/message"];
 const primaryNav = nav.filter((item) => PRIMARY_HREFS.includes(item.href));
 const moreNav    = nav.filter((item) => !PRIMARY_HREFS.includes(item.href));
-
-const contactLinks = [
-  { label: "Get a Free Estimate", href: "/contact", sub: "72hr on-site quote" },
-  { label: "Send a Message", href: "/message", sub: "General inquiries" },
-];
 
 export default function SiteHeader() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [moreOpen, setMoreOpen] = useState(false);
-  const [contactOpen, setContactOpen] = useState(false);
   const moreRef = useRef<HTMLDivElement>(null);
-  const contactRef = useRef<HTMLDivElement>(null);
   const { count, openCart } = useCart();
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
@@ -46,21 +39,18 @@ export default function SiteHeader() {
     return () => { document.body.style.overflow = ""; };
   }, [mobileOpen]);
 
-  useEffect(() => { setMobileOpen(false); setMoreOpen(false); setContactOpen(false); }, [pathname]);
+  useEffect(() => { setMobileOpen(false); setMoreOpen(false); }, [pathname]);
 
-  // Close dropdowns on outside click
+  // Close "More" dropdown on outside click
   useEffect(() => {
     function handler(e: MouseEvent) {
       if (moreRef.current && !moreRef.current.contains(e.target as Node)) {
         setMoreOpen(false);
       }
-      if (contactRef.current && !contactRef.current.contains(e.target as Node)) {
-        setContactOpen(false);
-      }
     }
-    if (moreOpen || contactOpen) document.addEventListener("mousedown", handler);
+    if (moreOpen) document.addEventListener("mousedown", handler);
     return () => document.removeEventListener("mousedown", handler);
-  }, [moreOpen, contactOpen]);
+  }, [moreOpen]);
 
   const isTransparent = isHome && !scrolled && !mobileOpen;
 
@@ -105,54 +95,10 @@ export default function SiteHeader() {
               </Link>
             ))}
 
-            {/* Contact dropdown — Free Estimate + Send a Message */}
-            <div ref={contactRef} className="relative">
-              <button
-                onClick={() => { setContactOpen((v) => !v); setMoreOpen(false); }}
-                className="flex items-center gap-1 font-body font-medium text-[15px] text-white/75 hover:text-accent transition-colors duration-150"
-              >
-                Contact
-                <svg
-                  viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth={1.8}
-                  className={cn("w-3 h-3 transition-transform duration-200", contactOpen ? "rotate-180" : "")}
-                >
-                  <polyline points="2 4 6 8 10 4" />
-                </svg>
-              </button>
-
-              <AnimatePresence>
-                {contactOpen && (
-                  <motion.div
-                    initial={{ opacity: 0, y: -6 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -6 }}
-                    transition={{ duration: 0.15 }}
-                    className="absolute top-full left-0 mt-3 w-60 rounded-xl border py-2 shadow-xl z-50"
-                    style={{ background: "#111", borderColor: "rgba(201,168,76,0.2)" }}
-                  >
-                    {contactLinks.map((item) => (
-                      <Link
-                        key={item.href}
-                        href={item.href}
-                        className="block px-4 py-2.5 hover:bg-white/5 transition-colors duration-100"
-                      >
-                        <span className="block font-body font-semibold text-sm text-white/90 group-hover:text-accent">
-                          {item.label}
-                        </span>
-                        <span className="block font-body text-xs text-white/45 mt-0.5">
-                          {item.sub}
-                        </span>
-                      </Link>
-                    ))}
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
-
             {/* More dropdown */}
             <div ref={moreRef} className="relative">
               <button
-                onClick={() => { setMoreOpen((v) => !v); setContactOpen(false); }}
+                onClick={() => setMoreOpen((v) => !v)}
                 className="flex items-center gap-1 font-body font-medium text-[15px] text-white/75 hover:text-accent transition-colors duration-150"
               >
                 More
@@ -276,22 +222,6 @@ export default function SiteHeader() {
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.05 + i * 0.07, duration: 0.25 }}
-                >
-                  <Link
-                    href={item.href}
-                    onClick={() => setMobileOpen(false)}
-                    className="block font-display text-[2.25rem] leading-none text-white py-4 border-b border-white/10 hover:text-accent transition-colors"
-                  >
-                    {item.label}
-                  </Link>
-                </motion.div>
-              ))}
-              {contactLinks.map((item, i) => (
-                <motion.div
-                  key={item.href}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.05 + (nav.length + i) * 0.07, duration: 0.25 }}
                 >
                   <Link
                     href={item.href}

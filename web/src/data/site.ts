@@ -43,6 +43,7 @@ export const nav = [
   { label: "Testimonials", href: "/testimonials" },
   { label: "Blog", href: "/blog" },
   { label: "Shop", href: "/shop" },
+  { label: "Contact", href: "/message" },
   { label: "Service Areas", href: "/service-areas" },
   { label: "About", href: "/about" },
   { label: "FAQ", href: "/faq" },
