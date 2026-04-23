@@ -3,7 +3,8 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { nav, siteConfig, trustSignals, promise } from "@/data/site";
+import { nav, siteConfig, trustSignals, promise, mailto } from "@/data/site";
+import { buildMailto } from "@/lib/utils";
 
 export default function SiteFooter() {
   const year = new Date().getFullYear();
@@ -89,7 +90,7 @@ export default function SiteFooter() {
               </li>
               <li>
                 <a
-                  href={`mailto:${siteConfig.email}`}
+                  href={buildMailto(siteConfig.email, mailto.subject, mailto.body)}
                   className="font-body text-sm text-white/70 hover:text-white transition-colors"
                 >
                   {siteConfig.email}

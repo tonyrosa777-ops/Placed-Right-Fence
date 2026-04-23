@@ -6,7 +6,8 @@ import type { Metadata } from "next";
 import FadeIn from "@/components/animations/FadeIn";
 import EstimateForm from "@/components/sections/EstimateForm";
 import CalendlyEmbed from "@/components/sections/CalendlyEmbed";
-import { siteConfig, trustSignals } from "@/data/site";
+import { siteConfig, trustSignals, mailto } from "@/data/site";
+import { buildMailto } from "@/lib/utils";
 
 export const metadata: Metadata = {
   title: "Get a Free Estimate — Fence Installation & Repair",
@@ -119,7 +120,7 @@ export default function ContactPage() {
                     </div>
                   </a>
                   <a
-                    href={`mailto:${siteConfig.email}`}
+                    href={buildMailto(siteConfig.email, mailto.subject, mailto.body)}
                     className="flex items-center gap-3 group"
                   >
                     <div

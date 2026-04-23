@@ -35,6 +35,15 @@ export const promise = {
   short: "1% of your total project goes to the animal shelter of your choice.",
 } as const;
 
+// ─── Mailto prefill ──────────────────────────────────────────────────────────
+// Shared subject + opening line so every `mailto:` link in the site pops an
+// email with context already filled in. Reduces "blank email paralysis."
+
+export const mailto = {
+  subject: "Question from placedrightfences.com",
+  body: "Hi Placed Right Fence team,\n\n",
+} as const;
+
 // ─── Navigation ──────────────────────────────────────────────────────────────
 
 export const nav = [

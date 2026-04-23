@@ -5,7 +5,8 @@
 import type { Metadata } from "next";
 import FadeIn from "@/components/animations/FadeIn";
 import ContactMessageForm from "@/components/sections/ContactMessageForm";
-import { siteConfig, trustSignals } from "@/data/site";
+import { siteConfig, trustSignals, mailto } from "@/data/site";
+import { buildMailto } from "@/lib/utils";
 
 export const metadata: Metadata = {
   title: "Send a Message — Placed Right Fence Co. LLC",
@@ -100,7 +101,7 @@ export default function MessagePage() {
                     </div>
                   </a>
                   <a
-                    href={`mailto:${siteConfig.email}`}
+                    href={buildMailto(siteConfig.email, mailto.subject, mailto.body)}
                     className="flex items-center gap-3 group"
                   >
                     <div
