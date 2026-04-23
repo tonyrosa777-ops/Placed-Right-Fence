@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { Resend } from "resend";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
-const OWNER_EMAIL = process.env.OWNER_EMAIL || "info@placedrightfences.com";
+const OWNER_EMAIL = process.env.OWNER_EMAIL || "info@placedrightfence.com";
 
 export async function POST(req: Request) {
   try {
@@ -15,6 +15,8 @@ export async function POST(req: Request) {
       return handleQuiz(body);
     } else if (source === "shop_waitlist") {
       return handleShopWaitlist(body);
+    } else if (source === "message") {
+      return handleMessage(body);
     }
 
     return NextResponse.json({ error: "Unknown source" }, { status: 400 });
@@ -77,6 +79,28 @@ async function handleQuiz(body: Record<string, string>) {
         <tr><td style="padding:8px;font-weight:bold">Timeline</td><td style="padding:8px">${esc(quiz_timeline)}</td></tr>
         <tr><td style="padding:8px;font-weight:bold">Yard Size</td><td style="padding:8px">${esc(quiz_size)}</td></tr>
         <tr><td style="padding:8px;font-weight:bold">Recommendation</td><td style="padding:8px">${esc(recommendation)}</td></tr>
+      </table>
+    `,
+  });
+
+  return NextResponse.json({ success: true });
+}
+
+async function handleMessage(body: Record<string, string>) {
+  const { name, email, phone, message } = body;
+
+  await resend.emails.send({
+    from: "Placed Right Fence <contact@placedrightfences.com>",
+    to: OWNER_EMAIL,
+    replyTo: email,
+    subject: `New Contact Message — ${name}`,
+    html: `
+      <h2>New Contact Message</h2>
+      <table style="border-collapse:collapse;width:100%">
+        <tr><td style="padding:8px;font-weight:bold">Name</td><td style="padding:8px">${esc(name)}</td></tr>
+        <tr><td style="padding:8px;font-weight:bold">Email</td><td style="padding:8px"><a href="mailto:${esc(email)}">${esc(email)}</a></td></tr>
+        <tr><td style="padding:8px;font-weight:bold">Phone</td><td style="padding:8px"><a href="tel:${esc(phone)}">${esc(phone)}</a></td></tr>
+        <tr><td style="padding:8px;font-weight:bold;vertical-align:top">Message</td><td style="padding:8px;white-space:pre-wrap">${esc(message)}</td></tr>
       </table>
     `,
   });

@@ -8,7 +8,7 @@ export const siteConfig = {
   description:
     "Southern NH's trusted family fence installer. Wood, vinyl, aluminum, and chain link — built below the frost line, built to last. Free on-site estimates within 72 hours.",
   phone: "(978) 207-4077",
-  email: "info@placedrightfences.com",
+  email: "info@placedrightfence.com",
   address: {
     street: "221 Main St #8008",
     city: "Nashua",
