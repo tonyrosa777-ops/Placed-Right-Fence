@@ -1,17 +1,27 @@
 // Printful API client for Placed Right Fence merch store
-// Env: PRINTFUL_API_KEY (store-level token from Printful → Settings → API)
+// Env: PRINTFUL_API_KEY (token from developers.printful.com)
+// Env: PRINTFUL_STORE_ID (store ID — required when token has access to multiple stores)
 
 const PRINTFUL_BASE = "https://api.printful.com";
 
-async function printfulFetch(path: string) {
+function printfulHeaders() {
   const key = process.env.PRINTFUL_API_KEY;
   if (!key) throw new Error("PRINTFUL_API_KEY is not set");
 
+  const headers: Record<string, string> = {
+    Authorization: `Bearer ${key}`,
+    "Content-Type": "application/json",
+  };
+
+  const storeId = process.env.PRINTFUL_STORE_ID;
+  if (storeId) headers["X-PF-Store-Id"] = storeId;
+
+  return headers;
+}
+
+async function printfulFetch(path: string) {
   const res = await fetch(`${PRINTFUL_BASE}${path}`, {
-    headers: {
-      Authorization: `Bearer ${key}`,
-      "Content-Type": "application/json",
-    },
+    headers: printfulHeaders(),
     next: { revalidate: 3600 }, // cache 1h
   });
 
@@ -38,15 +48,9 @@ export async function getSyncVariants(syncProductId: number | string) {
 // Create a Printful order (called from Stripe webhook)
 // confirm=true must be a query param, NOT in the body (build-log.md Pattern #1)
 export async function createPrintfulOrder(orderPayload: Record<string, unknown>) {
-  const key = process.env.PRINTFUL_API_KEY;
-  if (!key) throw new Error("PRINTFUL_API_KEY is not set");
-
   const res = await fetch(`${PRINTFUL_BASE}/orders?confirm=true`, {
     method: "POST",
-    headers: {
-      Authorization: `Bearer ${key}`,
-      "Content-Type": "application/json",
-    },
+    headers: printfulHeaders(),
     body: JSON.stringify(orderPayload),
   });
 
