@@ -670,3 +670,37 @@ Live session with Jen. Every shop integration stood up end-to-end. Only remainin
 - Expand city pages beyond Nashua/Manchester/Bedford
 - FAQ update + estimate software embed (pending Jen's embed code)
 - Phase 7: Lighthouse audit + Google Analytics
+
+### Session 17 — 2026-04-23
+**Completed: `/message` contact page + fixed the `info@` email typo site-wide (Jen's requests)**
+
+Jen flagged two items mid-session:
+1. The displayed contact email was plural (`info@placedrightfences.com`) but the actual Google Workspace inbox is singular (`info@placedrightfence.com`). Every visitor who copied the email from the site was emailing an address that doesn't exist.
+2. She wants a second, simpler contact page for visitors who just want to ask a question — name, email, phone, message — without going through the multi-step estimate flow.
+
+**Email fix (commit `5426d12`):**
+- `siteConfig.email` in `web/src/data/site.ts`: plural → singular. Cascades through footer, /contact sidebar, /message sidebar, SchemaOrg, and every `mailto:` link on the site.
+- `web/src/app/api/contact/route.ts` — `OWNER_EMAIL` fallback default updated to match (only triggers if the env var is missing, but kept consistent).
+- **Deliberately kept plural** (do NOT change):
+  - `siteConfig.domain` + `siteConfig.url` — website canonical is plural per Session 9 decision
+  - `layout.tsx metadataBase` — matches canonical
+  - Resend FROM addresses `estimates@placedrightfences.com`, `quiz@...`, `shop@...`, new `contact@...` — plural is what's verified in Resend. Using singular FROM would bounce since the singular domain isn't a verified Resend sending domain.
+
+**New `/message` page:**
+- `web/src/app/message/page.tsx` — mirrors the /contact layout (form 3 cols, trust sidebar 2 cols) but replaces the estimate-specific "72-hour on-site" guarantee block with a cross-link back to /contact for visitors who change their mind.
+- `web/src/components/sections/ContactMessageForm.tsx` — simple 4-field form: full name, email, phone (optional), message. Submits to `/api/contact` with `source: "message"`. Success state matches EstimateForm pattern (green check + thank-you + back-to-home CTA).
+- `web/src/app/api/contact/route.ts` — new `handleMessage()` branch. FROM: `contact@placedrightfences.com`, replyTo = sender's email (build-log Error #50 compliance). Subject: `New Contact Message — {name}`. Owner gets full HTML table with name/email/phone/message.
+- `web/src/app/sitemap.ts` — `/message` added at priority 0.7.
+
+**Nav — Contact dropdown (desktop) + mobile flat entries:**
+- `web/src/components/layout/SiteHeader.tsx` — new "Contact" dropdown sibling to the existing "More" dropdown. Two items:
+  - "Get a Free Estimate" → `/contact` (subtitle: "72hr on-site quote")
+  - "Send a Message" → `/message` (subtitle: "General inquiries")
+- Opening one dropdown closes the other (avoids overlap). Outside-click handler updated to cover both refs.
+- Mobile menu: both `/contact` and `/message` appended to the flat nav list with staggered animation delays continuing from existing nav indices.
+- "Get Free Estimate" CTA button kept in the header right-side CTA area — high-conversion real estate, not moved.
+
+**Build + verification:**
+- `npx tsc --noEmit` — exit 0, strict TS clean
+- `npm run build` — 74+ static routes, `/message` listed as static, all builds pass
+- Commit `5426d12` pushed to origin/main, Vercel auto-deploy triggered
