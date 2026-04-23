@@ -594,3 +594,22 @@ Work performed:
 
 Verification:
 - `Grep "/pricing"` across `web/src` returns no matches — route is fully unlinked.
+
+### Session 15 — 2026-04-23
+**Completed: Committed orphaned shop API routes (prod shop was broken without them)**
+
+Two API routes existed locally but were never tracked — commit `156140c` pushed to origin/main:
+- `web/src/app/api/printful/products/route.ts` — GET Printful sync products, serves seeded fallback on Printful outage
+- `web/src/app/api/stripe/webhook/route.ts` — verifies signature, creates Printful order from `session.metadata.cart`, emails `OWNER_EMAIL` on manual items
+
+Why this mattered: on Vercel these routes literally did not exist. `/shop` (when `NEXT_PUBLIC_SHOP_LIVE=true`) would 404 on product fetch, and any Stripe `checkout.session.completed` webhook would have no handler — orders would complete in Stripe with no Printful fulfillment trigger and no owner alert. Unblocks shop go-live once Stripe + Printful keys are populated.
+
+**Remaining shop blockers (pre-launch):**
+1. Stripe account → `STRIPE_SECRET_KEY` + `STRIPE_WEBHOOK_SECRET` (webhook endpoint: `https://placedrightfences.com/api/stripe/webhook`, event: `checkout.session.completed`, API version must match `2026-03-25.dahlia` per webhook route.ts:12)
+2. Printful account → `PRINTFUL_API_KEY` + replace placeholder IDs `100000001`–`100000008` in [web/src/data/shop.ts](web/src/data/shop.ts) with real sync product IDs once Jen's designs are created
+3. Confirm SKU list with Jen (8 current: tee, hoodie, long sleeve, zip hoodie, hat, sticker pack, mug, tumbler) — trim or keep
+4. Flip `NEXT_PUBLIC_SHOP_LIVE=true` after steps 1–3 and a successful test order
+
+**Vercel env vars still outstanding (Session 11 flagged, still not added to production):**
+- `RESEND_API_KEY`, `OWNER_EMAIL`, `NEXT_PUBLIC_CALENDLY_URL` — already set locally, not yet in Vercel
+- Shop vars above (when ready)
