@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import { DM_Serif_Display, DM_Sans, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 import SiteHeader from "@/components/layout/SiteHeader";
@@ -70,6 +71,15 @@ export default function RootLayout({
       className={`${dmSerifDisplay.variable} ${dmSans.variable} ${ibmPlexMono.variable} h-full`}
     >
       <body className="min-h-full flex flex-col antialiased">
+          {/* Tealium marketing tag — Jen-supplied 2026-04-30 (Session 18) */}
+          <Script id="tealium-data-init" strategy="beforeInteractive">
+            {`var utag_data = {}; window.Parameters = window.Parameters || { ExternalUid: 'LOC92DA6713' };`}
+          </Script>
+          <Script
+            id="tealium-utag"
+            src="https://tags.tiqcdn.com/utag/marketingcenter/common/prod/utag.js"
+            strategy="afterInteractive"
+          />
           <CartProvider>
             <ScrollProgress />
             <SchemaOrg />

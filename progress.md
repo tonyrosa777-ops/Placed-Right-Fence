@@ -4,7 +4,7 @@
 **Client:** Placed Right Fence Co. LLC | Nashua, NH (Southern NH and Seacoast)
 **Business Type:** Family-run residential fence installation and repair contractor
 **Launch Target:** April 2026 (ASAP — client wants live in 3–4 weeks; spring is peak season)
-**Last Updated:** 2026-04-19 (Session 14)
+**Last Updated:** 2026-04-30 (Session 18)
 **Current Phase:** Phase 5 — Secondary Pages & Polish
 
 ---
@@ -718,3 +718,46 @@ Anthony saw the deployed dropdown and pushed back: one click to the general-inqu
 - `SiteHeader PRIMARY_HREFS`: added `/message` so "Contact" renders in the primary desktop nav row, not stuck behind More.
 - Removed: `contactLinks` array, `contactOpen` state, `contactRef`, the entire Contact-dropdown JSX block, the separate mobile contactLinks loop. Mobile nav now picks up `/message` automatically through the shared `nav.map()` iteration.
 - Net diff: −76 / +7 lines. The "More" dropdown is now the only dropdown in the header again.
+
+### Session 18 — 2026-04-30
+**Completed: Installed Tealium marketing tag (Jen's request, out-of-band)**
+
+Jen emailed asking us to install a "user tag for marketing tracking." The supplied snippet was a standard Tealium iQ install — `utag.js` from `tags.tiqcdn.com/utag/marketingcenter/common/prod/utag.js` plus a `window.Parameters.ExternalUid = 'LOC92DA6713'` initializer. The `LOC` prefix on the UID and the `marketingcenter / common / prod` profile path are the signature of a multi-location franchise/dealer marketing service — Jen has signed up with a home-services marketing provider and they're identifying her location through the ExternalUid.
+
+**Out-of-band scope note:** Phase 6 had Vercel Analytics + Google Analytics on the roadmap, no Tealium. We installed promptly because client owns marketing-tracking decisions, but logging the deviation here so the phase plan stays honest.
+
+**Implementation (`web/src/app/layout.tsx`):**
+- Added `import Script from "next/script"` at top of file
+- Inserted two `<Script>` components as the first children inside `<body>` (before `<CartProvider>`):
+  - `tealium-data-init` (`strategy="beforeInteractive"`) — inline init that declares `var utag_data = {}` and sets `window.Parameters = window.Parameters || { ExternalUid: 'LOC92DA6713' }`. SSRs into the head so globals exist before any client code runs.
+  - `tealium-utag` (`strategy="afterInteractive"`) — async loader for `https://tags.tiqcdn.com/utag/marketingcenter/common/prod/utag.js`. Matches Tealium's own `async=true` recommendation.
+- Hardcoded the values (account/profile/env/UID). Not env-vars — single-location contractor, public location identifier, YAGNI.
+
+**Why `next/script` and not `dangerouslySetInnerHTML` of Jen's verbatim snippet:**
+- Semantically equivalent (utag_data set first, utag.js loaded async, Parameters set sync) but with Next.js script dedup across navigations and clean strategy management. Raw inline scripts fight App Router's hydration.
+
+**Privacy posture (no work needed):**
+- `site.ts` privacy policy section 8 already discloses "cookies, analytics tools, or similar technologies" — Tealium is covered.
+- NH has no state privacy law mandating consent (no CCPA/GDPR equivalent). Site targets NH homeowners only.
+- Future trigger to revisit: if Jen ever runs out-of-state marketing or adds Meta retargeting, build a consent UI.
+
+**Verification (Playwright + dev server at localhost:3000):**
+- ✅ Home + /services both load with Tealium scripts present in DOM (`#tealium-data-init`, `#tealium-utag`)
+- ✅ `window.utag_data === {}` and `window.Parameters === { ExternalUid: 'LOC92DA6713' }` on every page
+- ✅ `utag.js` fires (200) and triggers its dependent scripts (utag.10.js, utag.19.js, tiqapp/utag.v.js — all 200)
+- ✅ `window.__tealium_twc_switch` is set, confirming Tealium runtime initialized
+- ✅ `npm run build` — Compiled successfully in 6.3s, 71 static pages generated, zero errors
+
+**Vendor identified — Thryv:** the dependent script element IDs come back as `thryv_marketingcenter.common_10` and `thryv_marketingcenter.common_19`. Jen's marketing provider is **Thryv** — small-business marketing platform popular with home-services contractors. They use the shared "marketingcenter / common" Tealium profile and identify each client location via the `ExternalUid` we wired in.
+
+**One downstream warning surfaced (NOT our install — Thryv-side):**
+- `https://tags.tiqcdn.com/dle/marketingcenter/common/loc92da6713.json` fails with `net::ERR_FAILED` due to CORS — the response is missing `Access-Control-Allow-Origin`. This is the location-specific Data Layer Extension file that Thryv publishes per location.
+- Two possibilities: (a) the file isn't published yet for Jen's UID, or (b) Tealium's CDN serving it doesn't have CORS headers configured for the `dle/` path. Both are on Thryv to resolve.
+- Impact: pageviews will fire but per-location data-layer enrichment may be limited until Thryv fixes this. The base tag is collecting data either way.
+- **Action**: surface to Jen so she can ping her Thryv account rep. We do not change anything on our end.
+
+**Open follow-ups (carried forward):**
+- Vercel Analytics — still pending (Phase 6/7). Tealium does NOT replace it (different purpose: vendor-side marketing/lead attribution vs. our own site analytics).
+- Google Analytics — still pending (Phase 7).
+- Confirm with Jen whether she still wants Vercel Analytics + GA on top of Tealium, or whether Thryv's tracking covers her needs.
+- Email Jen: install confirmed, plus the CORS warning on `loc92da6713.json` is a Thryv config issue she should escalate to her account rep.
